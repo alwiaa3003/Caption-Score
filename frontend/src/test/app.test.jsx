@@ -340,15 +340,3 @@ describe('api.request', () => {
     expect(err.details).toEqual([{ field: 'caption', message: 'bad' }]);
   });
 });
-
-describe('theme toggle', () => {
-  it('defaults to light and switches to dark and back', async () => {
-    document.documentElement.dataset.theme = 'light';
-    const user = userEvent.setup();
-    renderApp();
-    await user.click(screen.getByRole('button', { name: 'Switch to dark mode' }));
-    expect(document.documentElement.dataset.theme).toBe('dark');
-    await user.click(screen.getByRole('button', { name: 'Switch to light mode' }));
-    expect(document.documentElement.dataset.theme).toBe('light');
-  });
-});

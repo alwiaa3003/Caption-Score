@@ -11,7 +11,7 @@ export function normaliseTag(raw) {
 }
 
 // Word-highlight tint range (share of the raise/lower colour mixed into the background).
-// MAX_TINT is capped so text on the strongest tint keeps >= 4.5:1 contrast in both themes
+// MAX_TINT is capped so text on the strongest tint keeps >= 4.5:1 contrast
 // (checked in src/test/contrast.test.js).
 export const MIN_TINT = 0.1;
 export const MAX_TINT = 0.35;

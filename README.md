@@ -7,14 +7,13 @@ through a small MERN web app (MongoDB, Express, React, Node) with a FastAPI mode
 
 ![Score page](docs/screenshots/score-scored-1440-light.png)
 
-| Phone | Dark mode |
+| Phone | History |
 |---|---|
-| ![Score page on a phone](docs/screenshots/score-scored-390-light.png) | ![Score page in dark mode](docs/screenshots/score-scored-1440-dark.png) |
+| ![Score page on a phone](docs/screenshots/score-scored-390-light.png) | ![History page](docs/screenshots/history-1440-light.png) |
 
 More: [empty form](docs/screenshots/score-empty-1440-light.png),
-[error](docs/screenshots/score-error-1440-light.png),
-[History](docs/screenshots/history-1440-light.png) and
-[About](docs/screenshots/about-1440-light.png).
+[error](docs/screenshots/score-error-1440-light.png)
+and [About](docs/screenshots/about-1440-light.png).
 
 ## Contents
 - [The problem](#the-problem)
@@ -141,8 +140,10 @@ frontend/          backend/          model-service/              (ml/models/fina
 - **Backend (Express):** validates input with zod, rate-limits, restricts CORS, calls the model
   service, saves each prediction to MongoDB and returns it; `GET /api/history` lists recent ones.
   If the model service is down it returns a clear 503 and saves nothing.
-- **Frontend (React):** Score, History and About pages; light theme by default with a dark
-  toggle; colours checked for WCAG AA contrast by a test; 44px touch targets on phones.
+- **Frontend (React):** Score, History and About pages in a light purple and white theme. The
+  result is split into three quiet groups: the score, your caption with the words that moved it
+  marked, and hashtag suggestions. Colours are checked for WCAG AA contrast by a test, and touch
+  targets are at least 44px on phones.
 
 ## How to run
 ### Web app (three terminals, no Docker needed)
@@ -228,7 +229,7 @@ three-terminal setup above is the supported way to run the app.
 | ML | `cd ml && pytest` | cleaning rules, labels, time splits, features, metrics, explanations that add up exactly, README results matching `metrics.json` |
 | Model service | `cd model-service && .venv/Scripts/python -m pytest` | `/predict` contract, input validation and length cap, `/health`, startup without a model |
 | Backend | `cd backend && npm test` | zod validation, saving to MongoDB (in-memory server), model service down or slow, rate limiting, CORS, history |
-| Frontend | `cd frontend && npm test` | form behaviour, result wording, error states, History, About, theme toggle, WCAG contrast of every colour pair |
+| Frontend | `cd frontend && npm test` | form behaviour, result wording, error states, History, About, WCAG contrast of every colour pair |
 
 Lint: `ruff check` in `ml/` and `model-service/`; `npm run lint` in `backend/` and `frontend/`.
 

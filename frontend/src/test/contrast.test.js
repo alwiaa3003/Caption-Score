@@ -1,5 +1,5 @@
-// WCAG contrast checks for both themes, computed from the real tokens in styles.css.
-// Text needs >= 4.5:1 (AA, normal size); non-text marks (underlines, gauge, borders that carry
+// WCAG contrast checks, computed from the real colour tokens in styles.css.
+// Text needs >= 4.5:1 (AA, normal size); non-text marks (underlines, focus ring, borders that carry
 // meaning) need >= 3:1.
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -17,12 +17,7 @@ function tokens(block) {
   return out;
 }
 
-const light = tokens(css.slice(css.indexOf(':root {'), css.indexOf(":root[data-theme='dark']")));
-const darkStart = css.indexOf(":root[data-theme='dark']");
-const dark = {
-  ...light,
-  ...tokens(css.slice(darkStart, css.indexOf('color-scheme: dark', darkStart))),
-};
+const light = tokens(css.slice(css.indexOf(':root {'), css.indexOf('}', css.indexOf(':root {'))));
 
 const rgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
 const lin = (c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
@@ -78,10 +73,8 @@ const NON_TEXT = [
   ['accent', 'bg'], // primary button shape against the page
 ];
 
-describe.each([
-  ['light', light],
-  ['dark', dark],
-])('%s theme', (_, t) => {
+describe('theme', () => {
+  const t = light;
   it('defines every token it needs', () => {
     for (const [a, b] of [...TEXT, ...NON_TEXT]) {
       expect(t[a], a).toMatch(/^#/);

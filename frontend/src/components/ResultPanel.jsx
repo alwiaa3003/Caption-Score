@@ -65,48 +65,56 @@ export default function ResultPanel({ result, onAddHashtag, addedHashtags = [] }
 
   return (
     <section className="result" aria-live="polite">
-      <p className="score-line">
-        <span className="score-number">{percentText(probability)}</span> chance of the top 10%
-      </p>
-      <p className="relative-line">{relativeText(probability, baseRate)}</p>
+      <div className="result-group">
+        <p className="score-line">
+          <span className="score-number">{percentText(probability)}</span> chance of the top 10%
+        </p>
+        <p className="relative-line">{relativeText(probability, baseRate)}</p>
+      </div>
 
-      <HighlightedCaption tokens={tokens} />
-      <p className="key small muted">
-        <span className="key-up">Solid underline</span> raises the score.{' '}
-        <span className="key-down">Dashed underline</span> lowers it.
-      </p>
+      <div className="result-group">
+        <h2 className="group-title">Your caption</h2>
+        <HighlightedCaption tokens={tokens} />
+        <p className="key small muted">
+          <span className="key-up">Solid underline</span> raises the score.{' '}
+          <span className="key-down">Dashed underline</span> lowers it.
+        </p>
+        <div className="word-lists">
+          <WordList label="Raised it most:" items={up} max={max} />
+          <WordList label="Lowered it most:" items={down} max={max} />
+        </div>
+      </div>
 
-      <WordList label="Raised it most:" items={up} max={max} />
-      <WordList label="Lowered it most:" items={down} max={max} />
-
-      <h2 className="section-title">Hashtags you could add</h2>
-      {suggestions.length ? (
-        <>
-          <ul className="suggestions">
-            {suggestions.map((s) => {
-              const added = addedHashtags.includes(s.hashtag);
-              return (
-                <li key={s.hashtag}>
-                  <button
-                    type="button"
-                    className="chip chip-button"
-                    onClick={() => onAddHashtag?.(s.hashtag)}
-                    disabled={added}
-                    aria-label={`Add #${s.hashtag}`}
-                  >
-                    {added ? 'Added' : '+'} #{s.hashtag}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-          <p className="small muted">
-            These tags showed up on top posts more often. That's a pattern, not a guarantee.
-          </p>
-        </>
-      ) : (
-        <p className="muted">No suggestions for this caption.</p>
-      )}
+      <div className="result-group">
+        <h2 className="group-title">Hashtags you could add</h2>
+        {suggestions.length ? (
+          <>
+            <ul className="suggestions">
+              {suggestions.map((s) => {
+                const added = addedHashtags.includes(s.hashtag);
+                return (
+                  <li key={s.hashtag}>
+                    <button
+                      type="button"
+                      className="chip chip-button"
+                      onClick={() => onAddHashtag?.(s.hashtag)}
+                      disabled={added}
+                      aria-label={`Add #${s.hashtag}`}
+                    >
+                      {added ? 'Added' : '+'} #{s.hashtag}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+            <p className="small muted note">
+              These tags showed up on top posts more often. That's a pattern, not a guarantee.
+            </p>
+          </>
+        ) : (
+          <p className="muted">No suggestions for this caption.</p>
+        )}
+      </div>
 
       <p className="result-foot small muted">
         Model {modelVersion}
