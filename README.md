@@ -5,8 +5,8 @@ posts from its month**, using only its caption and hashtags, and explains which 
 score up or down.
 
 > **Status:** model, model service, backend and frontend are built and tested (Phases 0-8).
-> Remaining: running against the real MongoDB Atlas database, the optional Instagram check, and
-> the final README (results table, screenshots). Numbers here come from
+> The full app has been run end to end against MongoDB Atlas. Remaining: the optional Instagram
+> check and the final README (results table, screenshots). Numbers here come from
 > `ml/reports/metrics.json`.
 
 ## Honest caveats (read first)
