@@ -13,7 +13,10 @@ async function main() {
   mongoose.connection.on('disconnected', () => console.warn('MongoDB disconnected'));
   mongoose.connection.on('reconnected', () => console.info('MongoDB reconnected'));
   try {
-    await mongoose.connect(config.mongodbUri, { serverSelectionTimeoutMS: 10_000 });
+    await mongoose.connect(config.mongodbUri, {
+      dbName: config.mongodbDb,
+      serverSelectionTimeoutMS: 10_000,
+    });
   } catch (err) {
     // Never print the URI: it contains the password.
     console.error('Could not connect to MongoDB:', err.message);

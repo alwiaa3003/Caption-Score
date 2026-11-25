@@ -18,6 +18,8 @@ function int(name, fallback) {
 export const config = {
   port: int('PORT', 4000),
   mongodbUri: process.env.MONGODB_URI ?? '',
+  // Database name; overrides any name in the URI (Atlas strings often have none -> "test").
+  mongodbDb: process.env.MONGODB_DB || 'captionscore',
   modelServiceUrl: (process.env.MODEL_SERVICE_URL ?? 'http://localhost:8000').replace(/\/$/, ''),
   modelServiceTimeoutMs: int('MODEL_SERVICE_TIMEOUT_MS', 5000),
   corsOrigin: (process.env.CORS_ORIGIN ?? 'http://localhost:5173')
