@@ -56,6 +56,11 @@ python -m src.build_dataset         # labels + time splits + features -> ml/data
 python -m src.dedup_check           # exact / near-duplicate captions across splits
 python -m src.train_baselines       # Phase 3 baselines on validation -> reports/metrics.json
 python -m src.plot_baselines        # reports/val_per_month_pr_auc.png
+python -m src.embed --splits train val  # MiniLM caption embeddings (~60 min on CPU, resumable)
+python -m src.train_embeddings      # Phase 4a: LR / LightGBM on embeddings
+python -m src.export_colab          # Phase 4b: data for Colab -> ml/data/colab/
+#   then run ml/notebooks/finetune_distilbert_colab.ipynb on a Colab T4 GPU
+python -m src.import_transformer_preds  # score the DistilBERT predictions brought back
 pytest
 ```
 Each service will also run standalone (`uvicorn`, `npm run dev`). `docker-compose.yml` is
