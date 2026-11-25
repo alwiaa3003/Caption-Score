@@ -1,0 +1,29 @@
+# Not yet runnable: Docker Desktop is not installed on the dev machine.
+# Each service also runs standalone (see README). Services get filled in during Phases 6-8.
+services:
+  mongo:
+    image: mongo:7
+    ports: ["27017:27017"]
+    volumes: [mongo-data:/data/db]
+
+  model-service:
+    build: ./model-service
+    ports: ["8000:8000"]
+    env_file: .env
+
+  server:
+    build: ./server
+    ports: ["4000:4000"]
+    env_file: .env
+    environment:
+      MODEL_SERVICE_URL: http://model-service:8000
+      MONGODB_URI: mongodb://mongo:27017/captionscore
+    depends_on: [mongo, model-service]
+
+  client:
+    build: ./client
+    ports: ["5173:5173"]
+    depends_on: [server]
+
+volumes:
+  mongo-data:
