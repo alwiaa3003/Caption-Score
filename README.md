@@ -28,7 +28,17 @@ same age-at-capture tertile of that month (ads excluded). Details and weaknesses
 [docs/label_notes.md](docs/label_notes.md).
 
 ## Results
-_TBD (Phase 4)._ Will match `ml/reports/metrics.json` exactly.
+_Full results table: Phase 10._ Every number will match `ml/reports/metrics.json` exactly; the
+current validation table is generated into
+[ml/reports/model_comparison.md](ml/reports/model_comparison.md).
+
+**App model:** TF-IDF + Logistic Regression, chosen on validation (within noise of the best
+model, and it gives exact per-word explanations), then evaluated once on test.
+
+**Extra experiment: DistilBERT.** A fine-tuned DistilBERT (Colab T4, trained on a ~250k-row
+subset of train) reached validation PR-AUC 0.1777, vs 0.1803 for TF-IDF + LR. It was run after
+the app model was chosen and tested, was never evaluated on test, and does **not** change the
+app's model.
 
 ## Repository layout
 ```

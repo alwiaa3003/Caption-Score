@@ -416,5 +416,61 @@
         "threshold": 0.5
       }
     }
+  },
+  "transformer": {
+    "evaluated_on": "validation 2025-09..2026-04 (test untouched)",
+    "distilbert": {
+      "val": {
+        "n": 114813,
+        "positive_rate": 0.1001,
+        "pr_auc": 0.1777,
+        "roc_auc": 0.6646,
+        "precision_at_top10": 0.2168,
+        "f1": 0.2544,
+        "threshold": 0.12749
+      },
+      "val_per_month_pr_auc": {
+        "2025-09": 0.1884,
+        "2025-10": 0.1864,
+        "2025-11": 0.1808,
+        "2025-12": 0.1669,
+        "2026-01": 0.176,
+        "2026-02": 0.1812,
+        "2026-03": 0.175,
+        "2026-04": 0.1813
+      },
+      "run_info": {
+        "args": {
+          "data": "captionscore_finetune.parquet",
+          "out": "out",
+          "model": "distilbert-base-uncased",
+          "max_length": 64,
+          "epochs": 2.0,
+          "lr": 3e-05,
+          "batch_size": 128,
+          "max_train_rows": null,
+          "shuffle_labels": false,
+          "seed": 42,
+          "allow_cpu": false
+        },
+        "train_rows": 233233,
+        "inner_rows": 16765,
+        "val_rows": 114813,
+        "train_minutes": 19.7,
+        "best_checkpoint": "out/checkpoints/checkpoint-3640",
+        "inner_pr_auc_best": 0.19491904641578822,
+        "gpu": "Tesla T4"
+      },
+      "val_deduped": {
+        "n": 111893,
+        "positive_rate": 0.1014,
+        "pr_auc": 0.1786,
+        "roc_auc": 0.6634,
+        "precision_at_top10": 0.2171,
+        "f1": 0.2552,
+        "threshold": 0.12749
+      },
+      "sanity_shuffled_labels_val_pr_auc": 0.1085
+    }
   }
 }
