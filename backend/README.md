@@ -1,11 +1,11 @@
 # Backend (Node + Express + MongoDB)
 
-| Endpoint | |
-|---|---|
-| `POST /api/predict` | validates `{caption, hashtags?, post_type?, duration_sec?}` (zod), rate-limited, calls the model service, saves to MongoDB, returns the model result plus `id` and `saved` |
-| `GET /api/history?limit=20` | recent predictions, newest first (max 100) |
-| `GET /api/health` | `{status, db, model, modelVersion}`; 503 if MongoDB or the model service is down |
-| `GET /api/model-info` | model card from the model service (for the About page) |
+| Endpoint                    |                                                                                                                                                                            |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST /api/predict`         | validates `{caption, hashtags?, post_type?, duration_sec?}` (zod), rate-limited, calls the model service, saves to MongoDB, returns the model result plus `id` and `saved` |
+| `GET /api/history?limit=20` | recent predictions, newest first (max 100)                                                                                                                                 |
+| `GET /api/health`           | `{status, db, model, modelVersion}`; 503 if MongoDB or the model service is down                                                                                           |
+| `GET /api/model-info`       | model card from the model service (for the About page)                                                                                                                     |
 
 Errors: invalid input -> 400 with `details`; model service down -> 503
 `MODEL_SERVICE_UNAVAILABLE`; model timeout -> 504; rate limit -> 429. If MongoDB can't save,
@@ -16,8 +16,10 @@ probability, label, modelVersion, top tokens, suggested hashtags, createdAt. No 
 any other personal data is stored.
 
 ## Run
+
 Configuration comes from the repo-root `.env` (see `../.env.example`): `MONGODB_URI`,
 `MODEL_SERVICE_URL`, `PORT`, `CORS_ORIGIN`, `RATE_LIMIT_PER_MINUTE`.
+
 ```bash
 cd backend
 npm install
