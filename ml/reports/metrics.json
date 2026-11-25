@@ -294,5 +294,127 @@
       "emb_lr_val_pr_auc": 0.0995,
       "emb_meta_lgbm_val_pr_auc": 0.1012
     }
+  },
+  "selection": {
+    "rule": "(fixed before looking at the bootstrap results):\n  1. The best model is the one with the highest validation PR-AUC.\n  2. TF-IDF + LR is preferred for the app (it gives exact per-word contributions) if it is\n     \"within noise\" of the best: the 95% CI of PR-AUC(best) - PR-AUC(TF-IDF LR) from a paired\n     **day-block** bootstrap includes 0. Blocks are posting days, because rows from the same\n     day come from the same Parquet row group and are correlated, so a row-level bootstrap\n     would understate the noise. The row-level CI is reported too, for comparison.",
+    "candidates_val_pr_auc": {
+      "meta_lgbm": 0.1505,
+      "tfidf_lr": 0.1803,
+      "tfidf_meta_lgbm": 0.1845,
+      "emb_meta_lgbm": 0.1742
+    },
+    "best_on_val": "tfidf_meta_lgbm",
+    "bootstrap_best_minus_tfidf_lr": {
+      "diff": 0.0042,
+      "row_ci95": [
+        0.0009,
+        0.0077
+      ],
+      "day_block_ci95": [
+        -0.0009,
+        0.0089
+      ],
+      "n_day_blocks": 22
+    },
+    "within_noise": true,
+    "chosen": "tfidf_lr",
+    "distilbert_included": false
+  },
+  "final": {
+    "model": "tfidf_lr",
+    "threshold_from_validation": 0.127358,
+    "note": "trained on train only; hyperparameters and threshold from validation",
+    "test": {
+      "months": [
+        "2026-05",
+        "2026-06",
+        "2026-07"
+      ],
+      "model": {
+        "n": 44104,
+        "positive_rate": 0.1001,
+        "pr_auc": 0.1863,
+        "roc_auc": 0.6753,
+        "precision_at_top10": 0.2299,
+        "f1": 0.2613,
+        "threshold": 0.127358
+      },
+      "model_deduped": {
+        "n": 43002,
+        "positive_rate": 0.1019,
+        "pr_auc": 0.1873,
+        "roc_auc": 0.6728,
+        "precision_at_top10": 0.2316,
+        "f1": 0.2622,
+        "threshold": 0.127358
+      },
+      "per_month_pr_auc": {
+        "2026-05": 0.1848,
+        "2026-06": 0.1902,
+        "2026-07": 0.1859
+      },
+      "majority": {
+        "n": 44104,
+        "positive_rate": 0.1001,
+        "pr_auc": 0.1001,
+        "roc_auc": 0.5,
+        "precision_at_top10": 0.0959,
+        "f1": 0.182,
+        "threshold": 0.0
+      },
+      "random": {
+        "n": 44104,
+        "positive_rate": 0.1001,
+        "pr_auc": 0.1023,
+        "roc_auc": 0.5064,
+        "precision_at_top10": 0.1039,
+        "f1": 0.171,
+        "threshold": 0.5
+      }
+    },
+    "stress": {
+      "months": [
+        "2026-08"
+      ],
+      "model": {
+        "n": 13689,
+        "positive_rate": 0.1002,
+        "pr_auc": 0.1724,
+        "roc_auc": 0.6635,
+        "precision_at_top10": 0.2126,
+        "f1": 0.2468,
+        "threshold": 0.127358
+      },
+      "model_deduped": {
+        "n": 13450,
+        "positive_rate": 0.1008,
+        "pr_auc": 0.1727,
+        "roc_auc": 0.6628,
+        "precision_at_top10": 0.2134,
+        "f1": 0.247,
+        "threshold": 0.127358
+      },
+      "per_month_pr_auc": {
+        "2026-08": 0.1724
+      },
+      "majority": {
+        "n": 13689,
+        "positive_rate": 0.1002,
+        "pr_auc": 0.1002,
+        "roc_auc": 0.5,
+        "precision_at_top10": 0.1169,
+        "f1": 0.1821,
+        "threshold": 0.0
+      },
+      "random": {
+        "n": 13689,
+        "positive_rate": 0.1002,
+        "pr_auc": 0.0998,
+        "roc_auc": 0.4978,
+        "precision_at_top10": 0.0935,
+        "f1": 0.1673,
+        "threshold": 0.5
+      }
+    }
   }
 }
