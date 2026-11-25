@@ -53,6 +53,9 @@ python -m src.describe_sample        # profile numbers used in docs/data_notes.m
 python -m src.resample_us --confirm  # step 2: replace mixed-country row groups -> US-only (~0.75 GB)
 python -m src.analyze_labels        # evidence for the label definition
 python -m src.build_dataset         # labels + time splits + features -> ml/data/dataset.parquet
+python -m src.dedup_check           # exact / near-duplicate captions across splits
+python -m src.train_baselines       # Phase 3 baselines on validation -> reports/metrics.json
+python -m src.plot_baselines        # reports/val_per_month_pr_auc.png
 pytest
 ```
 Each service will also run standalone (`uvicorn`, `npm run dev`). `docker-compose.yml` is

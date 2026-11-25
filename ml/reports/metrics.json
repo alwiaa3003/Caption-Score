@@ -1,0 +1,214 @@
+{
+  "baselines": {
+    "protocol": "- Hyperparameters are chosen by validation PR-AUC over small grids.\n  - LightGBM early stopping uses an INNER hold-out = the last 3 training months\n    (2025-06..2025-08), not validation, so validation numbers aren't flattered by it.\n  - F1 uses the threshold that maximises F1 on validation (saved for use on test later).\n  - Validation scores are reported on all rows AND with rows whose caption has a\n    near-duplicate in train removed (src/dedup_check.py).\n  - Sanity check: the best LR and the meta LightGBM retrained on shuffled training labels.\n  - Sensitivity: the best baseline retrained with 5% and 20% labels.",
+    "evaluated_on": "validation 2025-09..2026-04 (test untouched)",
+    "majority": {
+      "val": {
+        "n": 114813,
+        "positive_rate": 0.1001,
+        "pr_auc": 0.1001,
+        "roc_auc": 0.5,
+        "precision_at_top10": 0.1038,
+        "f1": 0.182,
+        "threshold": 0.0
+      },
+      "val_per_month_pr_auc": {
+        "2025-09": 0.1002,
+        "2025-10": 0.1002,
+        "2025-11": 0.1001,
+        "2025-12": 0.1001,
+        "2026-01": 0.1001,
+        "2026-02": 0.1,
+        "2026-03": 0.1001,
+        "2026-04": 0.1001
+      },
+      "val_deduped": {
+        "n": 111893,
+        "positive_rate": 0.1014,
+        "pr_auc": 0.1014,
+        "roc_auc": 0.5,
+        "precision_at_top10": 0.1051,
+        "f1": 0.1842,
+        "threshold": 0.0
+      }
+    },
+    "random": {
+      "val": {
+        "n": 114813,
+        "positive_rate": 0.1001,
+        "pr_auc": 0.0995,
+        "roc_auc": 0.4995,
+        "precision_at_top10": 0.0991,
+        "f1": 0.1821,
+        "threshold": 0.002579
+      },
+      "val_per_month_pr_auc": {
+        "2025-09": 0.0999,
+        "2025-10": 0.0992,
+        "2025-11": 0.0958,
+        "2025-12": 0.1,
+        "2026-01": 0.1031,
+        "2026-02": 0.0998,
+        "2026-03": 0.1019,
+        "2026-04": 0.0997
+      },
+      "val_deduped": {
+        "n": 111893,
+        "positive_rate": 0.1014,
+        "pr_auc": 0.1008,
+        "roc_auc": 0.4996,
+        "precision_at_top10": 0.1008,
+        "f1": 0.1842,
+        "threshold": 0.002579
+      }
+    },
+    "meta_lgbm": {
+      "val": {
+        "n": 114813,
+        "positive_rate": 0.1001,
+        "pr_auc": 0.1505,
+        "roc_auc": 0.6201,
+        "precision_at_top10": 0.1845,
+        "f1": 0.2232,
+        "threshold": 0.117916
+      },
+      "val_per_month_pr_auc": {
+        "2025-09": 0.152,
+        "2025-10": 0.1502,
+        "2025-11": 0.1609,
+        "2025-12": 0.1516,
+        "2026-01": 0.1547,
+        "2026-02": 0.1494,
+        "2026-03": 0.1343,
+        "2026-04": 0.157
+      },
+      "params": {
+        "num_leaves": 31,
+        "best_iteration": 97
+      },
+      "lgb_params": {
+        "num_leaves": 31
+      },
+      "val_deduped": {
+        "n": 111893,
+        "positive_rate": 0.1014,
+        "pr_auc": 0.1512,
+        "roc_auc": 0.6177,
+        "precision_at_top10": 0.1851,
+        "f1": 0.224,
+        "threshold": 0.117916
+      }
+    },
+    "tfidf_lr": {
+      "val": {
+        "n": 114813,
+        "positive_rate": 0.1001,
+        "pr_auc": 0.1803,
+        "roc_auc": 0.6698,
+        "precision_at_top10": 0.222,
+        "f1": 0.2591,
+        "threshold": 0.127358
+      },
+      "val_per_month_pr_auc": {
+        "2025-09": 0.2,
+        "2025-10": 0.1899,
+        "2025-11": 0.1794,
+        "2025-12": 0.1672,
+        "2026-01": 0.1797,
+        "2026-02": 0.1801,
+        "2026-03": 0.1862,
+        "2026-04": 0.174
+      },
+      "params": {
+        "C": 0.3
+      },
+      "val_deduped": {
+        "n": 111893,
+        "positive_rate": 0.1014,
+        "pr_auc": 0.1818,
+        "roc_auc": 0.6691,
+        "precision_at_top10": 0.2228,
+        "f1": 0.2602,
+        "threshold": 0.127358
+      }
+    },
+    "tfidf_meta_lgbm": {
+      "val": {
+        "n": 114813,
+        "positive_rate": 0.1001,
+        "pr_auc": 0.1845,
+        "roc_auc": 0.6705,
+        "precision_at_top10": 0.2274,
+        "f1": 0.2607,
+        "threshold": 0.124697
+      },
+      "val_per_month_pr_auc": {
+        "2025-09": 0.2024,
+        "2025-10": 0.1834,
+        "2025-11": 0.1917,
+        "2025-12": 0.1757,
+        "2026-01": 0.1799,
+        "2026-02": 0.1819,
+        "2026-03": 0.1771,
+        "2026-04": 0.1951
+      },
+      "params": {
+        "num_leaves": 63,
+        "k_tfidf": 20000,
+        "best_iteration": 307
+      },
+      "lgb_params": {
+        "num_leaves": 63,
+        "learning_rate": 0.1,
+        "feature_fraction": 0.3
+      },
+      "val_deduped": {
+        "n": 111893,
+        "positive_rate": 0.1014,
+        "pr_auc": 0.1857,
+        "roc_auc": 0.6697,
+        "precision_at_top10": 0.2297,
+        "f1": 0.2616,
+        "threshold": 0.124697
+      }
+    },
+    "sanity_shuffled_labels": {
+      "tfidf_lr_val_pr_auc": 0.1012,
+      "meta_lgbm_val_pr_auc": 0.1022
+    },
+    "label_sensitivity": {
+      "model": "tfidf_meta_lgbm",
+      "top_5pct": {
+        "n": 114813,
+        "positive_rate": 0.0501,
+        "pr_auc": 0.1052,
+        "roc_auc": 0.6858,
+        "precision_at_top10": 0.1284,
+        "f1": 0.1736,
+        "threshold": 0.089496,
+        "pr_auc_lift_over_chance": 2.1
+      },
+      "top_10pct": {
+        "n": 114813,
+        "positive_rate": 0.1001,
+        "pr_auc": 0.1845,
+        "roc_auc": 0.6705,
+        "precision_at_top10": 0.2274,
+        "f1": 0.2607,
+        "threshold": 0.124697,
+        "pr_auc_lift_over_chance": 1.84
+      },
+      "top_20pct": {
+        "n": 114813,
+        "positive_rate": 0.2002,
+        "pr_auc": 0.322,
+        "roc_auc": 0.6628,
+        "precision_at_top10": 0.3899,
+        "f1": 0.3931,
+        "threshold": 0.199758,
+        "pr_auc_lift_over_chance": 1.61
+      }
+    },
+    "best_baseline": "tfidf_meta_lgbm"
+  }
+}

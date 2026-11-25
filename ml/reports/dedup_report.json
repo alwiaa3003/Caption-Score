@@ -1,0 +1,50 @@
+{
+  "method": {
+    "near": "word-3-shingle Jaccard >= 0.8 via MinHash (64 perms, 8x8 LSH) OR loose-key match",
+    "exact": "identical cleaned text"
+  },
+  "train": {
+    "rows": 656136,
+    "exact_dup_within_split_rows": 21691,
+    "exact_dup_within_split_share": 0.0331
+  },
+  "val": {
+    "rows": 114813,
+    "exact_dup_within_split_rows": 2547,
+    "exact_dup_within_split_share": 0.0222,
+    "dup_exact_in_train_rows": 1446,
+    "dup_exact_in_train_share": 0.0126,
+    "dup_near_in_train_rows": 2920,
+    "dup_near_in_train_share": 0.0254,
+    "viral_rate_if_near_dup": 0.0503,
+    "viral_rate_if_not_dup": 0.1014
+  },
+  "test": {
+    "rows": 44104,
+    "exact_dup_within_split_rows": 764,
+    "exact_dup_within_split_share": 0.0173,
+    "dup_exact_in_train_rows": 489,
+    "dup_exact_in_train_share": 0.0111,
+    "dup_near_in_train_rows": 1102,
+    "dup_near_in_train_share": 0.025
+  },
+  "stress": {
+    "rows": 13689,
+    "exact_dup_within_split_rows": 194,
+    "exact_dup_within_split_share": 0.0142,
+    "dup_exact_in_train_rows": 108,
+    "dup_exact_in_train_share": 0.0079,
+    "dup_near_in_train_rows": 239,
+    "dup_near_in_train_share": 0.0175
+  },
+  "val_exact_dup_caption_chars": {
+    "count": 1446.0,
+    "mean": 19.0,
+    "std": 31.5,
+    "min": 1.0,
+    "25%": 5.0,
+    "50%": 8.0,
+    "75%": 14.0,
+    "max": 251.0
+  }
+}

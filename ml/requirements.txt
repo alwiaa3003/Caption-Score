@@ -9,4 +9,9 @@ emoji>=2.16
 # dev
 ruff
 pytest
-# Later phases add: scikit-learn, lightgbm, sentence-transformers, torch, transformers, shap
+# Phase 3: baselines
+scikit-learn>=1.9
+lightgbm>=4.7
+matplotlib>=3.11
+joblib
+# Later phases add: sentence-transformers, torch, transformers, shap
