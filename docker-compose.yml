@@ -1,5 +1,5 @@
 # Not yet runnable: Docker Desktop is not installed on the dev machine.
-# Each service also runs standalone (see README). Services get filled in during Phases 6-8.
+# Each service also runs standalone without Docker: see "Run the web app locally" in README.md.
 services:
   mongo:
     image: mongo:7
@@ -22,7 +22,10 @@ services:
     depends_on: [mongo, model-service]
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:4000   # the browser calls the backend directly
     ports: ["5173:5173"]
     depends_on: [backend]
 

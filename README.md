@@ -1,11 +1,12 @@
 # CaptionScore
 
 Predicts whether a short-video post is likely to land in the **top 10% of views among comparable
-posts from its month**,
-using only its caption, hashtags and a few simple metadata features.
+posts from its month**, using only its caption and hashtags, and explains which words push the
+score up or down.
 
-> **Status:** work in progress (Phase 2: labels, splits and features). Sections marked _TBD_ are filled in as
-> each phase is completed. No numbers appear here until they are computed and saved in
+> **Status:** model, model service, backend and frontend are built and tested (Phases 0-8).
+> Remaining: running against the real MongoDB Atlas database, the optional Instagram check, and
+> the final README (results table, screenshots). Numbers here come from
 > `ml/reports/metrics.json`.
 
 ## Honest caveats (read first)
@@ -77,8 +78,41 @@ python -m src.export_colab          # Phase 4b: data for Colab -> ml/data/colab/
 python -m src.import_transformer_preds  # score the DistilBERT predictions brought back
 pytest
 ```
-Each service will also run standalone (`uvicorn`, `npm run dev`). `docker-compose.yml` is
-included for later use with Docker Desktop. _Details TBD._
+### Run the web app locally (three terminals, no Docker needed)
+Prerequisites: Python 3.11+, Node 20+, a MongoDB connection string (MongoDB Atlas free tier
+works), and the trained model in `ml/models/final/` (built by `python -m src.build_explainability`;
+it is gitignored).
+
+**One-time setup.** Copy `.env.example` to `.env` at the repo root and set `MONGODB_URI`.
+`PORT`, `MODEL_SERVICE_URL`, `CORS_ORIGIN` and `VITE_API_URL` already default to the ports below.
+
+```bash
+# Terminal 1: model service (FastAPI) -> http://localhost:8000
+cd model-service
+python -m venv .venv
+.venv/Scripts/pip install -r requirements.txt          # macOS/Linux: .venv/bin/pip
+.venv/Scripts/pip install --no-deps -e ../ml
+.venv/Scripts/uvicorn app.main:app --port 8000
+
+# Terminal 2: backend (Express + MongoDB) -> http://localhost:4000
+cd backend
+npm install
+npm run dev
+
+# Terminal 3: frontend (React + Vite) -> http://localhost:5173
+cd frontend
+npm install
+npm run dev
+```
+Open http://localhost:5173. Check the wiring at http://localhost:4000/api/health: it reports
+`db` and `model` status. Start them in this order; if the model service is down, the site shows a
+clear "scoring model is offline" message instead of failing silently.
+
+Tests: `cd ml && pytest`, `cd model-service && .venv/Scripts/python -m pytest`,
+`cd backend && npm test`, `cd frontend && npm test`.
+
+`docker-compose.yml` and a Dockerfile per service are included for later use with Docker
+Desktop. They have **not been tested yet** (Docker isn't installed on the dev machine).
 
 ## Limitations
 _TBD._
