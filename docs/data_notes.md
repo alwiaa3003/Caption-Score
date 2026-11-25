@@ -62,7 +62,8 @@ cannot be controlled for. This is the biggest limitation of the project (see `la
    row groups showed that 99.1% and 99.4% of rows with hashtags already contain every tag as
    `#tag` in the caption. We extract tags from the caption by regex instead, which saves about
    18 MB per row group.
-4. **Download:** 4.95 GB over HTTP range requests, approved before running. It is streamed
+4. **Download:** 4.95 GB over HTTP range requests (the sampler stops above `max_download_gb`
+   unless run with `--confirm`). It is streamed
    through memory and not stored.
 5. **Cleaning** (`ml/src/cleaning.py`, tested in `ml/tests/test_cleaning.py`):
    `language == 'en'`, `type == 'video'`, non-empty caption, `views > 0`, and age at capture
@@ -124,7 +125,7 @@ row groups. v1 is US-only, so:
 - Every step-1 row group that was already pure US is kept as is, with no download.
 - Every other one is replaced by a random pure-US row group from the same half of the file
   (seed 4242), cleaned with `country == 'US'` added, and subsampled to 7,500 rows.
-- **15 months affected, 17 row groups replaced, 0.75 GB** read (approved).
+- **15 months affected, 17 row groups replaced, 0.75 GB** read.
 - Result: `ml/data/sample_us_en_2022-01_2026-08.parquet` has **840,000 rows, exactly 15,000 in
   every one of the 56 months, 100% US**. 2023-11 is filled (no gap), and the 2022-06 shortfall
   is fixed because its small final row group was a mixed block and was replaced.

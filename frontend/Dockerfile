@@ -1,4 +1,4 @@
-# Not yet tested: Docker isn't installed on the dev machine. Run locally with `npm run dev`.
+# Container image for the frontend (not tested yet). Without Docker, run `npm run dev`.
 # Build-time API URL: docker build --build-arg VITE_API_URL=http://localhost:4000 .
 FROM node:22-alpine AS build
 WORKDIR /app

@@ -1,4 +1,4 @@
-# Not yet tested: Docker isn't installed on the dev machine. Run locally with `npm run dev`.
+# Container image for the backend (not tested yet). Without Docker, run `npm run dev`.
 FROM node:22-alpine
 WORKDIR /app
 ENV NODE_ENV=production

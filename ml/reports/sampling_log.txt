@@ -113,5 +113,5 @@ TOTAL to download: 4.95 GB (113,818,969 raw rows, 56 months)
 2026-07: kept 15,000 rows in 25s
 2026-08: kept 15,000 rows in 29s
 
-Saved 833,091 rows (0 duplicate ids dropped) to C:\Users\alwia\projects\Caption Score\ml\data\sample_en_2022-01_2026-08.parquet
-Saved raw stats to C:\Users\alwia\projects\Caption Score\ml\reports\sampling_stats.json
+Saved 833,091 rows (0 duplicate ids dropped) to ml/data/sample_en_2022-01_2026-08.parquet
+Saved raw stats to ml/reports/sampling_stats.json

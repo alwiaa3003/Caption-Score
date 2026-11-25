@@ -1,4 +1,4 @@
-# Not yet runnable: Docker Desktop is not installed on the dev machine.
+# Docker Compose setup (not tested yet).
 # Each service also runs standalone without Docker: see "Run the web app locally" in README.md.
 services:
   mongo:

@@ -5,4 +5,4 @@
 [23:06:59] emb+meta LGBM leaves=63 (89s): val PR-AUC 0.1742, ROC-AUC 0.6603, P@10% 0.2125, F1 0.2505 | deduped PR-AUC 0.1751
 [23:09:04] emb+meta LGBM leaves=255 (124s): val PR-AUC 0.1712, ROC-AUC 0.6563, P@10% 0.2119, F1 0.2481 | deduped PR-AUC 0.1721
 [23:09:42] shuffled-label sanity: {'emb_lr_val_pr_auc': 0.0995, 'emb_meta_lgbm_val_pr_auc': 0.1012}
-[23:09:42] saved C:\Users\alwia\projects\Caption Score\ml\reports\metrics.json
+[23:09:42] saved ml/reports/metrics.json

@@ -112,7 +112,7 @@ Tests: `cd ml && pytest`, `cd model-service && .venv/Scripts/python -m pytest`,
 `cd backend && npm test`, `cd frontend && npm test`.
 
 `docker-compose.yml` and a Dockerfile per service are included for later use with Docker
-Desktop. They have **not been tested yet** (Docker isn't installed on the dev machine).
+Desktop. They have **not been tested yet**.
 
 ## Limitations
 _TBD._

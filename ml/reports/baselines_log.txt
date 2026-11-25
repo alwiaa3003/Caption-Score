@@ -16,4 +16,4 @@
 [20:44:14] sensitivity 5%: {'n': 114813, 'positive_rate': 0.0501, 'pr_auc': 0.1052, 'roc_auc': 0.6858, 'precision_at_top10': 0.1284, 'f1': 0.1736, 'threshold': 0.089496, 'pr_auc_lift_over_chance': 2.1}
 [20:46:37] sensitivity 10%: {'n': 114813, 'positive_rate': 0.1001, 'pr_auc': 0.1845, 'roc_auc': 0.6705, 'precision_at_top10': 0.2274, 'f1': 0.2607, 'threshold': 0.124697, 'pr_auc_lift_over_chance': 1.84}
 [20:48:59] sensitivity 20%: {'n': 114813, 'positive_rate': 0.2002, 'pr_auc': 0.322, 'roc_auc': 0.6628, 'precision_at_top10': 0.3899, 'f1': 0.3931, 'threshold': 0.199758, 'pr_auc_lift_over_chance': 1.61}
-[20:48:59] saved C:\Users\alwia\projects\Caption Score\ml\reports\metrics.json
+[20:48:59] saved ml/reports/metrics.json

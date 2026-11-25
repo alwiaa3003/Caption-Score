@@ -25,7 +25,7 @@ python -m venv .venv
 .venv/Scripts/python -m pytest                     # tests use a tiny synthetic model
 ```
 
-## Docker (untested: Docker isn't installed on the dev machine)
+## Docker (not tested yet)
 ```bash
 docker build -f model-service/Dockerfile -t captionscore-model .   # from the repo root
 docker run -p 8000:8000 captionscore-model

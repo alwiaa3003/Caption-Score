@@ -72,8 +72,8 @@ export default function ResultPanel({ result, onAddHashtag, addedHashtags = [] }
 
       <HighlightedCaption tokens={tokens} />
       <p className="key small muted">
-        <span className="key-up">Blue, solid underline</span> raises the score.{' '}
-        <span className="key-down">Amber, dashed</span> lowers it.
+        <span className="key-up">Solid underline</span> raises the score.{' '}
+        <span className="key-down">Dashed underline</span> lowers it.
       </p>
 
       <WordList label="Raised it most:" items={up} max={max} />

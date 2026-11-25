@@ -1,39 +1,39 @@
-/* CaptionScore: quiet, minimal theme.
+/* CaptionScore theme.
 
    Light is the default; dark follows the system preference with the same roles.
                        light      dark
-     background        #f7f8f8    #1b1e21
+     background        #eef2fb    #1b1e21
      surface (fields)  #ffffff    #23272b
-     ink               #2b2f33    #e4e7e9
-     muted text        #6b7378    #9aa3a8
-     hairline          #e3e6e8    #33383d
-     accent (button)   #4f7088    #4f7088
-     raises score      #2f6f9f    #5596cc   (blue, solid underline)
-     lowers score      #b26a1e    #c4843e   (amber, dashed underline)
-   Raise/lower differ for colour-blind users (CVD dE ~19) and by underline style.
+     ink               #14192e    #e4e7e9
+     muted text        #535d78    #9aa3a8
+     hairline          #d8dfef    #33383d
+     accent (button)   #116dff    #4f7088
+     raises score      #6b4fd8    #5596cc   (solid underline)
+     lowers score      #c95a1c    #c4843e   (dashed underline)
+   Raise/lower differ for colour-blind users (CVD dE > 19) and by underline style.
    Every text pair is checked for WCAG AA in src/test/contrast.test.js.
 
    One font (Figtree), one radius (8px; hashtag chips are the only pills), no shadows,
    gradients or dashed borders. Space and hairlines separate things instead of boxes. */
 :root {
-  --bg: #f7f8f8;
+  --bg: #eef2fb;
   --surface: #ffffff;
-  --ink: #2b2f33;
-  --muted: #6b7378;
-  --border: #e3e6e8;
-  --control: #858d92; /* input outlines: >= 3:1 against bg and surface (WCAG 1.4.11) */
-  --accent: #4f7088;
-  --accent-hover: #45647a;
+  --ink: #14192e;
+  --muted: #535d78;
+  --border: #d8dfef;
+  --control: #7a85a3; /* input outlines: >= 3:1 against bg and surface (WCAG 1.4.11) */
+  --accent: #116dff;
+  --accent-hover: #0a59d6;
   --accent-ink: #ffffff;
-  --link: #3f6178;
-  --focus: #4f7088;
-  --raise: #2f6f9f;
-  --lower: #b26a1e;
-  --chip-bg: #edf0f2;
-  --chip-ink: #2b2f33;
-  --disabled-bg: #eceeef;
-  --disabled-ink: #5f676c;
-  --error: #a23a2e;
+  --link: #0b5ad9;
+  --focus: #116dff;
+  --raise: #6b4fd8;
+  --lower: #c95a1c;
+  --chip-bg: #e6edff;
+  --chip-ink: #14192e;
+  --disabled-bg: #e1e7f3;
+  --disabled-ink: #4b5571;
+  --error: #c0322a;
 
   --font: 'Figtree Variable', 'Segoe UI', Helvetica, Arial, sans-serif;
   --radius: 8px;
@@ -132,7 +132,7 @@ a:focus-visible {
   border-radius: var(--radius);
 }
 
-/* ---------- layout (structure unchanged) ---------- */
+/* ---------- layout ---------- */
 /* side padding only: a padding shorthand here would wipe main's top padding */
 .container {
   width: 100%;

@@ -1,5 +1,5 @@
-"""Phase 4b: fine-tune DistilBERT on captions. Meant for a GPU (Google Colab T4); do NOT run
-on this project's CPU-only dev machine.
+"""Phase 4b: fine-tune DistilBERT on captions. Needs a GPU (for example a Google
+Colab T4); training on a CPU would take many hours.
 
 Protocol (same rules as the other models):
   - train on the exported train subsample, EXCLUDING the last 3 training months

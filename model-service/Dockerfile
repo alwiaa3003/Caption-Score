@@ -1,6 +1,6 @@
 # Build from the REPO ROOT (it needs ml/src and ml/models/final):
 #   docker build -f model-service/Dockerfile -t captionscore-model .
-# Not yet tested: Docker isn't installed on the dev machine. Run locally with uvicorn instead.
+# Not tested yet. Without Docker, run the service with uvicorn (see README).
 FROM python:3.13-slim
 
 WORKDIR /srv
