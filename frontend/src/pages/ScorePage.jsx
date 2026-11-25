@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import { api } from '../api.js';
 import HashtagInput from '../components/HashtagInput.jsx';
@@ -17,29 +16,13 @@ function prefersReducedMotion() {
   return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true;
 }
 
-/** Why the button is disabled (shown as its label), or '' if it can be pressed. */
-function blockedReason({ caption, duration, loading }) {
-  if (loading) return '';
-  if (!caption.trim()) return 'Add a caption to score it';
-  if (caption.length > MAX_CAPTION) return 'Shorten the caption to score it';
+/** Why the Score button can't be used yet, or '' if it can. */
+function blockedReason({ caption, duration }) {
+  if (!caption.trim()) return 'Add a caption first';
+  if (caption.length > MAX_CAPTION) return `Shorten the caption to ${MAX_CAPTION} characters`;
   if (duration !== '' && !(Number(duration) > 0 && Number(duration) <= 3600))
-    return 'Fix the duration to score it';
+    return 'Use a duration from 1 to 3600 seconds';
   return '';
-}
-
-function EmptyResult({ onExample }) {
-  return (
-    <section className="card result-empty">
-      <h2>Your score will appear here</h2>
-      <p>
-        You'll see the chance of reaching the top 10% of comparable posts, which words push it up or
-        down, and related hashtags.
-      </p>
-      <button type="button" className="link-button" onClick={onExample}>
-        Try an example caption
-      </button>
-    </section>
-  );
 }
 
 export default function ScorePage() {
@@ -51,7 +34,7 @@ export default function ScorePage() {
   const resultRef = useRef(null);
 
   const loading = status === 'loading';
-  const reason = blockedReason({ caption, duration, loading });
+  const reason = blockedReason({ caption, duration });
   const canSubmit = !reason && !loading;
 
   // On narrow screens the result sits below the form: bring it into view once it's ready.
@@ -89,16 +72,13 @@ export default function ScorePage() {
   }
 
   const tooLong = caption.length > MAX_CAPTION;
-  const badDuration = reason === 'Fix the duration to score it';
+  const badDuration = reason.startsWith('Use a duration');
 
   return (
     <div className="score-layout">
-      <section className="card editor">
+      <section className="editor">
         <h1>Score a caption</h1>
-        <p className="intro">
-          See how likely a short-video caption is to reach the top 10% of comparable posts, and
-          which words help or hurt.
-        </p>
+        <p className="sub">Compare a caption with similar posts.</p>
         <form onSubmit={submit} noValidate>
           <label htmlFor="caption">Caption</label>
           <textarea
@@ -106,26 +86,34 @@ export default function ScorePage() {
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
             rows={6}
-            placeholder="Paste or type your caption, e.g. day 3 of learning to skate"
+            placeholder="Type or paste your caption"
             aria-invalid={tooLong}
-            aria-describedby="caption-help"
+            aria-describedby="caption-count"
           />
           <div className="below-caption">
-            <span id="caption-help" className={tooLong ? 'field-error' : 'field-help'}>
-              {caption.length}/{MAX_CAPTION} characters{tooLong && ' (too long)'}
+            <span id="caption-count" className={tooLong ? 'field-error' : 'field-help'}>
+              {caption.length} / {MAX_CAPTION}
             </span>
-            <button type="button" className="link-button" onClick={tryExample} disabled={loading}>
+            <button type="button" className="text-button" onClick={tryExample} disabled={loading}>
               Try an example
             </button>
           </div>
 
-          <button
-            type="submit"
-            className={`primary big${reason ? ' is-blocked' : ''}${loading ? ' is-loading' : ''}`}
-            disabled={!canSubmit}
-          >
-            {loading ? 'Scoring…' : reason || 'Score caption'}
-          </button>
+          <div className="submit-row">
+            <button
+              type="submit"
+              className="primary"
+              disabled={!canSubmit}
+              aria-describedby={reason ? 'score-hint' : undefined}
+            >
+              {loading ? 'Scoring' : 'Score'}
+            </button>
+            {reason && !loading && (
+              <p id="score-hint" className="field-help">
+                {reason}
+              </p>
+            )}
+          </div>
 
           <div className="optional">
             <label htmlFor="hashtags">
@@ -148,7 +136,7 @@ export default function ScorePage() {
                 </select>
               </div>
               <div>
-                <label htmlFor="duration">Duration (sec)</label>
+                <label htmlFor="duration">Duration (seconds)</label>
                 <input
                   id="duration"
                   type="number"
@@ -158,30 +146,25 @@ export default function ScorePage() {
                   step="1"
                   value={duration}
                   onChange={(e) => setDuration(e.target.value)}
-                  placeholder="e.g. 30"
                   aria-invalid={badDuration}
                 />
               </div>
             </div>
           </div>
-          <p className="field-help footnote">
-            Scored captions are saved to History. <Link to="/about">How it works</Link>
-          </p>
+          <p className="field-help footnote">Scored captions are saved in History.</p>
         </form>
       </section>
 
       <div className="result-col" ref={resultRef}>
-        {status === 'idle' && <EmptyResult onExample={tryExample} />}
+        {status === 'idle' && <p className="empty-line">Your result shows here.</p>}
         {loading && (
-          <section className="card" aria-busy="true">
-            <p className="muted">Scoring your caption…</p>
-            <div className="skeleton" />
-            <div className="skeleton short" />
-          </section>
+          <p className="empty-line" aria-busy="true">
+            Scoring your caption
+          </p>
         )}
         {status === 'error' && (
-          <section className="card error" role="alert">
-            <strong>Couldn't score this caption.</strong> {error.message}
+          <div className="error-line" role="alert">
+            <p>{error.message}</p>
             {error.details?.length > 0 && (
               <ul>
                 {error.details.map((d) => (
@@ -191,7 +174,7 @@ export default function ScorePage() {
                 ))}
               </ul>
             )}
-          </section>
+          </div>
         )}
         {status === 'success' && data && (
           <ResultPanel result={data} onAddHashtag={addSuggested} addedHashtags={hashtags} />

@@ -19,11 +19,9 @@ export default function HashtagInput({ value, onChange, id = 'hashtags' }) {
       if (!tag) rejected = p;
       else if (!next.includes(tag) && next.length < MAX_HASHTAGS) next = [...next, tag];
     }
-    if (next.length >= MAX_HASHTAGS && parts.length) setError(`Up to ${MAX_HASHTAGS} hashtags.`);
-    else
-      setError(
-        rejected ? `"${rejected}" isn't a valid hashtag (letters, numbers and _ only).` : '',
-      );
+    if (next.length >= MAX_HASHTAGS && parts.length)
+      setError(`You can add up to ${MAX_HASHTAGS} hashtags.`);
+    else setError(rejected ? `"${rejected}" can only use letters, numbers and _.` : '');
     onChange(next);
     setDraft('');
   }
@@ -70,7 +68,7 @@ export default function HashtagInput({ value, onChange, id = 'hashtags' }) {
               add(text);
             }
           }}
-          placeholder={value.length ? '' : 'Add hashtags, e.g. cooking'}
+          placeholder={value.length ? '' : 'Add a hashtag'}
           aria-describedby={`${id}-help`}
           disabled={value.length >= MAX_HASHTAGS}
         />
@@ -80,7 +78,7 @@ export default function HashtagInput({ value, onChange, id = 'hashtags' }) {
         className={error ? 'field-error' : 'field-help'}
         role={error ? 'alert' : undefined}
       >
-        {error || 'Press Enter or comma to add. Hashtags already in your caption count too.'}
+        {error || 'Press Enter to add.'}
       </p>
     </div>
   );

@@ -10,7 +10,7 @@ export default function App() {
       <header className="site-header">
         <div className="container header-inner">
           <NavLink to="/" className="brand">
-            <img src="/favicon.svg" alt="" width="24" height="24" /> CaptionScore
+            CaptionScore
           </NavLink>
           <nav aria-label="Main">
             <NavLink to="/" end>
@@ -29,17 +29,17 @@ export default function App() {
           <Route
             path="*"
             element={
-              <section className="card">
+              <section className="page-narrow">
                 <h1>Page not found</h1>
-                <NavLink to="/">Back to scoring</NavLink>
+                <NavLink to="/">Go to Score</NavLink>
               </section>
             }
           />
         </Routes>
       </main>
-      <footer className="container site-footer muted small">
-        Trained on TikTok data (US, English). A weak, experimental signal, not a promise of views.{' '}
-        <NavLink to="/about">Learn more</NavLink>
+      <footer className="container site-footer small muted">
+        Trained on US TikTok captions. Treat the score as a rough guide.{' '}
+        <NavLink to="/about">About</NavLink>
       </footer>
     </>
   );

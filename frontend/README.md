@@ -1,9 +1,11 @@
 # Frontend (React + Vite)
 
-Pages: **Score** (caption, hashtag chips, post type, "Score it"; result with gauge, verdict,
-highlighted words, top up/down words, suggested hashtags), **History** (recent scored captions),
-**About** (what "top 10%" means, TikTok caveat, live validation/test PR-AUC from the model card).
-Every request has loading and error states.
+Pages: **Score** (caption, optional hashtags, post type and duration; the result shows the
+chance of reaching the top 10%, a comparison with a typical post, the caption with the words
+that moved the score marked, and hashtag suggestions), **History** (recent scored captions) and
+**About** (how the project works, with the real validation and test numbers from the model).
+Every request has loading and error states. Colours are checked for WCAG AA in
+`src/test/contrast.test.js`; the font is Figtree, bundled with @fontsource.
 
 The API URL comes from `VITE_API_URL` in the repo-root `.env` (default `http://localhost:4000`).
 

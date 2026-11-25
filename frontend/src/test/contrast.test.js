@@ -54,36 +54,27 @@ function mix(a, b, share) {
 const TEXT = [
   ['ink', 'bg'],
   ['ink', 'surface'],
-  ['ink', 'surface-2'],
-  ['ink-2', 'bg'],
-  ['ink-2', 'surface'],
-  ['ink-2', 'surface-2'], // nav hover, secondary button hover
-  ['muted', 'bg'],
-  ['muted', 'surface'],
-  ['muted', 'surface-2'],
-  ['placeholder', 'surface'], // inputs use --surface
+  ['muted', 'bg'], // helper text, counter, empty line, placeholder on the page
+  ['muted', 'surface'], // placeholder inside fields
+  ['link', 'bg'], // links and text buttons
   ['link', 'surface'],
-  ['link', 'bg'],
-  ['primary-ink', 'primary'], // primary button
-  ['primary-ink', 'primary-hover'],
-  ['primary-ink', 'primary-press'],
-  ['chip-ink', 'chip-bg'], // hashtag chips, nav active, added suggestions
+  ['accent-ink', 'accent'], // primary button
+  ['accent-ink', 'accent-hover'],
+  ['chip-ink', 'chip-bg'], // hashtag chips
   ['ink', 'chip-bg'],
-  ['raise-text', 'surface'], // "Likely ..." verdict, likely badge
-  ['disabled-ink', 'disabled-bg'], // blocked primary button
-  ['error-ink', 'error-bg'],
+  ['disabled-ink', 'disabled-bg'], // primary button while blocked
+  ['error', 'bg'], // error lines
 ];
 const NON_TEXT = [
-  ['raise', 'surface'], // underline + legend swatch
-  ['lower', 'surface'],
-  ['raise', 'bg'],
-  ['lower', 'bg'],
-  ['primary', 'surface-2'], // gauge fill on its track
-  ['border-strong', 'bg'], // input / button outlines (WCAG 1.4.11)
-  ['border-strong', 'surface'],
+  ['control', 'bg'], // input outlines (WCAG 1.4.11)
+  ['control', 'surface'],
   ['focus', 'bg'], // keyboard focus ring
   ['focus', 'surface'],
-  ['primary', 'bg'], // primary button shape vs page
+  ['raise', 'bg'], // highlight underlines
+  ['lower', 'bg'],
+  ['raise', 'surface'],
+  ['lower', 'surface'],
+  ['accent', 'bg'], // primary button shape against the page
 ];
 
 describe.each([

@@ -8,7 +8,7 @@ import App from '../App.jsx';
 import { ApiError, request } from '../api.js';
 import HashtagInput from '../components/HashtagInput.jsx';
 import ResultPanel from '../components/ResultPanel.jsx';
-import { EXAMPLE, normaliseTag, VERDICT } from '../constants.js';
+import { EXAMPLE, normaliseTag, percentText, relativeText } from '../constants.js';
 
 const RESULT = {
   probability: 0.2338,
@@ -32,6 +32,10 @@ const RESULT = {
   notes: [],
   saved: true,
 };
+const SCORE_LINE = /23%\s*chance of the top 10%/;
+// The number is its own <span>, so match the whole score paragraph's text.
+const scoreLine = (_, el) =>
+  el?.classList?.contains('score-line') === true && SCORE_LINE.test(el.textContent);
 
 function jsonResponse(body, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -60,6 +64,19 @@ describe('normaliseTag', () => {
   ])('%s -> %s', (raw, out) => expect(normaliseTag(raw)).toBe(out));
 });
 
+describe('result wording', () => {
+  it.each([
+    [0.2338, 0.1, '23%', 'About 2.3 times a typical post'],
+    [0.2, 0.1, '20%', 'About 2 times a typical post'],
+    [0.105, 0.1, '11%', 'About the same as a typical post'],
+    [0.05, 0.1, '5%', 'Below a typical post'],
+    [0.003, 0.1, 'Under 1%', 'Below a typical post'],
+  ])('p=%s base=%s -> %s / %s', (p, base, pct, rel) => {
+    expect(percentText(p)).toBe(pct);
+    expect(relativeText(p, base)).toBe(rel);
+  });
+});
+
 describe('HashtagInput', () => {
   function Harness() {
     const [tags, setTags] = useState([]);
@@ -81,59 +98,63 @@ describe('HashtagInput', () => {
     expect(screen.getByTestId('tags')).toHaveTextContent('cooking');
   });
 
-  it('shows an error for invalid tags', async () => {
+  it('says what is allowed when a tag is invalid', async () => {
     const user = userEvent.setup();
     render(<Harness />);
     await user.type(screen.getByRole('textbox'), 'bad!{Enter}');
-    expect(screen.getByRole('alert')).toHaveTextContent("isn't a valid hashtag");
+    expect(screen.getByRole('alert')).toHaveTextContent('can only use letters, numbers and _');
     expect(screen.getByTestId('tags')).toHaveTextContent('');
   });
 });
 
 describe('ResultPanel', () => {
-  it('uses "top 10% of comparable posts" wording and never promises views', () => {
+  it('shows the percentage and one plain comparison line, never a view count', () => {
     render(<ResultPanel result={RESULT} />);
-    expect(screen.getByText(VERDICT.likely)).toBeInTheDocument();
-    expect(screen.getByText(/23\.4%/, { selector: 'strong' })).toBeInTheDocument();
-    expect(document.body.textContent).toMatch(/not a prediction of views/);
-    expect(document.body.textContent).not.toMatch(
-      /will get \d|you will go viral|guarantee(d)? views/i,
-    );
+    expect(screen.getByText(scoreLine)).toBeInTheDocument();
+    expect(screen.getByText('About 2.3 times a typical post')).toBeInTheDocument();
+    expect(document.body.textContent).not.toMatch(/views|viral|likely top/i);
   });
 
-  it('highlights tokens by direction and offers suggestions', async () => {
+  it('marks words by direction with plain tooltips and offers suggestions', async () => {
     const onAdd = vi.fn();
     const user = userEvent.setup();
     render(<ResultPanel result={RESULT} onAddHashtag={onAdd} />);
     const caption = screen.getByLabelText(/Your caption/);
     expect(within(caption).getByText('#comedy')).toHaveClass('tok-up');
+    expect(within(caption).getByText('#comedy')).toHaveAttribute('title', 'Raises the score');
     expect(within(caption).getByText('my')).toHaveClass('tok-down');
+    expect(within(caption).getByText('my')).toHaveAttribute('title', 'Lowers the score');
     expect(within(caption).getByText('for')).toHaveClass('tok-flat');
+    expect(screen.getByText(/Raised it most:/).parentElement).toHaveTextContent('#comedy, 😂');
     await user.click(screen.getByRole('button', { name: 'Add #skit' }));
     expect(onAdd).toHaveBeenCalledWith('skit');
   });
 
   it('says so when there are no suggestions', () => {
     render(<ResultPanel result={{ ...RESULT, suggested_hashtags: [] }} />);
-    expect(screen.getByText(/No confident suggestions/)).toBeInTheDocument();
+    expect(screen.getByText('No suggestions for this caption.')).toBeInTheDocument();
   });
 });
 
 describe('Score page', () => {
-  it('explains why the button is disabled, then enables it', async () => {
+  it('shows why the Score button is disabled, then enables it', async () => {
     renderApp();
-    const blocked = screen.getByRole('button', { name: 'Add a caption to score it' });
-    expect(blocked).toBeDisabled();
+    const button = screen.getByRole('button', { name: 'Score' });
+    expect(button).toBeDisabled();
+    expect(screen.getByText('Add a caption first')).toBeInTheDocument();
+    expect(screen.getByText('0 / 2200')).toBeInTheDocument();
     await userEvent.setup().type(screen.getByLabelText('Caption'), 'hello');
-    expect(screen.getByRole('button', { name: 'Score caption' })).toBeEnabled();
+    expect(button).toBeEnabled();
+    expect(screen.queryByText('Add a caption first')).not.toBeInTheDocument();
   });
 
   it('blocks an invalid duration with a reason', async () => {
     const user = userEvent.setup();
     renderApp();
     await user.type(screen.getByLabelText('Caption'), 'hello');
-    await user.type(screen.getByLabelText('Duration (sec)'), '0');
-    expect(screen.getByRole('button', { name: 'Fix the duration to score it' })).toBeDisabled();
+    await user.type(screen.getByLabelText('Duration (seconds)'), '0');
+    expect(screen.getByRole('button', { name: 'Score' })).toBeDisabled();
+    expect(screen.getByText('Use a duration from 1 to 3600 seconds')).toBeInTheDocument();
   });
 
   it('sends caption, hashtags, post type and duration, then shows the result', async () => {
@@ -144,10 +165,10 @@ describe('Score page', () => {
     await user.type(screen.getByLabelText('Caption'), 'wait for my 😂');
     await user.type(screen.getByRole('textbox', { name: /Hashtags/ }), 'comedy{Enter}');
     await user.selectOptions(screen.getByLabelText('Post type'), 'reel');
-    await user.type(screen.getByLabelText('Duration (sec)'), '15');
-    await user.click(screen.getByRole('button', { name: 'Score caption' }));
+    await user.type(screen.getByLabelText('Duration (seconds)'), '15');
+    await user.click(screen.getByRole('button', { name: 'Score' }));
 
-    expect(await screen.findByText(VERDICT.likely)).toBeInTheDocument();
+    expect(await screen.findByText(scoreLine)).toBeInTheDocument();
     const [url, init] = fetchMock.mock.calls[0];
     expect(url).toMatch(/\/api\/predict$/);
     expect(JSON.parse(init.body)).toEqual({
@@ -162,9 +183,9 @@ describe('Score page', () => {
     const fetchMock = vi.fn(async () => jsonResponse(RESULT));
     vi.stubGlobal('fetch', fetchMock);
     renderApp();
-    expect(screen.getByText('Your score will appear here')).toBeInTheDocument();
+    expect(screen.getByText('Your result shows here.')).toBeInTheDocument();
     await userEvent.setup().click(screen.getByRole('button', { name: 'Try an example' }));
-    expect(await screen.findByText(VERDICT.likely)).toBeInTheDocument();
+    expect(await screen.findByText(scoreLine)).toBeInTheDocument();
     expect(screen.getByLabelText('Caption').value).toBe(EXAMPLE.caption);
     expect(JSON.parse(fetchMock.mock.calls[0][1].body)).toMatchObject({
       caption: EXAMPLE.caption,
@@ -181,7 +202,7 @@ describe('Score page', () => {
     vi.stubGlobal('matchMedia', (q) => ({ matches: false, media: q }));
     const { unmount } = renderApp();
     await user.click(screen.getByRole('button', { name: 'Try an example' }));
-    await screen.findByText(VERDICT.likely);
+    await screen.findByText(scoreLine);
     expect(scroll).toHaveBeenCalledTimes(1);
     unmount();
 
@@ -189,32 +210,34 @@ describe('Score page', () => {
     vi.stubGlobal('matchMedia', (q) => ({ matches: q.includes('min-width'), media: q }));
     renderApp();
     await user.click(screen.getByRole('button', { name: 'Try an example' }));
-    await screen.findByText(VERDICT.likely);
+    await screen.findByText(scoreLine);
     expect(scroll).not.toHaveBeenCalled();
     delete Element.prototype.scrollIntoView;
   });
 
-  it('shows a clear error when the model service is down', async () => {
+  it('says what to do when the model is down', async () => {
     vi.stubGlobal('fetch', async () =>
       jsonResponse({ error: 'x', code: 'MODEL_SERVICE_UNAVAILABLE' }, 503),
     );
     const user = userEvent.setup();
     renderApp();
     await user.type(screen.getByLabelText('Caption'), 'hello');
-    await user.click(screen.getByRole('button', { name: 'Score caption' }));
-    expect(await screen.findByRole('alert')).toHaveTextContent('The scoring model is offline');
+    await user.click(screen.getByRole('button', { name: 'Score' }));
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      "Couldn't reach the model. Try again in a minute.",
+    );
   });
 
-  it('shows a clear error when the backend is unreachable', async () => {
+  it('says what to do when the backend is unreachable', async () => {
     vi.stubGlobal('fetch', async () => {
       throw new TypeError('Failed to fetch');
     });
     const user = userEvent.setup();
     renderApp();
     await user.type(screen.getByLabelText('Caption'), 'hello');
-    await user.click(screen.getByRole('button', { name: 'Score caption' }));
+    await user.click(screen.getByRole('button', { name: 'Score' }));
     expect(await screen.findByRole('alert')).toHaveTextContent(
-      "Can't reach the CaptionScore server",
+      "Couldn't reach the server. Check that the backend is running",
     );
   });
 });
@@ -245,20 +268,19 @@ describe('History page', () => {
   it('shows an empty state and an error state', async () => {
     vi.stubGlobal('fetch', async () => jsonResponse({ items: [] }));
     const { unmount } = renderApp('/history');
-    expect(await screen.findByText(/Nothing here yet/)).toBeInTheDocument();
+    expect(await screen.findByText('Nothing scored yet.')).toBeInTheDocument();
     unmount();
     vi.stubGlobal('fetch', async () => jsonResponse({ error: 'History is unavailable' }, 503));
     renderApp('/history');
-    expect(await screen.findByRole('alert')).toHaveTextContent('History is unavailable');
+    expect(await screen.findByRole('alert')).toHaveTextContent("Couldn't load history.");
   });
 });
 
 describe('About page', () => {
-  it('shows the real validation PR-AUC from the model card next to chance', async () => {
+  it('explains the project in the first person with the real numbers', async () => {
     vi.stubGlobal('fetch', async () =>
       jsonResponse({
         model_version: 'tfidf-lr-v1',
-        model: 'TF-IDF + LR',
         base_rate: 0.1001,
         label_cutoff: { val_precision_when_likely: 0.2221 },
         validation: {
@@ -276,10 +298,26 @@ describe('About page', () => {
       }),
     );
     renderApp('/about');
-    expect(await screen.findAllByText('0.1803')).not.toHaveLength(0);
-    expect(document.body.textContent).toMatch(/Trained on TikTok/);
-    expect(document.body.textContent).toMatch(/weak/);
+    expect(await screen.findAllByText(/0\.1803/)).not.toHaveLength(0);
+    const text = document.body.textContent;
+    expect(text).toMatch(/I built CaptionScore as a student project/);
+    expect(text).toMatch(/trained on TikTok/i);
     await waitFor(() => expect(document.body.textContent).toMatch(/22\.2%/));
+    expect(document.body.textContent).toMatch(/0\.1863/);
+  });
+});
+
+describe('copy rules', () => {
+  it('has no em dashes on any page', async () => {
+    vi.stubGlobal('fetch', async () => jsonResponse({ items: [] }));
+    for (const path of ['/', '/history', '/about']) {
+      const { unmount } = renderApp(path);
+      await waitFor(() => expect(document.body.textContent.length).toBeGreaterThan(0));
+      expect(document.body.textContent).not.toMatch(/[—–]/);
+      unmount();
+    }
+    render(<ResultPanel result={RESULT} />);
+    expect(document.body.textContent).not.toMatch(/[—–]/);
   });
 });
 
@@ -287,7 +325,7 @@ describe('api.request', () => {
   it('maps 429 to a friendly message', async () => {
     await expect(
       request('/x', { fetchImpl: async () => jsonResponse({ error: 'Too many' }, 429) }),
-    ).rejects.toMatchObject({ status: 429, message: expect.stringMatching(/wait a minute/) });
+    ).rejects.toMatchObject({ status: 429, message: expect.stringMatching(/Wait a minute/) });
   });
 
   it('keeps validation details from the backend', async () => {

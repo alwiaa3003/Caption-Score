@@ -11,9 +11,8 @@ export class ApiError extends Error {
 }
 
 const FRIENDLY = {
-  MODEL_SERVICE_UNAVAILABLE:
-    'The scoring model is offline right now. Please try again in a minute.',
-  MODEL_SERVICE_TIMEOUT: 'The scoring model took too long to answer. Please try again.',
+  MODEL_SERVICE_UNAVAILABLE: "Couldn't reach the model. Try again in a minute.",
+  MODEL_SERVICE_TIMEOUT: 'The model took too long. Try again in a minute.',
 };
 
 export async function request(
@@ -30,16 +29,18 @@ export async function request(
     });
   } catch (err) {
     if (err?.name === 'TimeoutError') {
-      throw new ApiError('The server took too long to respond. Please try again.');
+      throw new ApiError('The server took too long. Try again in a minute.');
     }
-    throw new ApiError("Can't reach the CaptionScore server. Is the backend running?");
+    throw new ApiError(
+      "Couldn't reach the server. Check that the backend is running, then try again.",
+    );
   }
   const data = await res.json().catch(() => null);
   if (!res.ok) {
     if (res.status === 429) {
-      throw new ApiError('Too many requests. Please wait a minute and try again.', { status: 429 });
+      throw new ApiError('Too many requests. Wait a minute and try again.', { status: 429 });
     }
-    const message = FRIENDLY[data?.code] ?? data?.error ?? `Request failed (${res.status}).`;
+    const message = FRIENDLY[data?.code] ?? data?.error ?? 'Something went wrong. Try again.';
     throw new ApiError(message, { status: res.status, details: data?.details ?? [] });
   }
   return data;

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { api } from '../api.js';
-import { VERDICT } from '../constants.js';
+import { percentText } from '../constants.js';
 import { useAsync } from '../useAsync.js';
 
 const fmtDate = (iso) =>
@@ -16,44 +16,43 @@ export default function HistoryPage() {
   }, []);
 
   return (
-    <section className="card page-narrow">
-      <div className="row space-between">
+    <section className="page-narrow">
+      <div className="page-head">
         <h1>History</h1>
-        <button type="button" onClick={load} disabled={status === 'loading'}>
-          {status === 'loading' ? 'Loading…' : 'Refresh'}
+        <button
+          type="button"
+          className="text-button"
+          onClick={load}
+          disabled={status === 'loading'}
+        >
+          {status === 'loading' ? 'Loading' : 'Refresh'}
         </button>
       </div>
-      <p className="muted">The 50 most recent captions scored on this site.</p>
+      <p className="sub">The last 50 captions scored here.</p>
 
-      {status === 'loading' && !data && <div className="skeleton" aria-busy="true" />}
+      {status === 'loading' && !data && <p className="muted">Loading</p>}
       {status === 'error' && (
-        <div className="error" role="alert">
-          <strong>Couldn't load history.</strong> {error.message}
+        <div className="error-line" role="alert">
+          <p>Couldn't load history. {error.message}</p>
         </div>
       )}
       {status === 'success' && data.items.length === 0 && (
-        <p className="muted">Nothing here yet. Score a caption and it will show up here.</p>
+        <p className="muted">Nothing scored yet.</p>
       )}
       {data?.items?.length > 0 && (
         <ul className="history">
           {data.items.map((item) => (
             <li key={item.id}>
-              <div className="history-score">
-                <strong>{Math.round(item.probability * 1000) / 10}%</strong>
-                <span className={`badge badge-${item.label}`}>
-                  {item.label === 'likely' ? 'likely' : 'unlikely'}
-                </span>
-              </div>
+              <span className="history-score">{percentText(item.probability)}</span>
               <div className="history-body">
                 <p className="history-caption">{item.caption}</p>
-                <p className="muted small">
+                <p className="small muted">
                   {item.hashtags?.length > 0 && (
                     <>{item.hashtags.map((h) => `#${h.replace(/^#/, '')}`).join(' ')} · </>
                   )}
                   {item.postType && <>{item.postType} · </>}
-                  {fmtDate(item.createdAt)} · model {item.modelVersion}
+                  {fmtDate(item.createdAt)}
                 </p>
-                <p className="sr-only">{VERDICT[item.label]}</p>
               </div>
             </li>
           ))}
