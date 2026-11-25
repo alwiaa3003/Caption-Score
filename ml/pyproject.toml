@@ -1,8 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "captionscore-ml"
 version = "0.1.0"
 description = "Data, training and evaluation for CaptionScore"
 requires-python = ">=3.11"
+
+# The model service installs this package (pip install -e ../ml) to reuse the exact same
+# text cleaning, prediction and explanation code that was used in training.
+[tool.setuptools]
+packages = ["src"]
 
 [tool.ruff]
 line-length = 100

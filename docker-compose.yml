@@ -7,9 +7,10 @@ services:
     volumes: [mongo-data:/data/db]
 
   model-service:
-    build: ./model-service
+    build:
+      context: .                      # needs ml/src and ml/models/final
+      dockerfile: model-service/Dockerfile
     ports: ["8000:8000"]
-    env_file: .env
 
   server:
     build: ./server

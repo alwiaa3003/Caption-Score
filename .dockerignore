@@ -1,0 +1,11 @@
+# Root build context is only used by model-service/Dockerfile.
+.git
+**/.venv
+**/__pycache__
+**/node_modules
+ml/data
+ml/notebooks
+ml/reports
+ml/models/*
+!ml/models/final
+.env

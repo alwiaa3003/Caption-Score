@@ -8,7 +8,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 
 from src.explain import CaptionModel, HashtagSuggester, build_text, display_piece
-from src.train_baselines import WORD_TOKEN
+from src.features import WORD_TOKEN
 
 CAPTIONS = [
     "wait for it 😂 #funny #fyp", "my morning routine #grwm", "link in bio for the recipe",

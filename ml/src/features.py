@@ -16,6 +16,8 @@ URL_RE = re.compile(r"https?://\S+|www\.\S+", re.IGNORECASE)
 MENTION_RE = re.compile(r"@[\w.]+")
 HASHTAG_RE = re.compile(r"#(\w+)")
 WHITESPACE_RE = re.compile(r"\s+")
+# TF-IDF word tokens: emoji names like ":fire:", hashtags "#fyp", and ordinary words.
+WORD_TOKEN = r"(?u):[\w&'-]+:|#?\w+"
 
 # Call-to-action phrases. Word boundaries stop "follower" matching "follow" etc.
 CTA_RE = re.compile(

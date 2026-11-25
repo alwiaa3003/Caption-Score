@@ -35,7 +35,7 @@ from sklearn.feature_selection import SelectKBest, chi2
 from sklearn.linear_model import LogisticRegression
 
 from src.evaluation import evaluate, per_group_pr_auc
-from src.features import META_COLUMNS
+from src.features import META_COLUMNS, WORD_TOKEN
 from src.labels import label_top_pct
 
 SEED = 42
@@ -44,8 +44,6 @@ REPO_ROOT = ML_DIR.parent
 MODELS = ML_DIR / "models"
 INNER_MONTHS = ["2025-06", "2025-07", "2025-08"]
 
-# Tokens: emoji names like ":fire:", hashtags "#fyp", and ordinary words.
-WORD_TOKEN = r"(?u):[\w&'-]+:|#?\w+"
 
 
 def log(msg: str) -> None:
