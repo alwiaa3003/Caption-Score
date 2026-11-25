@@ -34,8 +34,8 @@ _TBD (Phase 4)._ Will match `ml/reports/metrics.json` exactly.
 ```
 ml/             Python: data sampling, features, training, evaluation
 model-service/  FastAPI service that loads the trained model
-server/         Node + Express API (MongoDB via Mongoose)
-client/         React (Vite) frontend
+backend/        Node + Express API (MongoDB via Mongoose)
+frontend/       React (Vite) frontend
 docs/           Data, label and design notes
 ```
 

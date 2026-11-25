@@ -12,8 +12,8 @@ services:
       dockerfile: model-service/Dockerfile
     ports: ["8000:8000"]
 
-  server:
-    build: ./server
+  backend:
+    build: ./backend
     ports: ["4000:4000"]
     env_file: .env
     environment:
@@ -21,10 +21,10 @@ services:
       MONGODB_URI: mongodb://mongo:27017/captionscore
     depends_on: [mongo, model-service]
 
-  client:
-    build: ./client
+  frontend:
+    build: ./frontend
     ports: ["5173:5173"]
-    depends_on: [server]
+    depends_on: [backend]
 
 volumes:
   mongo-data:
