@@ -1,9 +1,10 @@
 # CaptionScore
 
-Predicts whether a short-video post is likely to land in the **top 10% of views for its month**,
+Predicts whether a short-video post is likely to land in the **top 10% of views among comparable
+posts from its month**,
 using only its caption, hashtags and a few simple metadata features.
 
-> **Status:** work in progress (Phase 1: data sampling). Sections marked _TBD_ are filled in as
+> **Status:** work in progress (Phase 2: labels, splits and features). Sections marked _TBD_ are filled in as
 > each phase is completed. No numbers appear here until they are computed and saved in
 > `ml/reports/metrics.json`.
 
@@ -18,11 +19,13 @@ using only its caption, hashtags and a few simple metadata features.
 ## Data
 - Source: Hugging Face [`datasocial/tiktok-5.6B-videos`](https://huggingface.co/datasets/datasocial/tiktok-5.6B-videos),
   licensed **CC BY-NC 4.0** (non-commercial use only). This project is non-commercial.
-- A sample spread evenly over time (2022-01 to 2026-08, English, about 15k rows per month) is
+- A sample spread evenly over time (2022-01 to 2026-08, US, English, 15k rows per month) is
   built by reading random Parquet row groups. See [docs/data_notes.md](docs/data_notes.md).
 
 ## Label definition
-_TBD (Phase 2)._ See `docs/label_notes.md`.
+"Viral" = top 10% of views among US English videos posted in the same month **and** in the
+same age-at-capture tertile of that month (ads excluded). Details and weaknesses:
+[docs/label_notes.md](docs/label_notes.md).
 
 ## Results
 _TBD (Phase 4)._ Will match `ml/reports/metrics.json` exactly.
@@ -47,6 +50,9 @@ python -m src.inspect_schema  # print the schema + 5 example rows (streaming)
 python -m src.sample_data --dry-run  # footers only: shows the download size
 python -m src.sample_data --confirm  # build the time-spread sample into ml/data/ (~4.95 GB streamed)
 python -m src.describe_sample        # profile numbers used in docs/data_notes.md
+python -m src.resample_us --confirm  # step 2: replace mixed-country row groups -> US-only (~0.75 GB)
+python -m src.analyze_labels        # evidence for the label definition
+python -m src.build_dataset         # labels + time splits + features -> ml/data/dataset.parquet
 pytest
 ```
 Each service will also run standalone (`uvicorn`, `npm run dev`). `docker-compose.yml` is

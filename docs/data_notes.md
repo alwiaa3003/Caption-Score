@@ -114,19 +114,34 @@ rows is a possible v2 improvement.
 | 2026-06 | 15,000 | 615 | 4,797 | 30 | 96 | 121 |
 | 2026-08 | 15,000 | 809 | 16,098 | 30 | 35 | 63 |
 
+## Step 2: US-only repair (`python -m src.resample_us`). **This is the sample v1 uses.**
+Step 1's sample had a cluster effect. 43 of 56 months were 100% US, but some months were about
+50% non-US because one of their row groups came from a mixed-country block. Both of 2023-11's
+row groups were mixed blocks, so it had 0% US rows, even though the 2023-11 file has 38 pure-US
+row groups. v1 is US-only, so:
+
+- A row group is "pure US" when its footer statistics give `country` min = max = `US`.
+- Every step-1 row group that was already pure US is kept as is, with no download.
+- Every other one is replaced by a random pure-US row group from the same half of the file
+  (seed 4242), cleaned with `country == 'US'` added, and subsampled to 7,500 rows.
+- **15 months affected, 17 row groups replaced, 0.75 GB** read (approved).
+- Result: `ml/data/sample_us_en_2022-01_2026-08.parquet` has **840,000 rows, exactly 15,000 in
+  every one of the 56 months, 100% US**. 2023-11 is filled (no gap), and the 2022-06 shortfall
+  is fixed because its small final row group was a mixed block and was replaced.
+- Running step 1 and then step 2 with the same config reproduces this file exactly.
+
 ## Known weaknesses of this sample
-1. **Cluster effect from whole-row-group reads.** 43 of 56 months are 100% US. Within one
-   month we see a median of only **4 distinct posting days**, because each US row group covers
-   about one day. 12 months are about 50% non-US because one of their two row groups came from
-   a mixed-country block, and **2023-11 has 0% US rows**. Month-level country mix is therefore
-   an artefact of which row groups were drawn. Day-of-week and hour features are also weaker
-   than the row count suggests, since each month covers only a few days.
-2. **Age at capture varies within a month.** The interquartile range of age inside a month has
-   a median of 137 days (range 7–306). Within a month, the Spearman correlation between age and
-   log views is weak (median −0.09, range −0.22 to +0.18). Phase 2 decides whether to label
-   within month × age bucket (see `label_notes.md`).
-3. **The newest months look different.** 2026-08 has p90 views of 16,098, about 3× a typical
-   month, even though those videos are only 30–63 days old at capture. One possible reason is
-   that the collector found recent videos mostly when they were already being recommended
-   (selection bias). This needs checking before those months are trusted as a test set.
+1. **Few posting days per month.** Each US row group covers about one day, so each month of
+   the US sample covers only **2–5 distinct posting days (median 3.5)**. Posting hour and day
+   of week are therefore **not used as features**: they would encode which days were sampled.
+   (Step 1's country-mix problem is solved by step 2.)
+2. **Age at capture varies within a month** (interquartile range median 137 days in step 1).
+   This is almost entirely *capture timing*: stats were captured in waves between 2025-07 and
+   2026-10. It biases a month-only label, so labels are computed within month × age tertile
+   (see `label_notes.md`).
+3. **The newest month looks different.** In step 1, 2026-08 had p90 views of 16,098, about 3×
+   a typical month. Part of that came from ads (8.7% of the month, now excluded) and from a
+   non-US row group (now replaced). Even US non-ad 2026-08 videos are still higher than
+   2026-05 to 07 at the same age. It is evaluated separately as a stress set
+   (see `label_notes.md`).
 4. **No creator information** (see above).

@@ -25,3 +25,12 @@ columns:                      # only these are read (column projection keeps dow
   - views
   - stats_updated_at
 output: ml/data/sample_en_2022-01_2026-08.parquet
+
+# ---- Step 2: US-only repair (python -m src.resample_us) ---------------------------------
+# v1 is US-only. Step 1 drew some mixed-country row groups; this step keeps every row group
+# that is already pure US and replaces each other one with a random pure-US row group from the
+# same stratum (same half of the file). See docs/data_notes.md.
+country: US
+us_seed: 4242
+us_output: ml/data/sample_us_en_2022-01_2026-08.parquet
+drop_months: []               # months to exclude entirely, e.g. ["2023-11"]

@@ -1,0 +1,17 @@
+# Phase 2: label, split and feature config. Rationale in docs/label_notes.md.
+input: ml/data/sample_us_en_2022-01_2026-08.parquet
+output: ml/data/dataset.parquet
+
+label:
+  top_pct: 0.10          # "viral" = top 10% of views within its group. Try 0.05 / 0.20.
+  age_buckets: 3         # within each month, split by age at capture into this many equal-size
+                         # buckets (tertiles); the label is computed per month x age bucket.
+                         # Set to 1 to label by month only.
+  exclude_ads: true      # drop is_ad == 1 (paid reach is unrelated to the caption)
+
+# Time-based split by posting month (inclusive ranges). No shuffling across time.
+splits:
+  train:  ["2022-01", "2025-08"]
+  val:    ["2025-09", "2026-04"]
+  test:   ["2026-05", "2026-07"]   # touched once, at the very end, with the final model
+  stress: ["2026-08", "2026-08"]   # reported separately: youngest videos, unusual view levels

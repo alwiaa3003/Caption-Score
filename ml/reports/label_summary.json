@@ -1,0 +1,574 @@
+{
+  "config": {
+    "input": "ml/data/sample_us_en_2022-01_2026-08.parquet",
+    "output": "ml/data/dataset.parquet",
+    "label": {
+      "top_pct": 0.1,
+      "age_buckets": 3,
+      "exclude_ads": true
+    },
+    "splits": {
+      "train": [
+        "2022-01",
+        "2025-08"
+      ],
+      "val": [
+        "2025-09",
+        "2026-04"
+      ],
+      "test": [
+        "2026-05",
+        "2026-07"
+      ],
+      "stress": [
+        "2026-08",
+        "2026-08"
+      ]
+    }
+  },
+  "rows_in": 840000,
+  "ads_excluded": 11258,
+  "rows_outside_splits": 0,
+  "rows_out": 828742,
+  "per_split": [
+    {
+      "split": "train",
+      "rows": 656136,
+      "positives": 65676,
+      "positive_rate": 0.1001,
+      "months": 44
+    },
+    {
+      "split": "val",
+      "rows": 114813,
+      "positives": 11496,
+      "positive_rate": 0.1001,
+      "months": 8
+    },
+    {
+      "split": "test",
+      "rows": 44104,
+      "positives": 4415,
+      "positive_rate": 0.1001,
+      "months": 3
+    },
+    {
+      "split": "stress",
+      "rows": 13689,
+      "positives": 1371,
+      "positive_rate": 0.1002,
+      "months": 1
+    }
+  ],
+  "positive_rate_by_age_bucket": {
+    "0": 0.1001,
+    "1": 0.1001,
+    "2": 0.1001
+  },
+  "per_month": [
+    {
+      "split": "stress",
+      "month": "2026-08",
+      "rows": 13689,
+      "positive_rate": 0.1002,
+      "min_viral_views_age_bucket_0": 8630,
+      "min_viral_views_age_bucket_1": 5425,
+      "min_viral_views_age_bucket_2": 9952
+    },
+    {
+      "split": "test",
+      "month": "2026-05",
+      "rows": 14761,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 2154,
+      "min_viral_views_age_bucket_1": 3573,
+      "min_viral_views_age_bucket_2": 3738
+    },
+    {
+      "split": "test",
+      "month": "2026-06",
+      "rows": 14661,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 4993,
+      "min_viral_views_age_bucket_1": 4127,
+      "min_viral_views_age_bucket_2": 4633
+    },
+    {
+      "split": "test",
+      "month": "2026-07",
+      "rows": 14682,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 5523,
+      "min_viral_views_age_bucket_1": 5172,
+      "min_viral_views_age_bucket_2": 4109
+    },
+    {
+      "split": "train",
+      "month": "2022-01",
+      "rows": 14990,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 15176,
+      "min_viral_views_age_bucket_1": 6242,
+      "min_viral_views_age_bucket_2": 2006
+    },
+    {
+      "split": "train",
+      "month": "2022-02",
+      "rows": 14997,
+      "positive_rate": 0.1,
+      "min_viral_views_age_bucket_0": 13137,
+      "min_viral_views_age_bucket_1": 5573,
+      "min_viral_views_age_bucket_2": 1769
+    },
+    {
+      "split": "train",
+      "month": "2022-03",
+      "rows": 14990,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 20551,
+      "min_viral_views_age_bucket_1": 7036,
+      "min_viral_views_age_bucket_2": 1866
+    },
+    {
+      "split": "train",
+      "month": "2022-04",
+      "rows": 14984,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 17990,
+      "min_viral_views_age_bucket_1": 7014,
+      "min_viral_views_age_bucket_2": 2223
+    },
+    {
+      "split": "train",
+      "month": "2022-05",
+      "rows": 14991,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 17993,
+      "min_viral_views_age_bucket_1": 6063,
+      "min_viral_views_age_bucket_2": 2089
+    },
+    {
+      "split": "train",
+      "month": "2022-06",
+      "rows": 14986,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 13628,
+      "min_viral_views_age_bucket_1": 5465,
+      "min_viral_views_age_bucket_2": 2191
+    },
+    {
+      "split": "train",
+      "month": "2022-07",
+      "rows": 14987,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 14032,
+      "min_viral_views_age_bucket_1": 4838,
+      "min_viral_views_age_bucket_2": 2186
+    },
+    {
+      "split": "train",
+      "month": "2022-08",
+      "rows": 14986,
+      "positive_rate": 0.1002,
+      "min_viral_views_age_bucket_0": 12483,
+      "min_viral_views_age_bucket_1": 4686,
+      "min_viral_views_age_bucket_2": 2103
+    },
+    {
+      "split": "train",
+      "month": "2022-09",
+      "rows": 14983,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 13426,
+      "min_viral_views_age_bucket_1": 4659,
+      "min_viral_views_age_bucket_2": 1980
+    },
+    {
+      "split": "train",
+      "month": "2022-10",
+      "rows": 14990,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 13772,
+      "min_viral_views_age_bucket_1": 5392,
+      "min_viral_views_age_bucket_2": 1987
+    },
+    {
+      "split": "train",
+      "month": "2022-11",
+      "rows": 14983,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 15429,
+      "min_viral_views_age_bucket_1": 4096,
+      "min_viral_views_age_bucket_2": 1974
+    },
+    {
+      "split": "train",
+      "month": "2022-12",
+      "rows": 14984,
+      "positive_rate": 0.1002,
+      "min_viral_views_age_bucket_0": 14487,
+      "min_viral_views_age_bucket_1": 5113,
+      "min_viral_views_age_bucket_2": 1927
+    },
+    {
+      "split": "train",
+      "month": "2023-01",
+      "rows": 14983,
+      "positive_rate": 0.1002,
+      "min_viral_views_age_bucket_0": 20117,
+      "min_viral_views_age_bucket_1": 5884,
+      "min_viral_views_age_bucket_2": 2212
+    },
+    {
+      "split": "train",
+      "month": "2023-02",
+      "rows": 14980,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 15174,
+      "min_viral_views_age_bucket_1": 5735,
+      "min_viral_views_age_bucket_2": 2177
+    },
+    {
+      "split": "train",
+      "month": "2023-03",
+      "rows": 14982,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 16985,
+      "min_viral_views_age_bucket_1": 5093,
+      "min_viral_views_age_bucket_2": 2568
+    },
+    {
+      "split": "train",
+      "month": "2023-04",
+      "rows": 14974,
+      "positive_rate": 0.1002,
+      "min_viral_views_age_bucket_0": 18625,
+      "min_viral_views_age_bucket_1": 5770,
+      "min_viral_views_age_bucket_2": 2518
+    },
+    {
+      "split": "train",
+      "month": "2023-05",
+      "rows": 14972,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 20829,
+      "min_viral_views_age_bucket_1": 5860,
+      "min_viral_views_age_bucket_2": 2355
+    },
+    {
+      "split": "train",
+      "month": "2023-06",
+      "rows": 14963,
+      "positive_rate": 0.1,
+      "min_viral_views_age_bucket_0": 22530,
+      "min_viral_views_age_bucket_1": 6295,
+      "min_viral_views_age_bucket_2": 2089
+    },
+    {
+      "split": "train",
+      "month": "2023-07",
+      "rows": 14979,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 14911,
+      "min_viral_views_age_bucket_1": 4603,
+      "min_viral_views_age_bucket_2": 1997
+    },
+    {
+      "split": "train",
+      "month": "2023-08",
+      "rows": 14956,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 18389,
+      "min_viral_views_age_bucket_1": 6196,
+      "min_viral_views_age_bucket_2": 2192
+    },
+    {
+      "split": "train",
+      "month": "2023-09",
+      "rows": 14956,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 19788,
+      "min_viral_views_age_bucket_1": 4953,
+      "min_viral_views_age_bucket_2": 2408
+    },
+    {
+      "split": "train",
+      "month": "2023-10",
+      "rows": 14972,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 18411,
+      "min_viral_views_age_bucket_1": 6463,
+      "min_viral_views_age_bucket_2": 2760
+    },
+    {
+      "split": "train",
+      "month": "2023-11",
+      "rows": 14949,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 16752,
+      "min_viral_views_age_bucket_1": 5525,
+      "min_viral_views_age_bucket_2": 2640
+    },
+    {
+      "split": "train",
+      "month": "2023-12",
+      "rows": 14966,
+      "positive_rate": 0.1,
+      "min_viral_views_age_bucket_0": 14941,
+      "min_viral_views_age_bucket_1": 4929,
+      "min_viral_views_age_bucket_2": 2234
+    },
+    {
+      "split": "train",
+      "month": "2024-01",
+      "rows": 14972,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 15772,
+      "min_viral_views_age_bucket_1": 4932,
+      "min_viral_views_age_bucket_2": 2412
+    },
+    {
+      "split": "train",
+      "month": "2024-02",
+      "rows": 14937,
+      "positive_rate": 0.1,
+      "min_viral_views_age_bucket_0": 17707,
+      "min_viral_views_age_bucket_1": 5687,
+      "min_viral_views_age_bucket_2": 2219
+    },
+    {
+      "split": "train",
+      "month": "2024-03",
+      "rows": 14941,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 19712,
+      "min_viral_views_age_bucket_1": 5588,
+      "min_viral_views_age_bucket_2": 2366
+    },
+    {
+      "split": "train",
+      "month": "2024-04",
+      "rows": 14939,
+      "positive_rate": 0.1,
+      "min_viral_views_age_bucket_0": 16335,
+      "min_viral_views_age_bucket_1": 5418,
+      "min_viral_views_age_bucket_2": 2292
+    },
+    {
+      "split": "train",
+      "month": "2024-05",
+      "rows": 14919,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 13346,
+      "min_viral_views_age_bucket_1": 5176,
+      "min_viral_views_age_bucket_2": 2667
+    },
+    {
+      "split": "train",
+      "month": "2024-06",
+      "rows": 14913,
+      "positive_rate": 0.1002,
+      "min_viral_views_age_bucket_0": 10923,
+      "min_viral_views_age_bucket_1": 4857,
+      "min_viral_views_age_bucket_2": 2226
+    },
+    {
+      "split": "train",
+      "month": "2024-07",
+      "rows": 14933,
+      "positive_rate": 0.1,
+      "min_viral_views_age_bucket_0": 8726,
+      "min_viral_views_age_bucket_1": 4894,
+      "min_viral_views_age_bucket_2": 2104
+    },
+    {
+      "split": "train",
+      "month": "2024-08",
+      "rows": 14903,
+      "positive_rate": 0.1,
+      "min_viral_views_age_bucket_0": 10317,
+      "min_viral_views_age_bucket_1": 5459,
+      "min_viral_views_age_bucket_2": 2487
+    },
+    {
+      "split": "train",
+      "month": "2024-09",
+      "rows": 14869,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 6612,
+      "min_viral_views_age_bucket_1": 5097,
+      "min_viral_views_age_bucket_2": 1926
+    },
+    {
+      "split": "train",
+      "month": "2024-10",
+      "rows": 14836,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 3925,
+      "min_viral_views_age_bucket_1": 6598,
+      "min_viral_views_age_bucket_2": 2442
+    },
+    {
+      "split": "train",
+      "month": "2024-11",
+      "rows": 14801,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 4568,
+      "min_viral_views_age_bucket_1": 9143,
+      "min_viral_views_age_bucket_2": 2478
+    },
+    {
+      "split": "train",
+      "month": "2024-12",
+      "rows": 14783,
+      "positive_rate": 0.1,
+      "min_viral_views_age_bucket_0": 2922,
+      "min_viral_views_age_bucket_1": 23179,
+      "min_viral_views_age_bucket_2": 2687
+    },
+    {
+      "split": "train",
+      "month": "2025-01",
+      "rows": 14813,
+      "positive_rate": 0.1,
+      "min_viral_views_age_bucket_0": 2464,
+      "min_viral_views_age_bucket_1": 20004,
+      "min_viral_views_age_bucket_2": 2655
+    },
+    {
+      "split": "train",
+      "month": "2025-02",
+      "rows": 14759,
+      "positive_rate": 0.1,
+      "min_viral_views_age_bucket_0": 2123,
+      "min_viral_views_age_bucket_1": 12335,
+      "min_viral_views_age_bucket_2": 2650
+    },
+    {
+      "split": "train",
+      "month": "2025-03",
+      "rows": 14783,
+      "positive_rate": 0.1,
+      "min_viral_views_age_bucket_0": 2161,
+      "min_viral_views_age_bucket_1": 14537,
+      "min_viral_views_age_bucket_2": 2496
+    },
+    {
+      "split": "train",
+      "month": "2025-04",
+      "rows": 14815,
+      "positive_rate": 0.1,
+      "min_viral_views_age_bucket_0": 1909,
+      "min_viral_views_age_bucket_1": 13559,
+      "min_viral_views_age_bucket_2": 2557
+    },
+    {
+      "split": "train",
+      "month": "2025-05",
+      "rows": 14734,
+      "positive_rate": 0.1002,
+      "min_viral_views_age_bucket_0": 2034,
+      "min_viral_views_age_bucket_1": 15226,
+      "min_viral_views_age_bucket_2": 2968
+    },
+    {
+      "split": "train",
+      "month": "2025-06",
+      "rows": 14746,
+      "positive_rate": 0.1002,
+      "min_viral_views_age_bucket_0": 2402,
+      "min_viral_views_age_bucket_1": 8688,
+      "min_viral_views_age_bucket_2": 3190
+    },
+    {
+      "split": "train",
+      "month": "2025-07",
+      "rows": 14683,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 1932,
+      "min_viral_views_age_bucket_1": 7522,
+      "min_viral_views_age_bucket_2": 2683
+    },
+    {
+      "split": "train",
+      "month": "2025-08",
+      "rows": 14574,
+      "positive_rate": 0.1,
+      "min_viral_views_age_bucket_0": 3233,
+      "min_viral_views_age_bucket_1": 11979,
+      "min_viral_views_age_bucket_2": 2996
+    },
+    {
+      "split": "val",
+      "month": "2025-09",
+      "rows": 14463,
+      "positive_rate": 0.1002,
+      "min_viral_views_age_bucket_0": 8338,
+      "min_viral_views_age_bucket_1": 4997,
+      "min_viral_views_age_bucket_2": 3118
+    },
+    {
+      "split": "val",
+      "month": "2025-10",
+      "rows": 13953,
+      "positive_rate": 0.1002,
+      "min_viral_views_age_bucket_0": 4518,
+      "min_viral_views_age_bucket_1": 12135,
+      "min_viral_views_age_bucket_2": 2901
+    },
+    {
+      "split": "val",
+      "month": "2025-11",
+      "rows": 13697,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 3904,
+      "min_viral_views_age_bucket_1": 7560,
+      "min_viral_views_age_bucket_2": 2596
+    },
+    {
+      "split": "val",
+      "month": "2025-12",
+      "rows": 14282,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 10385,
+      "min_viral_views_age_bucket_1": 5305,
+      "min_viral_views_age_bucket_2": 3389
+    },
+    {
+      "split": "val",
+      "month": "2026-01",
+      "rows": 14650,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 5098,
+      "min_viral_views_age_bucket_1": 1286,
+      "min_viral_views_age_bucket_2": 1991
+    },
+    {
+      "split": "val",
+      "month": "2026-02",
+      "rows": 14336,
+      "positive_rate": 0.1,
+      "min_viral_views_age_bucket_0": 9256,
+      "min_viral_views_age_bucket_1": 2391,
+      "min_viral_views_age_bucket_2": 2738
+    },
+    {
+      "split": "val",
+      "month": "2026-03",
+      "rows": 14800,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 2421,
+      "min_viral_views_age_bucket_1": 2097,
+      "min_viral_views_age_bucket_2": 2887
+    },
+    {
+      "split": "val",
+      "month": "2026-04",
+      "rows": 14632,
+      "positive_rate": 0.1001,
+      "min_viral_views_age_bucket_0": 4137,
+      "min_viral_views_age_bucket_1": 2469,
+      "min_viral_views_age_bucket_2": 3357
+    }
+  ]
+}

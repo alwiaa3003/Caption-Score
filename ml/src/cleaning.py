@@ -14,11 +14,15 @@ def age_at_capture_days(df: pd.DataFrame) -> pd.Series:
 
 
 def clean_mask(
-    df: pd.DataFrame, language: str = "en", min_age_days: float = MIN_AGE_DAYS
+    df: pd.DataFrame,
+    language: str = "en",
+    min_age_days: float = MIN_AGE_DAYS,
+    country: str | None = None,
 ) -> pd.Series:
     """Boolean mask of rows we keep.
 
     Rules:
+      - country == `country`, if given (v1 is US only)
       - language == `language` (v1 is English only)
       - type == "video" (photo carousels are a different format)
       - caption is non-empty after stripping whitespace
@@ -28,8 +32,10 @@ def clean_mask(
     caption = df["caption"].fillna("").str.strip()
     views = df["views"]
     age = age_at_capture_days(df)
+    country_ok = pd.Series(True, index=df.index) if country is None else df["country"] == country
     return (
-        (df["language"] == language)
+        country_ok
+        & (df["language"] == language)
         & (df["type"] == "video")
         & (caption != "")
         & views.notna()

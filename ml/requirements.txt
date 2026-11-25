@@ -4,7 +4,9 @@ pandas>=3
 huggingface_hub>=1.0
 datasets>=4
 pyyaml>=6
+# Phase 2: features
+emoji>=2.16
 # dev
 ruff
 pytest
-# Later phases add: scikit-learn, lightgbm, sentence-transformers, torch, transformers, shap, emoji
+# Later phases add: scikit-learn, lightgbm, sentence-transformers, torch, transformers, shap
