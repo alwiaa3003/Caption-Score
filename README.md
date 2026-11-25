@@ -44,7 +44,9 @@ python -m venv .venv
 .venv/Scripts/activate        # Windows (use source .venv/bin/activate on macOS/Linux)
 pip install -r requirements.txt
 python -m src.inspect_schema  # print the schema + 5 example rows (streaming)
-python -m src.sample_data     # build the time-spread sample into ml/data/
+python -m src.sample_data --dry-run  # footers only: shows the download size
+python -m src.sample_data --confirm  # build the time-spread sample into ml/data/ (~4.95 GB streamed)
+python -m src.describe_sample        # profile numbers used in docs/data_notes.md
 pytest
 ```
 Each service will also run standalone (`uvicorn`, `npm run dev`). `docker-compose.yml` is

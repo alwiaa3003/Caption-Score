@@ -1,0 +1,632 @@
+{
+  "rows": 833091,
+  "columns": {
+    "video_id": "uint64",
+    "posted_at": "datetime64[ms, UTC]",
+    "country": "str",
+    "language": "str",
+    "type": "str",
+    "duration_ms": "uint32",
+    "caption": "str",
+    "is_ad": "uint8",
+    "branded_content": "str",
+    "is_ai_generated": "float64",
+    "not_recommended_for_fyp": "float64",
+    "views": "uint64",
+    "stats_updated_at": "datetime64[ms, UTC]",
+    "source_month": "str",
+    "source_row_group": "int64",
+    "age_days": "float64",
+    "month": "str"
+  },
+  "posted_at_range": [
+    "2022-01-01 00:00:12+00:00",
+    "2026-08-31 20:48:44+00:00"
+  ],
+  "stats_updated_at_range": [
+    "2025-07-31 20:02:45+00:00",
+    "2026-10-03 13:08:37+00:00"
+  ],
+  "duplicate_video_ids": 0,
+  "null_rate": {
+    "video_id": 0.0,
+    "posted_at": 0.0,
+    "country": 0.0,
+    "language": 0.0,
+    "type": 0.0,
+    "duration_ms": 0.0,
+    "caption": 0.0,
+    "is_ad": 0.0,
+    "branded_content": 0.0,
+    "is_ai_generated": 0.9719,
+    "not_recommended_for_fyp": 0.4881,
+    "views": 0.0,
+    "stats_updated_at": 0.0,
+    "source_month": 0.0,
+    "source_row_group": 0.0,
+    "age_days": 0.0,
+    "month": 0.0
+  },
+  "country_top15_share": {
+    "US": 0.8779,
+    "GB": 0.0232,
+    "MY": 0.0109,
+    "NG": 0.009,
+    "GH": 0.0089,
+    "PK": 0.006,
+    "ZA": 0.0048,
+    "JP": 0.0044,
+    "JM": 0.0041,
+    "PH": 0.0033,
+    "MX": 0.0031,
+    "VN": 0.0029,
+    "KE": 0.0028,
+    "IT": 0.0028,
+    "NP": 0.0021
+  },
+  "is_ad_rate": 0.0141,
+  "branded_content": {
+    "": 0.9986,
+    "shop_affiliate": 0.0012,
+    "paid_partnership": 0.0002
+  },
+  "not_recommended_for_fyp_rate": 0.0193,
+  "duration_sec_quantiles": {
+    "0.0": 1.0,
+    "0.1": 7.0,
+    "0.25": 10.0,
+    "0.5": 16.0,
+    "0.75": 36.0,
+    "0.9": 68.0,
+    "0.99": 261.0,
+    "1.0": 3600.0
+  },
+  "duration_zero_rate": 0.0,
+  "caption_chars_quantiles": {
+    "0.0": 1.0,
+    "0.1": 22.0,
+    "0.25": 43.0,
+    "0.5": 80.0,
+    "0.75": 135.0,
+    "0.9": 223.0,
+    "0.99": 714.0,
+    "1.0": 5357.0
+  },
+  "hashtags_per_caption_quantiles": {
+    "0.0": 0.0,
+    "0.1": 0.0,
+    "0.25": 1.0,
+    "0.5": 4.0,
+    "0.75": 6.0,
+    "0.9": 10.0,
+    "0.99": 24.0,
+    "1.0": 491.0
+  },
+  "share_with_hashtags": 0.7723,
+  "views_quantiles": {
+    "0.0": 1.0,
+    "0.1": 119.0,
+    "0.25": 275.0,
+    "0.5": 559.0,
+    "0.75": 1281.0,
+    "0.9": 5662.0,
+    "0.99": 277975.4,
+    "1.0": 298951120.0
+  },
+  "age_at_capture_days_quantiles": {
+    "0.0": 30.0,
+    "0.1": 75.1,
+    "0.25": 245.9,
+    "0.5": 695.4,
+    "0.75": 1121.8,
+    "0.9": 1392.1,
+    "0.99": 1610.7,
+    "1.0": 1735.8
+  },
+  "per_month": [
+    {
+      "month": "2022-01",
+      "rows": 15000,
+      "views_median": 387.0,
+      "views_p90": 6992.1,
+      "age_min": 1278.0,
+      "age_median": 1529.5,
+      "age_max": 1735.8
+    },
+    {
+      "month": "2022-02",
+      "rows": 15000,
+      "views_median": 401.0,
+      "views_p90": 5496.2,
+      "age_min": 1257.3,
+      "age_median": 1505.0,
+      "age_max": 1699.8
+    },
+    {
+      "month": "2022-03",
+      "rows": 15000,
+      "views_median": 423.0,
+      "views_p90": 7302.2,
+      "age_min": 1219.0,
+      "age_median": 1478.6,
+      "age_max": 1673.3
+    },
+    {
+      "month": "2022-04",
+      "rows": 15000,
+      "views_median": 496.0,
+      "views_p90": 6659.1,
+      "age_min": 1188.3,
+      "age_median": 1440.6,
+      "age_max": 1645.6
+    },
+    {
+      "month": "2022-05",
+      "rows": 15000,
+      "views_median": 510.0,
+      "views_p90": 6041.4,
+      "age_min": 1164.7,
+      "age_median": 1421.3,
+      "age_max": 1615.9
+    },
+    {
+      "month": "2022-06",
+      "rows": 8091,
+      "views_median": 502.0,
+      "views_p90": 5667.0,
+      "age_min": 1131.9,
+      "age_median": 1385.5,
+      "age_max": 1579.4
+    },
+    {
+      "month": "2022-07",
+      "rows": 15000,
+      "views_median": 494.0,
+      "views_p90": 5062.3,
+      "age_min": 1099.1,
+      "age_median": 1351.3,
+      "age_max": 1545.8
+    },
+    {
+      "month": "2022-08",
+      "rows": 15000,
+      "views_median": 453.0,
+      "views_p90": 5174.3,
+      "age_min": 1067.9,
+      "age_median": 1320.1,
+      "age_max": 1514.2
+    },
+    {
+      "month": "2022-09",
+      "rows": 15000,
+      "views_median": 461.0,
+      "views_p90": 5563.4,
+      "age_min": 1048.6,
+      "age_median": 1293.2,
+      "age_max": 1487.9
+    },
+    {
+      "month": "2022-10",
+      "rows": 15000,
+      "views_median": 500.0,
+      "views_p90": 5643.0,
+      "age_min": 1012.1,
+      "age_median": 1257.6,
+      "age_max": 1452.0
+    },
+    {
+      "month": "2022-11",
+      "rows": 15000,
+      "views_median": 462.0,
+      "views_p90": 5277.3,
+      "age_min": 983.2,
+      "age_median": 1232.8,
+      "age_max": 1426.9
+    },
+    {
+      "month": "2022-12",
+      "rows": 15000,
+      "views_median": 342.0,
+      "views_p90": 3470.9,
+      "age_min": 943.0,
+      "age_median": 1192.1,
+      "age_max": 1400.8
+    },
+    {
+      "month": "2023-01",
+      "rows": 15000,
+      "views_median": 561.0,
+      "views_p90": 6737.4,
+      "age_min": 916.7,
+      "age_median": 1166.9,
+      "age_max": 1361.8
+    },
+    {
+      "month": "2023-02",
+      "rows": 15000,
+      "views_median": 596.0,
+      "views_p90": 5971.0,
+      "age_min": 886.2,
+      "age_median": 1143.3,
+      "age_max": 1337.8
+    },
+    {
+      "month": "2023-03",
+      "rows": 15000,
+      "views_median": 610.0,
+      "views_p90": 6289.7,
+      "age_min": 861.2,
+      "age_median": 1112.3,
+      "age_max": 1306.9
+    },
+    {
+      "month": "2023-04",
+      "rows": 15000,
+      "views_median": 515.0,
+      "views_p90": 6964.3,
+      "age_min": 834.9,
+      "age_median": 1083.5,
+      "age_max": 1277.9
+    },
+    {
+      "month": "2023-05",
+      "rows": 15000,
+      "views_median": 615.5,
+      "views_p90": 13159.9,
+      "age_min": 792.0,
+      "age_median": 1117.1,
+      "age_max": 1250.9
+    },
+    {
+      "month": "2023-06",
+      "rows": 15000,
+      "views_median": 581.0,
+      "views_p90": 6776.2,
+      "age_min": 776.2,
+      "age_median": 1013.9,
+      "age_max": 1208.2
+    },
+    {
+      "month": "2023-07",
+      "rows": 15000,
+      "views_median": 570.5,
+      "views_p90": 5473.6,
+      "age_min": 732.3,
+      "age_median": 984.6,
+      "age_max": 1178.6
+    },
+    {
+      "month": "2023-08",
+      "rows": 15000,
+      "views_median": 536.0,
+      "views_p90": 6911.3,
+      "age_min": 701.7,
+      "age_median": 966.0,
+      "age_max": 1158.9
+    },
+    {
+      "month": "2023-09",
+      "rows": 15000,
+      "views_median": 514.0,
+      "views_p90": 8435.3,
+      "age_min": 670.9,
+      "age_median": 991.8,
+      "age_max": 1127.5
+    },
+    {
+      "month": "2023-10",
+      "rows": 15000,
+      "views_median": 673.0,
+      "views_p90": 7337.1,
+      "age_min": 649.9,
+      "age_median": 896.0,
+      "age_max": 1090.3
+    },
+    {
+      "month": "2023-11",
+      "rows": 15000,
+      "views_median": 529.5,
+      "views_p90": 13753.2,
+      "age_min": 612.3,
+      "age_median": 951.8,
+      "age_max": 1066.7
+    },
+    {
+      "month": "2023-12",
+      "rows": 15000,
+      "views_median": 637.0,
+      "views_p90": 5749.2,
+      "age_min": 578.8,
+      "age_median": 839.9,
+      "age_max": 1034.0
+    },
+    {
+      "month": "2024-01",
+      "rows": 15000,
+      "views_median": 640.5,
+      "views_p90": 5765.1,
+      "age_min": 550.0,
+      "age_median": 805.5,
+      "age_max": 999.6
+    },
+    {
+      "month": "2024-02",
+      "rows": 15000,
+      "views_median": 610.0,
+      "views_p90": 6275.3,
+      "age_min": 531.1,
+      "age_median": 772.6,
+      "age_max": 967.2
+    },
+    {
+      "month": "2024-03",
+      "rows": 15000,
+      "views_median": 627.0,
+      "views_p90": 6308.7,
+      "age_min": 495.4,
+      "age_median": 750.0,
+      "age_max": 944.7
+    },
+    {
+      "month": "2024-04",
+      "rows": 15000,
+      "views_median": 570.0,
+      "views_p90": 5826.4,
+      "age_min": 473.1,
+      "age_median": 717.3,
+      "age_max": 912.2
+    },
+    {
+      "month": "2024-05",
+      "rows": 15000,
+      "views_median": 610.0,
+      "views_p90": 5833.0,
+      "age_min": 440.3,
+      "age_median": 686.0,
+      "age_max": 881.2
+    },
+    {
+      "month": "2024-06",
+      "rows": 15000,
+      "views_median": 587.0,
+      "views_p90": 4972.6,
+      "age_min": 400.6,
+      "age_median": 651.1,
+      "age_max": 846.4
+    },
+    {
+      "month": "2024-07",
+      "rows": 15000,
+      "views_median": 606.0,
+      "views_p90": 4487.2,
+      "age_min": 368.4,
+      "age_median": 617.8,
+      "age_max": 812.4
+    },
+    {
+      "month": "2024-08",
+      "rows": 15000,
+      "views_median": 623.0,
+      "views_p90": 5207.6,
+      "age_min": 334.0,
+      "age_median": 597.4,
+      "age_max": 792.5
+    },
+    {
+      "month": "2024-09",
+      "rows": 15000,
+      "views_median": 590.0,
+      "views_p90": 3986.2,
+      "age_min": 314.8,
+      "age_median": 565.3,
+      "age_max": 760.4
+    },
+    {
+      "month": "2024-10",
+      "rows": 15000,
+      "views_median": 674.0,
+      "views_p90": 3925.2,
+      "age_min": 283.6,
+      "age_median": 526.2,
+      "age_max": 721.4
+    },
+    {
+      "month": "2024-11",
+      "rows": 15000,
+      "views_median": 712.0,
+      "views_p90": 7614.1,
+      "age_min": 244.1,
+      "age_median": 569.0,
+      "age_max": 699.9
+    },
+    {
+      "month": "2024-12",
+      "rows": 15000,
+      "views_median": 656.0,
+      "views_p90": 5830.0,
+      "age_min": 225.6,
+      "age_median": 465.8,
+      "age_max": 661.9
+    },
+    {
+      "month": "2025-01",
+      "rows": 15000,
+      "views_median": 625.0,
+      "views_p90": 5082.0,
+      "age_min": 197.1,
+      "age_median": 432.7,
+      "age_max": 637.5
+    },
+    {
+      "month": "2025-02",
+      "rows": 15000,
+      "views_median": 576.0,
+      "views_p90": 4175.7,
+      "age_min": 160.2,
+      "age_median": 395.4,
+      "age_max": 602.2
+    },
+    {
+      "month": "2025-03",
+      "rows": 15000,
+      "views_median": 572.0,
+      "views_p90": 4776.0,
+      "age_min": 135.0,
+      "age_median": 369.3,
+      "age_max": 580.4
+    },
+    {
+      "month": "2025-04",
+      "rows": 15000,
+      "views_median": 584.0,
+      "views_p90": 4237.0,
+      "age_min": 96.9,
+      "age_median": 330.4,
+      "age_max": 545.2
+    },
+    {
+      "month": "2025-05",
+      "rows": 15000,
+      "views_median": 561.0,
+      "views_p90": 5007.2,
+      "age_min": 69.8,
+      "age_median": 251.0,
+      "age_max": 507.3
+    },
+    {
+      "month": "2025-06",
+      "rows": 15000,
+      "views_median": 391.5,
+      "views_p90": 3888.1,
+      "age_min": 31.3,
+      "age_median": 342.8,
+      "age_max": 487.6
+    },
+    {
+      "month": "2025-07",
+      "rows": 15000,
+      "views_median": 508.0,
+      "views_p90": 3472.1,
+      "age_min": 30.0,
+      "age_median": 171.2,
+      "age_max": 450.3
+    },
+    {
+      "month": "2025-08",
+      "rows": 15000,
+      "views_median": 713.0,
+      "views_p90": 7407.4,
+      "age_min": 30.0,
+      "age_median": 301.6,
+      "age_max": 416.7
+    },
+    {
+      "month": "2025-09",
+      "rows": 15000,
+      "views_median": 624.0,
+      "views_p90": 5243.2,
+      "age_min": 84.0,
+      "age_median": 259.3,
+      "age_max": 391.4
+    },
+    {
+      "month": "2025-10",
+      "rows": 15000,
+      "views_median": 623.0,
+      "views_p90": 5626.5,
+      "age_min": 54.6,
+      "age_median": 103.2,
+      "age_max": 364.6
+    },
+    {
+      "month": "2025-11",
+      "rows": 15000,
+      "views_median": 565.0,
+      "views_p90": 4333.1,
+      "age_min": 32.5,
+      "age_median": 89.3,
+      "age_max": 327.2
+    },
+    {
+      "month": "2025-12",
+      "rows": 15000,
+      "views_median": 616.0,
+      "views_p90": 5897.8,
+      "age_min": 31.1,
+      "age_median": 90.0,
+      "age_max": 295.0
+    },
+    {
+      "month": "2026-01",
+      "rows": 15000,
+      "views_median": 370.0,
+      "views_p90": 3892.8,
+      "age_min": 30.0,
+      "age_median": 144.4,
+      "age_max": 274.4
+    },
+    {
+      "month": "2026-02",
+      "rows": 15000,
+      "views_median": 604.0,
+      "views_p90": 4318.8,
+      "age_min": 30.0,
+      "age_median": 122.7,
+      "age_max": 242.4
+    },
+    {
+      "month": "2026-03",
+      "rows": 15000,
+      "views_median": 580.5,
+      "views_p90": 2561.2,
+      "age_min": 59.1,
+      "age_median": 98.3,
+      "age_max": 208.3
+    },
+    {
+      "month": "2026-04",
+      "rows": 15000,
+      "views_median": 535.5,
+      "views_p90": 3270.0,
+      "age_min": 30.5,
+      "age_median": 67.4,
+      "age_max": 177.3
+    },
+    {
+      "month": "2026-05",
+      "rows": 15000,
+      "views_median": 603.0,
+      "views_p90": 3237.4,
+      "age_min": 30.0,
+      "age_median": 69.9,
+      "age_max": 146.5
+    },
+    {
+      "month": "2026-06",
+      "rows": 15000,
+      "views_median": 614.5,
+      "views_p90": 4797.1,
+      "age_min": 30.0,
+      "age_median": 96.2,
+      "age_max": 120.5
+    },
+    {
+      "month": "2026-07",
+      "rows": 15000,
+      "views_median": 584.0,
+      "views_p90": 8436.4,
+      "age_min": 30.0,
+      "age_median": 58.4,
+      "age_max": 94.1
+    },
+    {
+      "month": "2026-08",
+      "rows": 15000,
+      "views_median": 809.0,
+      "views_p90": 16097.8,
+      "age_min": 30.0,
+      "age_median": 35.0,
+      "age_max": 63.0
+    }
+  ]
+}

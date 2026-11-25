@@ -1,0 +1,681 @@
+{
+  "config": {
+    "repo_id": "datasocial/tiktok-5.6B-videos",
+    "start_month": "2022-01",
+    "end_month": "2026-08",
+    "language": "en",
+    "rows_per_month": 15000,
+    "row_groups_per_month": 2,
+    "seed": 42,
+    "max_download_gb": 2.0,
+    "columns": [
+      "video_id",
+      "posted_at",
+      "country",
+      "language",
+      "type",
+      "duration_ms",
+      "caption",
+      "is_ad",
+      "branded_content",
+      "is_ai_generated",
+      "not_recommended_for_fyp",
+      "views",
+      "stats_updated_at"
+    ],
+    "output": "ml/data/sample_en_2022-01_2026-08.parquet"
+  },
+  "total_download_gb": 4.953,
+  "raw": {
+    "rows": 113818969,
+    "language_top30": {
+      "un": 60130183,
+      "en": 44462186,
+      "es": 3657157,
+      "ru": 1050105,
+      "ms": 401134,
+      "id": 375155,
+      "ar": 299687,
+      "it": 261363,
+      "fr": 247469,
+      "hi": 227068,
+      "pt": 204377,
+      "vi": 202749,
+      "th": 186891,
+      "ja": 142504,
+      "tl": 113841,
+      "zh-Hans": 111680,
+      "ht": 83905,
+      "my": 83047,
+      "de": 73838,
+      "el": 70491,
+      "pl": 62637,
+      "tr": 57575,
+      "gl": 54705,
+      "ur": 45949,
+      "cy": 45017,
+      "ne": 43114,
+      "nl": 42917,
+      "km": 39506,
+      "bs": 39045,
+      "fa": 36604
+    },
+    "type": {
+      "video": 106110646,
+      "photo": 7708323
+    },
+    "country_top30": {
+      "US": 100178464,
+      "GB": 1637302,
+      "MY": 1142991,
+      "MX": 814191,
+      "NG": 719599,
+      "GH": 709960,
+      "PK": 684155,
+      "IT": 452953,
+      "ID": 436186,
+      "JP": 408522,
+      "TH": 378282,
+      "FR": 363669,
+      "GT": 256836,
+      "VN": 242209,
+      "MM": 232990,
+      "NL": 221440,
+      "TR": 214067,
+      "ES": 213078,
+      "GR": 212584,
+      "JM": 198259,
+      "PH": 192650,
+      "SA": 189069,
+      "DO": 186674,
+      "JO": 184131,
+      "UA": 182941,
+      "EC": 179813,
+      "NP": 174893,
+      "HN": 157764,
+      "KE": 157202,
+      "ET": 156877
+    },
+    "null_rate": {
+      "video_id": 0.0,
+      "posted_at": 0.0,
+      "country": 0.0,
+      "language": 0.0,
+      "type": 0.0,
+      "duration_ms": 0.0,
+      "caption": 0.0,
+      "is_ad": 0.0,
+      "branded_content": 0.0,
+      "is_ai_generated": 0.9846,
+      "not_recommended_for_fyp": 0.5147,
+      "views": 0.0,
+      "stats_updated_at": 0.0
+    },
+    "empty_caption_rate": 0.2814,
+    "zero_or_null_views_rate": 0.0034
+  },
+  "per_month": [
+    {
+      "month": "2022-01",
+      "row_groups": [
+        1,
+        32
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3266
+    },
+    {
+      "month": "2022-02",
+      "row_groups": [
+        11,
+        24
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4645
+    },
+    {
+      "month": "2022-03",
+      "row_groups": [
+        7,
+        34
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4822
+    },
+    {
+      "month": "2022-04",
+      "row_groups": [
+        1,
+        28
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3219
+    },
+    {
+      "month": "2022-05",
+      "row_groups": [
+        3,
+        18
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4446
+    },
+    {
+      "month": "2022-06",
+      "row_groups": [
+        9,
+        35
+      ],
+      "raw_rows": 1008955,
+      "kept_rows": 8091,
+      "raw_en_share": 0.5008
+    },
+    {
+      "month": "2022-07",
+      "row_groups": [
+        14,
+        35
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4844
+    },
+    {
+      "month": "2022-08",
+      "row_groups": [
+        14,
+        34
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4627
+    },
+    {
+      "month": "2022-09",
+      "row_groups": [
+        9,
+        20
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4586
+    },
+    {
+      "month": "2022-10",
+      "row_groups": [
+        15,
+        27
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4522
+    },
+    {
+      "month": "2022-11",
+      "row_groups": [
+        9,
+        26
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4278
+    },
+    {
+      "month": "2022-12",
+      "row_groups": [
+        3,
+        37
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.2803
+    },
+    {
+      "month": "2023-01",
+      "row_groups": [
+        15,
+        32
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4789
+    },
+    {
+      "month": "2023-02",
+      "row_groups": [
+        6,
+        30
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4484
+    },
+    {
+      "month": "2023-03",
+      "row_groups": [
+        10,
+        28
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4557
+    },
+    {
+      "month": "2023-04",
+      "row_groups": [
+        8,
+        23
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4463
+    },
+    {
+      "month": "2023-05",
+      "row_groups": [
+        1,
+        31
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3061
+    },
+    {
+      "month": "2023-06",
+      "row_groups": [
+        19,
+        23
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4164
+    },
+    {
+      "month": "2023-07",
+      "row_groups": [
+        20,
+        43
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3871
+    },
+    {
+      "month": "2023-08",
+      "row_groups": [
+        6,
+        39
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.2785
+    },
+    {
+      "month": "2023-09",
+      "row_groups": [
+        3,
+        40
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.2419
+    },
+    {
+      "month": "2023-10",
+      "row_groups": [
+        16,
+        32
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3867
+    },
+    {
+      "month": "2023-11",
+      "row_groups": [
+        1,
+        46
+      ],
+      "raw_rows": 1327935,
+      "kept_rows": 15000,
+      "raw_en_share": 0.1636
+    },
+    {
+      "month": "2023-12",
+      "row_groups": [
+        11,
+        47
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3723
+    },
+    {
+      "month": "2024-01",
+      "row_groups": [
+        17,
+        47
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3563
+    },
+    {
+      "month": "2024-02",
+      "row_groups": [
+        18,
+        28
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3809
+    },
+    {
+      "month": "2024-03",
+      "row_groups": [
+        9,
+        36
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.365
+    },
+    {
+      "month": "2024-04",
+      "row_groups": [
+        12,
+        26
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3679
+    },
+    {
+      "month": "2024-05",
+      "row_groups": [
+        13,
+        28
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3703
+    },
+    {
+      "month": "2024-06",
+      "row_groups": [
+        19,
+        43
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.39
+    },
+    {
+      "month": "2024-07",
+      "row_groups": [
+        26,
+        50
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3883
+    },
+    {
+      "month": "2024-08",
+      "row_groups": [
+        10,
+        59
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4006
+    },
+    {
+      "month": "2024-09",
+      "row_groups": [
+        12,
+        40
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3869
+    },
+    {
+      "month": "2024-10",
+      "row_groups": [
+        28,
+        44
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.375
+    },
+    {
+      "month": "2024-11",
+      "row_groups": [
+        2,
+        46
+      ],
+      "raw_rows": 2015232,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3319
+    },
+    {
+      "month": "2024-12",
+      "row_groups": [
+        27,
+        41
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4124
+    },
+    {
+      "month": "2025-01",
+      "row_groups": [
+        17,
+        41
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3971
+    },
+    {
+      "month": "2025-02",
+      "row_groups": [
+        23,
+        50
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3635
+    },
+    {
+      "month": "2025-03",
+      "row_groups": [
+        14,
+        52
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3931
+    },
+    {
+      "month": "2025-04",
+      "row_groups": [
+        24,
+        74
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3973
+    },
+    {
+      "month": "2025-05",
+      "row_groups": [
+        50,
+        77
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4215
+    },
+    {
+      "month": "2025-06",
+      "row_groups": [
+        10,
+        121
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.34
+    },
+    {
+      "month": "2025-07",
+      "row_groups": [
+        62,
+        168
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3822
+    },
+    {
+      "month": "2025-08",
+      "row_groups": [
+        7,
+        99
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3035
+    },
+    {
+      "month": "2025-09",
+      "row_groups": [
+        46,
+        109
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4045
+    },
+    {
+      "month": "2025-10",
+      "row_groups": [
+        27,
+        116
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4636
+    },
+    {
+      "month": "2025-11",
+      "row_groups": [
+        53,
+        88
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4178
+    },
+    {
+      "month": "2025-12",
+      "row_groups": [
+        58,
+        83
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4262
+    },
+    {
+      "month": "2026-01",
+      "row_groups": [
+        17,
+        126
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.2571
+    },
+    {
+      "month": "2026-02",
+      "row_groups": [
+        43,
+        77
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4445
+    },
+    {
+      "month": "2026-03",
+      "row_groups": [
+        55,
+        80
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.422
+    },
+    {
+      "month": "2026-04",
+      "row_groups": [
+        56,
+        70
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4349
+    },
+    {
+      "month": "2026-05",
+      "row_groups": [
+        94,
+        210
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4291
+    },
+    {
+      "month": "2026-06",
+      "row_groups": [
+        68,
+        145
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.4408
+    },
+    {
+      "month": "2026-07",
+      "row_groups": [
+        22,
+        81
+      ],
+      "raw_rows": 2027679,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3274
+    },
+    {
+      "month": "2026-08",
+      "row_groups": [
+        14,
+        96
+      ],
+      "raw_rows": 2093088,
+      "kept_rows": 15000,
+      "raw_en_share": 0.3589
+    }
+  ],
+  "sample_rows": 833091,
+  "duplicates_dropped": 0
+}

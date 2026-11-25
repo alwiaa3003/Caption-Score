@@ -4,29 +4,24 @@ start_month: "2022-01"
 end_month: "2026-08"          # inclusive
 language: en                  # v1 is English only
 rows_per_month: 15000         # target cleaned rows per month
-row_groups_per_month: 6       # random row groups read per monthly file (spread across the file)
+row_groups_per_month: 2       # random row groups (~1M rows, ~50 MB of our columns each) per month
 seed: 42
 max_download_gb: 2.0          # sampling script refuses to run above this without --confirm
 columns:                      # only these are read (column projection keeps downloads small)
+  # Not read: hashtags (99% of tags already appear as #tag in the caption; we regex them out,
+  # saving ~18 MB per row group), on_screen_text, sound_id, mentions, likes/comments/shares/saves
+  # (not features, and would leak the label), width/height, shop fields.
   - video_id
   - posted_at
   - country
   - language
   - type
   - duration_ms
-  - width
-  - height
   - caption
-  - hashtags
-  - sound_id
   - is_ad
   - branded_content
   - is_ai_generated
   - not_recommended_for_fyp
   - views
-  - likes
-  - comments
-  - shares
-  - saves
   - stats_updated_at
 output: ml/data/sample_en_2022-01_2026-08.parquet
