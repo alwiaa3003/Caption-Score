@@ -17,7 +17,7 @@ any other personal data is stored.
 
 ## Run
 
-Configuration comes from the repo-root `.env` (see `../.env.example`): `MONGODB_URI`,
+Configuration comes from the repo-root `.env` (see Configuration in the main README): `MONGODB_URI`,
 `MODEL_SERVICE_URL`, `PORT`, `CORS_ORIGIN`, `RATE_LIMIT_PER_MINUTE`.
 
 ```bash

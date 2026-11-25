@@ -11,8 +11,10 @@ through a small MERN web app (MongoDB, Express, React, Node) with a FastAPI mode
 |---|---|
 | ![Score page on a phone](docs/screenshots/score-scored-390-light.png) | ![Score page in dark mode](docs/screenshots/score-scored-1440-dark.png) |
 
-More screenshots (empty, error, History and About, light and dark, desktop and phone) are in
-[docs/screenshots/](docs/screenshots/).
+More: [empty form](docs/screenshots/score-empty-1440-light.png),
+[error](docs/screenshots/score-error-1440-light.png),
+[History](docs/screenshots/history-1440-light.png) and
+[About](docs/screenshots/about-1440-light.png).
 
 ## Contents
 - [The problem](#the-problem)
@@ -21,6 +23,7 @@ More screenshots (empty, error, History and About, light and dark, desktop and p
 - [Results](#results)
 - [How it works](#how-it-works)
 - [How to run](#how-to-run)
+- [Configuration](#configuration)
 - [Tests](#tests)
 - [Limitations](#limitations)
 - [Ethics](#ethics)
@@ -147,8 +150,8 @@ Prerequisites: Python 3.11+, Node 20+, a MongoDB connection string (the MongoDB 
 works), and the trained model in `ml/models/final/` (gitignored; build it with the ML pipeline
 below).
 
-Copy `.env.example` to `.env` at the repo root and set `MONGODB_URI`. The other values already
-match the ports below.
+Create a `.env` file at the repo root with at least `MONGODB_URI` (see
+[Configuration](#configuration)). The other settings default to the ports below.
 
 ```bash
 # Terminal 1: model service (FastAPI) -> http://localhost:8000
@@ -191,13 +194,29 @@ python -m src.train_embeddings          # classifiers on embeddings
 python -m src.export_colab              # data for fine-tuning DistilBERT on Colab
 #   run ml/notebooks/finetune_distilbert_colab.ipynb on a Colab T4 GPU, then:
 python -m src.import_transformer_preds  # score the DistilBERT predictions
-python -m src.compare_models            # validation comparison table
 python -m src.plot_baselines            # reports/val_per_month_pr_auc.png
 python -m src.select_model              # model choice on validation (+ bootstrap, PR curves)
 python -m src.evaluate_test             # one-time test + stress evaluation (refuses to run twice)
 python -m src.build_explainability      # explanations, hashtag lift, exports ml/models/final/
 python -m src.readme_results            # regenerate the README results tables
 ```
+
+## Configuration
+All settings are environment variables, read from a `.env` file at the repo root in
+development. Never commit `.env`.
+
+| Variable | Used by | Default | Notes |
+|---|---|---|---|
+| `MONGODB_URI` | backend | (required) | MongoDB connection string, for example from MongoDB Atlas |
+| `MONGODB_DB` | backend | `captionscore` | Database name |
+| `PORT` | backend | `4000` | |
+| `MODEL_SERVICE_URL` | backend | `http://localhost:8000` | |
+| `MODEL_SERVICE_TIMEOUT_MS` | backend | `5000` | |
+| `CORS_ORIGIN` | backend | `http://localhost:5173` | Comma-separated list of allowed origins |
+| `RATE_LIMIT_PER_MINUTE` | backend | `30` | Per client, for `POST /api/predict` |
+| `VITE_API_URL` | frontend (build time) | `http://localhost:4000` | |
+| `MODEL_DIR` | model service | `ml/models/final` | Folder with `model.joblib`, `suggest.joblib`, `model_card.json` |
+| `HF_TOKEN` | ML sampling | none | Optional; only raises Hugging Face rate limits |
 
 ### Docker
 `docker-compose.yml` and a Dockerfile per service are included but **not tested yet**. The

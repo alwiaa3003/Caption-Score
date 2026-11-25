@@ -1,5 +1,5 @@
 // All configuration comes from environment variables. In development they are read from the
-// single .env file at the repo root (copy .env.example). Secrets (MONGODB_URI) are never logged.
+// single .env file at the repo root. Secrets (MONGODB_URI) are never logged.
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 

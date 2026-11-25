@@ -7,7 +7,7 @@ import { createModelClient } from './services/modelClient.js';
 
 async function main() {
   if (!config.mongodbUri) {
-    console.error('MONGODB_URI is not set. Copy .env.example to .env and fill it in.');
+    console.error('MONGODB_URI is not set. Add it to the .env file at the repo root.');
     process.exit(1);
   }
   mongoose.connection.on('disconnected', () => console.warn('MongoDB disconnected'));
