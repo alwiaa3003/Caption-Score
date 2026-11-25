@@ -8,7 +8,7 @@ import App from '../App.jsx';
 import { ApiError, request } from '../api.js';
 import HashtagInput from '../components/HashtagInput.jsx';
 import ResultPanel from '../components/ResultPanel.jsx';
-import { normaliseTag, VERDICT } from '../constants.js';
+import { EXAMPLE, normaliseTag, VERDICT } from '../constants.js';
 
 const RESULT = {
   probability: 0.2338,
@@ -120,23 +120,32 @@ describe('ResultPanel', () => {
 });
 
 describe('Score page', () => {
-  it('disables the button until there is a caption', async () => {
+  it('explains why the button is disabled, then enables it', async () => {
     renderApp();
-    const button = screen.getByRole('button', { name: 'Score it' });
-    expect(button).toBeDisabled();
+    const blocked = screen.getByRole('button', { name: 'Add a caption to score it' });
+    expect(blocked).toBeDisabled();
     await userEvent.setup().type(screen.getByLabelText('Caption'), 'hello');
-    expect(button).toBeEnabled();
+    expect(screen.getByRole('button', { name: 'Score caption' })).toBeEnabled();
   });
 
-  it('sends the caption, hashtags and post type, then shows the result', async () => {
+  it('blocks an invalid duration with a reason', async () => {
+    const user = userEvent.setup();
+    renderApp();
+    await user.type(screen.getByLabelText('Caption'), 'hello');
+    await user.type(screen.getByLabelText('Duration (sec)'), '0');
+    expect(screen.getByRole('button', { name: 'Fix the duration to score it' })).toBeDisabled();
+  });
+
+  it('sends caption, hashtags, post type and duration, then shows the result', async () => {
     const fetchMock = vi.fn(async () => jsonResponse(RESULT));
     vi.stubGlobal('fetch', fetchMock);
     const user = userEvent.setup();
     renderApp();
     await user.type(screen.getByLabelText('Caption'), 'wait for my 😂');
-    await user.type(screen.getByRole('textbox', { name: 'Hashtags' }), 'comedy{Enter}');
+    await user.type(screen.getByRole('textbox', { name: /Hashtags/ }), 'comedy{Enter}');
     await user.selectOptions(screen.getByLabelText('Post type'), 'reel');
-    await user.click(screen.getByRole('button', { name: 'Score it' }));
+    await user.type(screen.getByLabelText('Duration (sec)'), '15');
+    await user.click(screen.getByRole('button', { name: 'Score caption' }));
 
     expect(await screen.findByText(VERDICT.likely)).toBeInTheDocument();
     const [url, init] = fetchMock.mock.calls[0];
@@ -145,7 +154,44 @@ describe('Score page', () => {
       caption: 'wait for my 😂',
       hashtags: ['comedy'],
       post_type: 'reel',
+      duration_sec: 15,
     });
+  });
+
+  it('"Try an example" fills the form and scores it in one click', async () => {
+    const fetchMock = vi.fn(async () => jsonResponse(RESULT));
+    vi.stubGlobal('fetch', fetchMock);
+    renderApp();
+    expect(screen.getByText('Your score will appear here')).toBeInTheDocument();
+    await userEvent.setup().click(screen.getByRole('button', { name: 'Try an example' }));
+    expect(await screen.findByText(VERDICT.likely)).toBeInTheDocument();
+    expect(screen.getByLabelText('Caption').value).toBe(EXAMPLE.caption);
+    expect(JSON.parse(fetchMock.mock.calls[0][1].body)).toMatchObject({
+      caption: EXAMPLE.caption,
+      hashtags: EXAMPLE.hashtags,
+    });
+  });
+
+  it('scrolls the result into view on narrow screens only', async () => {
+    vi.stubGlobal('fetch', async () => jsonResponse(RESULT));
+    const scroll = vi.fn();
+    Element.prototype.scrollIntoView = scroll;
+    const user = userEvent.setup();
+
+    vi.stubGlobal('matchMedia', (q) => ({ matches: false, media: q }));
+    const { unmount } = renderApp();
+    await user.click(screen.getByRole('button', { name: 'Try an example' }));
+    await screen.findByText(VERDICT.likely);
+    expect(scroll).toHaveBeenCalledTimes(1);
+    unmount();
+
+    scroll.mockClear();
+    vi.stubGlobal('matchMedia', (q) => ({ matches: q.includes('min-width'), media: q }));
+    renderApp();
+    await user.click(screen.getByRole('button', { name: 'Try an example' }));
+    await screen.findByText(VERDICT.likely);
+    expect(scroll).not.toHaveBeenCalled();
+    delete Element.prototype.scrollIntoView;
   });
 
   it('shows a clear error when the model service is down', async () => {
@@ -155,7 +201,7 @@ describe('Score page', () => {
     const user = userEvent.setup();
     renderApp();
     await user.type(screen.getByLabelText('Caption'), 'hello');
-    await user.click(screen.getByRole('button', { name: 'Score it' }));
+    await user.click(screen.getByRole('button', { name: 'Score caption' }));
     expect(await screen.findByRole('alert')).toHaveTextContent('The scoring model is offline');
   });
 
@@ -166,7 +212,7 @@ describe('Score page', () => {
     const user = userEvent.setup();
     renderApp();
     await user.type(screen.getByLabelText('Caption'), 'hello');
-    await user.click(screen.getByRole('button', { name: 'Score it' }));
+    await user.click(screen.getByRole('button', { name: 'Score caption' }));
     expect(await screen.findByRole('alert')).toHaveTextContent(
       "Can't reach the CaptionScore server",
     );

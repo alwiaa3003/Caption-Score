@@ -16,7 +16,7 @@ export default function HistoryPage() {
   }, []);
 
   return (
-    <section className="card">
+    <section className="card page-narrow">
       <div className="row space-between">
         <h1>History</h1>
         <button type="button" onClick={load} disabled={status === 'loading'}>

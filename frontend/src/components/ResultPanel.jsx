@@ -1,7 +1,12 @@
-import { VERDICT } from '../constants.js';
+import { Fragment } from 'react';
+
+import { MAX_TINT, MIN_TINT, VERDICT } from '../constants.js';
 import ScoreGauge from './ScoreGauge.jsx';
 
 const pct = (p) => `${Math.round(p * 1000) / 10}%`;
+
+// Contributions this small round to ±0.00 and are shown as neutral in the highlight.
+const NEGLIGIBLE = 0.005;
 
 /** Caption tokens with a background whose strength follows each token's contribution. */
 function HighlightedCaption({ tokens }) {
@@ -10,25 +15,32 @@ function HighlightedCaption({ tokens }) {
     <p className="highlighted" aria-label="Your caption, with words coloured by their effect">
       {tokens.map((t, i) => {
         const strength = Math.abs(t.weight) / max;
-        const dir = t.weight > 0.005 ? 'up' : t.weight < -0.005 ? 'down' : 'flat';
+        const dir = t.weight >= NEGLIGIBLE ? 'up' : t.weight <= -NEGLIGIBLE ? 'down' : 'flat';
+        // A real space between tokens gives the browser line-break points (and makes the
+        // caption copy-paste correctly); without it the whole caption is one unbreakable word.
         return (
-          <span
-            key={i}
-            className={`tok tok-${dir}`}
-            style={
-              dir === 'flat' ? undefined : { '--strength': (0.15 + 0.6 * strength).toFixed(2) }
-            }
-            title={`${t.weight > 0 ? '+' : ''}${t.weight.toFixed(3)}`}
-          >
-            {t.token}
-          </span>
+          <Fragment key={i}>
+            {i > 0 && ' '}
+            <span
+              className={`tok tok-${dir}`}
+              style={
+                dir === 'flat'
+                  ? undefined
+                  : { '--strength': (MIN_TINT + (MAX_TINT - MIN_TINT) * strength).toFixed(2) }
+              }
+              title={`${t.weight > 0 ? '+' : ''}${t.weight.toFixed(3)}`}
+            >
+              {t.token}
+            </span>
+          </Fragment>
         );
       })}
     </p>
   );
 }
 
-function TokenList({ title, items, dir }) {
+function TokenList({ title, items: all, dir }) {
+  const items = all.filter((t) => Math.abs(t.weight) >= NEGLIGIBLE);
   return (
     <div className="token-list">
       <h4>

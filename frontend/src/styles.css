@@ -1,13 +1,21 @@
+/* Theme tokens. Light is the default; the dark variant uses the same roles and palette logic.
+   Every text/background pair is checked for WCAG AA in src/test/contrast.test.js, so change
+   colours here and run `npm test`. */
 :root {
   --bg: #f9f9f7;
   --surface: #fcfcfb;
   --surface-2: #f0efec;
   --border: #e1e0d9;
+  --border-strong: #85847e; /* input borders: >= 3:1 on every light surface (WCAG 1.4.11) */
   --ink: #0b0b0b;
   --ink-2: #52514e;
-  --muted: #6b6a65;
-  --accent: #2a78d6;
-  --accent-ink: #ffffff;
+  --muted: #5f5e59; /* helper text: >= 5.6:1 on every light surface */
+  --placeholder: #5f5e59;
+  --link: #256abf;
+  --btn-bg: #256abf; /* white text on it: 5.4:1 */
+  --btn-ink: #ffffff;
+  --disabled-bg: #f0efec;
+  --disabled-ink: #52514e;
   --up: #2a78d6; /* pushes score up (blue) */
   --down: #eb6834; /* pushes score down (orange); blue/orange is colour-blind safe */
   --ok: #0c7a0c;
@@ -15,6 +23,7 @@
   --error-ink: #9b1c1c;
   --radius: 12px;
   --shadow: 0 1px 2px rgb(0 0 0 / 5%), 0 4px 16px rgb(0 0 0 / 4%);
+  --header-h: 56px;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -23,10 +32,16 @@
     --surface: #1a1a19;
     --surface-2: #262624;
     --border: #383835;
+    --border-strong: #75746e;
     --ink: #f0efec;
     --ink-2: #c3c2b7;
     --muted: #a3a29a;
-    --accent: #3987e5;
+    --placeholder: #a3a29a;
+    --link: #6da7ec;
+    --btn-bg: #256abf;
+    --btn-ink: #ffffff;
+    --disabled-bg: #262624;
+    --disabled-ink: #c3c2b7;
     --up: #5598e7;
     --down: #ec835a;
     --ok: #4cc24c;
@@ -55,10 +70,10 @@ body {
     sans-serif;
 }
 a {
-  color: var(--accent);
+  color: var(--link);
 }
 h1 {
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   margin: 0 0 0.25rem;
   letter-spacing: -0.01em;
 }
@@ -68,7 +83,7 @@ h2 {
 }
 h3 {
   font-size: 1rem;
-  margin: 1.5rem 0 0.5rem;
+  margin: 1.25rem 0 0.5rem;
 }
 h4 {
   font-size: 0.9rem;
@@ -78,11 +93,19 @@ h4 {
   gap: 0.4rem;
 }
 
+/* side padding only: a padding shorthand here would wipe main's top padding */
 .container {
   width: 100%;
-  max-width: 780px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+@media (min-width: 768px) {
+  .container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
 
 /* header */
@@ -98,7 +121,7 @@ h4 {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  height: 56px;
+  height: var(--header-h);
 }
 .brand {
   display: flex;
@@ -125,7 +148,8 @@ nav a.active {
   font-weight: 600;
 }
 main {
-  padding-top: 20px;
+  --main-pad-top: 20px;
+  padding-top: var(--main-pad-top);
   padding-bottom: 8px;
 }
 .site-footer {
@@ -161,6 +185,42 @@ main {
   white-space: nowrap;
 }
 
+/* score page layout: stacked on narrow screens, editor | result from 1100px */
+.score-layout {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(0, 1fr);
+}
+.score-layout > * > .card:last-child,
+.score-layout > .card {
+  margin-bottom: 0;
+}
+.result-col {
+  scroll-margin-top: calc(var(--header-h) + 12px);
+}
+.result-col > .card + .card {
+  margin-top: 16px;
+}
+@media (min-width: 1100px) {
+  .score-layout {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    align-items: start;
+    gap: 20px;
+  }
+  /* keep the result beside the editor, visible without scrolling the page */
+  .result-col {
+    position: sticky;
+    top: calc(var(--header-h) + 20px); /* lines up with the editor's top edge */
+    max-height: calc(100vh - var(--header-h) - 36px);
+    overflow-y: auto;
+    border-radius: var(--radius);
+  }
+}
+.intro {
+  margin: 0 0 4px;
+  color: var(--ink-2);
+}
+
 /* form */
 label {
   display: block;
@@ -170,38 +230,83 @@ label {
 }
 textarea,
 select,
+input[type='number'],
 .chips-field {
   width: 100%;
   font: inherit;
   color: var(--ink);
   background: var(--bg);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: 10px;
   padding: 10px 12px;
 }
 textarea {
   resize: vertical;
-  min-height: 110px;
+  min-height: 140px;
+}
+::placeholder {
+  color: var(--placeholder);
+  opacity: 1;
 }
 textarea:focus,
 select:focus,
+input:focus,
 .chips-field:focus-within,
 button:focus-visible,
 a:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--link);
   outline-offset: 2px;
 }
-textarea[aria-invalid='true'] {
+.chips-field input:focus {
+  outline: none;
+}
+[aria-invalid='true'] {
   border-color: var(--error-ink);
 }
 .field-help,
 .field-error {
   margin: 4px 0 0;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--muted);
 }
 .field-error {
   color: var(--error-ink);
+}
+.below-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+.below-caption .field-help,
+.below-caption .field-error {
+  margin: 0;
+}
+.optional {
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.optional-tag {
+  font-weight: 400;
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin-left: 4px;
+}
+.compact-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+}
+.compact-row label {
+  margin-top: 14px;
+}
+.compact-row select,
+.compact-row input {
+  padding: 8px 10px;
+}
+.footnote {
+  margin-top: 16px;
 }
 .chips-field {
   display: flex;
@@ -216,7 +321,6 @@ textarea[aria-invalid='true'] {
   flex: 1 1 140px;
   min-width: 100px;
   border: 0;
-  outline: 0;
   background: transparent;
   font: inherit;
   color: inherit;
@@ -236,7 +340,7 @@ textarea[aria-invalid='true'] {
 .chip-remove {
   border: 0;
   background: none;
-  color: var(--muted);
+  color: var(--ink-2);
   font-size: 1.05rem;
   line-height: 1;
   padding: 0 0 0 2px;
@@ -248,44 +352,68 @@ textarea[aria-invalid='true'] {
   font-size: 0.88rem;
 }
 .chip-button:hover:not(:disabled) {
-  border-color: var(--accent);
+  border-color: var(--link);
 }
 .chip-button:disabled {
-  opacity: 0.6;
+  color: var(--ink-2);
   cursor: default;
 }
-.row {
-  display: flex;
-  align-items: flex-end;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.row > div {
-  flex: 1 1 180px;
-}
-.space-between {
-  justify-content: space-between;
-  align-items: center;
-}
+
+/* buttons */
 button {
   font: inherit;
   border-radius: 10px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   background: var(--surface);
   color: var(--ink);
   padding: 9px 16px;
   cursor: pointer;
 }
-button.primary {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--accent-ink);
-  font-weight: 600;
-  padding: 11px 26px;
-}
 button:disabled {
-  opacity: 0.55;
   cursor: not-allowed;
+}
+button.primary {
+  background: var(--btn-bg);
+  border-color: var(--btn-bg);
+  color: var(--btn-ink);
+  font-weight: 600;
+}
+button.primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+button.big {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px 20px;
+  font-size: 1.05rem;
+}
+/* disabled on purpose (e.g. empty caption): readable, clearly inactive, says why */
+button.primary:disabled {
+  background: var(--disabled-bg);
+  color: var(--disabled-ink);
+  border: 1px dashed var(--border-strong);
+  font-weight: 500;
+}
+button.primary[aria-busy='true'],
+button.primary:disabled:not(.is-blocked) {
+  /* "Scoring…" keeps the primary look */
+  background: var(--btn-bg);
+  color: var(--btn-ink);
+  border: 1px solid var(--btn-bg);
+  font-weight: 600;
+}
+.link-button {
+  border: 0;
+  background: none;
+  padding: 4px 0;
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 0.9rem;
+}
+.link-button:disabled {
+  color: var(--muted);
 }
 
 /* states */
@@ -298,13 +426,27 @@ button:disabled {
 .card.error {
   border-color: transparent;
 }
+.result-empty {
+  border-style: dashed;
+  border-color: var(--border-strong);
+  box-shadow: none;
+}
+.result-empty h2 {
+  margin-top: 0;
+}
+.result-empty p {
+  color: var(--ink-2);
+}
 .skeleton {
-  height: 120px;
+  height: 140px;
   border-radius: 10px;
   background: linear-gradient(90deg, var(--surface-2), var(--border), var(--surface-2));
   background-size: 200% 100%;
   animation: shimmer 1.2s infinite linear;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+}
+.skeleton.short {
+  height: 60px;
 }
 @keyframes shimmer {
   from {
@@ -323,8 +465,8 @@ button:disabled {
 /* result */
 .result-head {
   display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 20px;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 18px;
   align-items: center;
 }
 .verdict {
@@ -334,6 +476,10 @@ button:disabled {
 }
 .verdict-likely {
   color: var(--ok);
+}
+.result-head .muted {
+  color: var(--ink-2);
+  margin: 0;
 }
 .gauge {
   margin: 0;
@@ -353,7 +499,7 @@ button:disabled {
   stroke: var(--surface-2);
 }
 .gauge-fill {
-  stroke: var(--accent);
+  stroke: var(--up);
 }
 .gauge-tick line {
   stroke: var(--muted);
@@ -410,20 +556,21 @@ button:disabled {
   border-radius: 10px;
   padding: 10px 12px;
   margin: 0;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word; /* wrap between words; only split a word longer than the line */
 }
 .tok {
   padding: 2px 3px;
   border-radius: 4px;
-  margin-right: 3px;
+  margin-right: 0; /* gaps come from real spaces between tokens */
 }
+/* tint = up/down colour mixed into the background; strength capped by MAX_TINT (constants.js) */
 .tok-up {
-  background: color-mix(in srgb, var(--up) calc(var(--strength, 0) * 100%), transparent);
+  background: color-mix(in srgb, var(--up) calc(var(--strength, 0) * 100%), var(--bg));
   text-decoration: underline solid var(--up);
   text-underline-offset: 4px;
 }
 .tok-down {
-  background: color-mix(in srgb, var(--down) calc(var(--strength, 0) * 100%), transparent);
+  background: color-mix(in srgb, var(--down) calc(var(--strength, 0) * 100%), var(--bg));
   text-decoration: underline dashed var(--down);
   text-underline-offset: 4px;
 }
@@ -488,15 +635,30 @@ button:disabled {
   font-size: 0.75rem;
   border-radius: 999px;
   padding: 1px 8px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   color: var(--ink-2);
 }
 .badge-likely {
   border-color: var(--ok);
   color: var(--ok);
 }
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.space-between {
+  justify-content: space-between;
+}
 
-/* about */
+/* about / history pages: readable line length inside the wider container */
+.prose,
+.page-narrow {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .prose ul {
   padding-left: 1.2rem;
 }
@@ -533,9 +695,6 @@ button:disabled {
   .gauge {
     max-width: 260px;
     margin: 0 auto;
-  }
-  .row button.primary {
-    width: 100%;
   }
   nav a {
     padding: 6px 8px;

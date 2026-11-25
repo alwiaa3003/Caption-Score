@@ -81,6 +81,32 @@ export default function AboutPage() {
         counts.
       </p>
 
+      <h2>How it works</h2>
+      <ul>
+        <li>
+          Paste a caption (and optionally hashtags). The model reads the <strong>text only</strong>:
+          words, short word pairs, character patterns, emojis and hashtags.
+        </li>
+        <li>
+          It returns an estimated chance of reaching the top 10% of comparable posts. The gauge
+          marks a typical post (about 10%) and the "likely" cut-off: a score in the model's top 10%
+          of scores on held-out posts.
+        </li>
+        <li>
+          Highlighted words show what drove the score. The model is linear, so each word's
+          contribution is exact, not an approximation: blue (solid underline) pushes the score up,
+          orange (dashed underline) pushes it down.
+        </li>
+        <li>
+          Suggested hashtags are related tags whose posts reached the top 10% more often in the
+          training data, and that raise this caption's score when added.
+        </li>
+        <li>
+          Post type and duration are recorded with your entry but don't change the score: the model
+          was trained on caption text alone.
+        </li>
+      </ul>
+
       <h2>How "top 10%" is defined</h2>
       <p>
         The model was trained on public metadata of US, English-language TikTok videos posted
