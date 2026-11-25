@@ -210,5 +210,89 @@
       }
     },
     "best_baseline": "tfidf_meta_lgbm"
+  },
+  "embeddings": {
+    "evaluated_on": "validation 2025-09..2026-04 (test untouched)",
+    "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+    "max_seq_length": 64,
+    "rows_encoded": "all train + val",
+    "emb_lr": {
+      "val": {
+        "n": 114813,
+        "positive_rate": 0.1001,
+        "pr_auc": 0.1561,
+        "roc_auc": 0.6328,
+        "precision_at_top10": 0.1875,
+        "f1": 0.2316,
+        "threshold": 0.112448
+      },
+      "val_per_month_pr_auc": {
+        "2025-09": 0.1647,
+        "2025-10": 0.1581,
+        "2025-11": 0.1591,
+        "2025-12": 0.1442,
+        "2026-01": 0.1541,
+        "2026-02": 0.1588,
+        "2026-03": 0.1594,
+        "2026-04": 0.1617
+      },
+      "params": {
+        "C": 0.01
+      },
+      "val_deduped": {
+        "n": 111893,
+        "positive_rate": 0.1014,
+        "pr_auc": 0.157,
+        "roc_auc": 0.6313,
+        "precision_at_top10": 0.1879,
+        "f1": 0.2326,
+        "threshold": 0.112448
+      }
+    },
+    "emb_meta_lgbm": {
+      "val": {
+        "n": 114813,
+        "positive_rate": 0.1001,
+        "pr_auc": 0.1742,
+        "roc_auc": 0.6603,
+        "precision_at_top10": 0.2125,
+        "f1": 0.2505,
+        "threshold": 0.121189
+      },
+      "val_per_month_pr_auc": {
+        "2025-09": 0.1868,
+        "2025-10": 0.1828,
+        "2025-11": 0.1836,
+        "2025-12": 0.1685,
+        "2026-01": 0.1706,
+        "2026-02": 0.1707,
+        "2026-03": 0.162,
+        "2026-04": 0.1803
+      },
+      "params": {
+        "num_leaves": 63,
+        "learning_rate": 0.05,
+        "feature_fraction": 0.5,
+        "best_iteration": 320
+      },
+      "lgb_params": {
+        "num_leaves": 63,
+        "learning_rate": 0.05,
+        "feature_fraction": 0.5
+      },
+      "val_deduped": {
+        "n": 111893,
+        "positive_rate": 0.1014,
+        "pr_auc": 0.1751,
+        "roc_auc": 0.6588,
+        "precision_at_top10": 0.2134,
+        "f1": 0.2511,
+        "threshold": 0.121189
+      }
+    },
+    "sanity_shuffled_labels": {
+      "emb_lr_val_pr_auc": 0.0995,
+      "emb_meta_lgbm_val_pr_auc": 0.1012
+    }
   }
 }
