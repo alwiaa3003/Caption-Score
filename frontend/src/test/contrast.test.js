@@ -17,10 +17,8 @@ function tokens(block) {
   return out;
 }
 
-const light = tokens(
-  css.slice(css.indexOf(':root {'), css.indexOf('@media (prefers-color-scheme: dark)')),
-);
-const darkStart = css.indexOf('@media (prefers-color-scheme: dark)');
+const light = tokens(css.slice(css.indexOf(':root {'), css.indexOf(":root[data-theme='dark']")));
+const darkStart = css.indexOf(":root[data-theme='dark']");
 const dark = {
   ...light,
   ...tokens(css.slice(darkStart, css.indexOf('color-scheme: dark', darkStart))),
@@ -55,7 +53,7 @@ const TEXT = [
   ['ink', 'bg'],
   ['ink', 'surface'],
   ['muted', 'bg'], // helper text, counter, empty line, placeholder on the page
-  ['muted', 'surface'], // placeholder inside fields
+  ['muted', 'surface'], // helper text and placeholders on the white panel
   ['link', 'bg'], // links and text buttons
   ['link', 'surface'],
   ['accent-ink', 'accent'], // primary button
@@ -63,10 +61,13 @@ const TEXT = [
   ['chip-ink', 'chip-bg'], // hashtag chips
   ['ink', 'chip-bg'],
   ['disabled-ink', 'disabled-bg'], // primary button while blocked
-  ['error', 'bg'], // error lines
+  ['error', 'surface'], // error lines (on the panel)
+  ['error', 'bg'],
+  ['brand', 'surface'], // brand name in the white header
 ];
 const NON_TEXT = [
   ['control', 'bg'], // input outlines (WCAG 1.4.11)
+  ['accent', 'surface'], // primary button against the panel
   ['control', 'surface'],
   ['focus', 'bg'], // keyboard focus ring
   ['focus', 'surface'],
@@ -97,6 +98,6 @@ describe.each([
   });
 
   it.each(['raise', 'lower'])('text on the strongest %s highlight >= 4.5:1', (dir) => {
-    expect(contrast(t.ink, mix(t[dir], t.bg, MAX_TINT))).toBeGreaterThanOrEqual(4.5);
+    expect(contrast(t.ink, mix(t[dir], t.surface, MAX_TINT))).toBeGreaterThanOrEqual(4.5);
   });
 });

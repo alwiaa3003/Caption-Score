@@ -1,8 +1,28 @@
+import { useState } from 'react';
 import { NavLink, Route, Routes } from 'react-router-dom';
 
 import AboutPage from './pages/AboutPage.jsx';
 import HistoryPage from './pages/HistoryPage.jsx';
 import ScorePage from './pages/ScorePage.jsx';
+import { getTheme, setTheme } from './theme.js';
+
+function ThemeToggle() {
+  const [theme, setState] = useState(getTheme);
+  const next = theme === 'dark' ? 'light' : 'dark';
+  return (
+    <button
+      type="button"
+      className="text-button theme-toggle"
+      aria-label={`Switch to ${next} mode`}
+      onClick={() => {
+        setTheme(next);
+        setState(next);
+      }}
+    >
+      {next === 'dark' ? 'Dark' : 'Light'}
+    </button>
+  );
+}
 
 export default function App() {
   return (
@@ -12,13 +32,16 @@ export default function App() {
           <NavLink to="/" className="brand">
             CaptionScore
           </NavLink>
-          <nav aria-label="Main">
-            <NavLink to="/" end>
-              Score
-            </NavLink>
-            <NavLink to="/history">History</NavLink>
-            <NavLink to="/about">About</NavLink>
-          </nav>
+          <div className="header-right">
+            <nav aria-label="Main">
+              <NavLink to="/" end>
+                Score
+              </NavLink>
+              <NavLink to="/history">History</NavLink>
+              <NavLink to="/about">About</NavLink>
+            </nav>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
       <main className="container">

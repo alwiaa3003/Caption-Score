@@ -1,27 +1,29 @@
 /* CaptionScore theme.
 
-   Light is the default; dark follows the system preference with the same roles.
+   Light (default): light purple page, white panel, blue primary, violet/orange highlights
+   (orange is purple's complement). Dark is opt-in via the header toggle
+   (<html data-theme="dark">) and keeps the same roles in a deep violet.
                        light      dark
-     background        #eef2fb    #1b1e21
-     surface (fields)  #ffffff    #23272b
-     ink               #14192e    #e4e7e9
-     muted text        #535d78    #9aa3a8
-     hairline          #d8dfef    #33383d
-     accent (button)   #116dff    #4f7088
-     raises score      #6b4fd8    #5596cc   (solid underline)
-     lowers score      #c95a1c    #c4843e   (dashed underline)
-   Raise/lower differ for colour-blind users (CVD dE > 19) and by underline style.
+     page              #ebe6ff    #16132a
+     panel / fields    #ffffff    #201c38
+     ink               #1b1838    #eceaf8
+     muted text        #5c5777    #a7a2c4
+     hairline          #e6e1f7    #332d52
+     primary button    #116dff    #2f6fe8
+     raises score      #6b4fd8    #8f7bf7   (solid underline)
+     lowers score      #c95a1c    #d9833f   (dashed underline)
+   Raise/lower differ for colour-blind users (CVD dE > 25) and by underline style.
    Every text pair is checked for WCAG AA in src/test/contrast.test.js.
 
    One font (Figtree), one radius (8px; hashtag chips are the only pills), no shadows,
-   gradients or dashed borders. Space and hairlines separate things instead of boxes. */
+   gradients or dashed borders. */
 :root {
-  --bg: #eef2fb;
+  --bg: #ebe6ff;
   --surface: #ffffff;
-  --ink: #14192e;
-  --muted: #535d78;
-  --border: #d8dfef;
-  --control: #7a85a3; /* input outlines: >= 3:1 against bg and surface (WCAG 1.4.11) */
+  --ink: #1b1838;
+  --muted: #5c5777;
+  --border: #e6e1f7;
+  --control: #7f799e; /* input outlines: >= 3:1 against panel and page (WCAG 1.4.11) */
   --accent: #116dff;
   --accent-hover: #0a59d6;
   --accent-ink: #ffffff;
@@ -29,11 +31,12 @@
   --focus: #116dff;
   --raise: #6b4fd8;
   --lower: #c95a1c;
-  --chip-bg: #e6edff;
-  --chip-ink: #14192e;
-  --disabled-bg: #e1e7f3;
-  --disabled-ink: #4b5571;
+  --chip-bg: #efebff;
+  --chip-ink: #1b1838;
+  --disabled-bg: #ece9f7;
+  --disabled-ink: #5a5574;
   --error: #c0322a;
+  --brand: #5b3fd0; /* brand name and current-page underline */
 
   --font: 'Figtree Variable', 'Segoe UI', Helvetica, Arial, sans-serif;
   --radius: 8px;
@@ -41,28 +44,27 @@
   --tap: 44px;
   color-scheme: light;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #1b1e21;
-    --surface: #23272b;
-    --ink: #e4e7e9;
-    --muted: #9aa3a8;
-    --border: #33383d;
-    --control: #6f787e;
-    --accent: #4f7088;
-    --accent-hover: #46657b;
-    --accent-ink: #ffffff;
-    --link: #9db8cc;
-    --focus: #8fadc2;
-    --raise: #5596cc;
-    --lower: #c4843e;
-    --chip-bg: #2c3136;
-    --chip-ink: #e4e7e9;
-    --disabled-bg: #2c3136;
-    --disabled-ink: #a3abb0;
-    --error: #f0a093;
-    color-scheme: dark;
-  }
+:root[data-theme='dark'] {
+  --bg: #16132a;
+  --surface: #201c38;
+  --ink: #eceaf8;
+  --muted: #a7a2c4;
+  --border: #332d52;
+  --control: #7c76a0;
+  --accent: #2f6fe8;
+  --accent-hover: #2860cc;
+  --accent-ink: #ffffff;
+  --link: #9dbdff;
+  --focus: #8fb2ff;
+  --raise: #8f7bf7;
+  --lower: #d9833f;
+  --chip-bg: #2b2650;
+  --chip-ink: #eceaf8;
+  --disabled-bg: #2b2650;
+  --disabled-ink: #bdb8d8;
+  --error: #ff9a8f;
+  --brand: #b3a4ff;
+  color-scheme: dark;
 }
 
 /* ---------- base ---------- */
@@ -148,7 +150,7 @@ a:focus-visible {
   }
 }
 .site-header {
-  background: var(--bg);
+  background: var(--surface);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
@@ -165,7 +167,7 @@ a:focus-visible {
   display: inline-flex;
   align-items: center;
   min-height: var(--tap);
-  color: var(--ink);
+  color: var(--brand);
   font-weight: 500;
   font-size: 1.0625rem;
   text-decoration: none;
@@ -173,9 +175,19 @@ a:focus-visible {
 .brand:hover {
   text-decoration: none;
 }
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
 nav {
   display: flex;
   gap: 24px;
+}
+.theme-toggle {
+  font-size: 0.875rem;
+  min-width: var(--tap);
+  justify-content: center;
 }
 nav a {
   display: inline-flex;
@@ -193,16 +205,20 @@ nav a:hover {
 }
 nav a.active {
   color: var(--ink);
-  border-bottom-color: var(--ink);
+  border-bottom-color: var(--brand);
 }
-main {
+main.container {
+  background: var(--surface);
+  border-radius: var(--radius);
+  margin-top: 32px;
+  margin-bottom: 32px;
   padding-top: 48px;
-  padding-bottom: 32px;
+  padding-bottom: 48px;
+  max-width: 1200px;
 }
 .site-footer {
-  padding-top: 24px;
+  padding-top: 0;
   padding-bottom: 40px;
-  border-top: 1px solid var(--border);
 }
 .site-footer a {
   padding: 14px 4px; /* ~44px tap target without changing the line height */
@@ -492,13 +508,13 @@ button.primary:disabled:not([aria-describedby]) {
 }
 /* tint = raise/lower colour mixed into the background; strength capped by MAX_TINT */
 .tok-up {
-  background: color-mix(in srgb, var(--raise) calc(var(--strength, 0) * 100%), var(--bg));
+  background: color-mix(in srgb, var(--raise) calc(var(--strength, 0) * 100%), var(--surface));
   text-decoration: underline solid var(--raise);
   text-decoration-thickness: 1.5px;
   text-underline-offset: 5px;
 }
 .tok-down {
-  background: color-mix(in srgb, var(--lower) calc(var(--strength, 0) * 100%), var(--bg));
+  background: color-mix(in srgb, var(--lower) calc(var(--strength, 0) * 100%), var(--surface));
   text-decoration: underline dashed var(--lower);
   text-decoration-thickness: 1.5px;
   text-underline-offset: 5px;
@@ -608,8 +624,11 @@ button.primary:disabled:not([aria-describedby]) {
 
 /* ---------- small screens ---------- */
 @media (max-width: 600px) {
-  main {
-    padding-top: 32px;
+  main.container {
+    margin: 12px 8px;
+    width: auto;
+    padding-top: 28px;
+    padding-bottom: 32px;
   }
   nav {
     gap: 18px;
