@@ -21,8 +21,8 @@ function arc(from, to) {
 function Tick({ frac, label, className }) {
   const [x1, y1] = point(frac);
   const a = Math.PI * (1 - frac);
-  const x2 = CX + (R + 14) * Math.cos(a);
-  const y2 = CY - (R + 14) * Math.sin(a);
+  const x2 = CX + (R + 19) * Math.cos(a);
+  const y2 = CY - (R + 19) * Math.sin(a);
   return (
     <g className={className}>
       <line x1={x1} y1={y1} x2={x2} y2={y2} />
@@ -39,7 +39,7 @@ export default function ScoreGauge({ probability, baseRate, threshold }) {
   return (
     <figure className="gauge">
       <svg
-        viewBox="0 0 200 118"
+        viewBox="0 -8 200 126"
         role="img"
         aria-label={`Estimated chance ${pct}%. Typical post ${Math.round(baseRate * 100)}%.`}
       >

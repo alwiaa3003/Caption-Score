@@ -57,24 +57,33 @@ const TEXT = [
   ['ink', 'surface-2'],
   ['ink-2', 'bg'],
   ['ink-2', 'surface'],
-  ['ink-2', 'surface-2'],
+  ['ink-2', 'surface-2'], // nav hover, secondary button hover
   ['muted', 'bg'],
   ['muted', 'surface'],
   ['muted', 'surface-2'],
-  ['placeholder', 'bg'], // inputs use --bg
+  ['placeholder', 'surface'], // inputs use --surface
   ['link', 'surface'],
   ['link', 'bg'],
-  ['btn-ink', 'btn-bg'],
-  ['disabled-ink', 'disabled-bg'],
-  ['ok', 'surface'],
+  ['primary-ink', 'primary'], // primary button
+  ['primary-ink', 'primary-hover'],
+  ['primary-ink', 'primary-press'],
+  ['chip-ink', 'chip-bg'], // hashtag chips, nav active, added suggestions
+  ['ink', 'chip-bg'],
+  ['raise-text', 'surface'], // "Likely ..." verdict, likely badge
+  ['disabled-ink', 'disabled-bg'], // blocked primary button
   ['error-ink', 'error-bg'],
 ];
 const NON_TEXT = [
-  ['up', 'surface'],
-  ['down', 'surface'],
-  ['up', 'surface-2'], // gauge fill on its track
-  ['border-strong', 'bg'], // input borders (WCAG 1.4.11 for UI components)
+  ['raise', 'surface'], // underline + legend swatch
+  ['lower', 'surface'],
+  ['raise', 'bg'],
+  ['lower', 'bg'],
+  ['primary', 'surface-2'], // gauge fill on its track
+  ['border-strong', 'bg'], // input / button outlines (WCAG 1.4.11)
   ['border-strong', 'surface'],
+  ['focus', 'bg'], // keyboard focus ring
+  ['focus', 'surface'],
+  ['primary', 'bg'], // primary button shape vs page
 ];
 
 describe.each([
@@ -96,7 +105,7 @@ describe.each([
     expect(contrast(t[fg], t[bg])).toBeGreaterThanOrEqual(3);
   });
 
-  it.each(['up', 'down'])('text on the strongest %s highlight >= 4.5:1', (dir) => {
+  it.each(['raise', 'lower'])('text on the strongest %s highlight >= 4.5:1', (dir) => {
     expect(contrast(t.ink, mix(t[dir], t.bg, MAX_TINT))).toBeGreaterThanOrEqual(4.5);
   });
 });

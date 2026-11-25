@@ -106,7 +106,7 @@ export default function ScorePage() {
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
             rows={6}
-            placeholder="Paste or type your caption, e.g. day 3 of learning to skate 🛹"
+            placeholder="Paste or type your caption, e.g. day 3 of learning to skate"
             aria-invalid={tooLong}
             aria-describedby="caption-help"
           />
@@ -121,7 +121,7 @@ export default function ScorePage() {
 
           <button
             type="submit"
-            className={`primary big${reason ? ' is-blocked' : ''}`}
+            className={`primary big${reason ? ' is-blocked' : ''}${loading ? ' is-loading' : ''}`}
             disabled={!canSubmit}
           >
             {loading ? 'Scoring…' : reason || 'Score caption'}
