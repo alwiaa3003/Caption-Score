@@ -61,6 +61,7 @@ python -m src.train_embeddings      # Phase 4a: LR / LightGBM on embeddings
 python -m src.compare_models        # validation comparison table -> reports/model_comparison.md
 python -m src.select_model          # choose final model on validation (+ bootstrap, PR curves)
 python -m src.evaluate_test         # ONE-TIME test + stress evaluation of the chosen model
+python -m src.build_explainability  # Phase 5: explanations, hashtag lift, exports ml/models/final/
 python -m src.export_colab          # Phase 4b: data for Colab -> ml/data/colab/
 #   then run ml/notebooks/finetune_distilbert_colab.ipynb on a Colab T4 GPU
 python -m src.import_transformer_preds  # score the DistilBERT predictions brought back

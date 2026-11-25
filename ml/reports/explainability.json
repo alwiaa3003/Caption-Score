@@ -1,0 +1,871 @@
+{
+  "min_count": 500,
+  "base_rate": 0.1001,
+  "ngrams_positive": [
+    {
+      "feature": "how to",
+      "coef": 1.5719,
+      "train_posts": 3356,
+      "viral_rate_when_present": 0.1579
+    },
+    {
+      "feature": "this",
+      "coef": 1.532,
+      "train_posts": 72989,
+      "viral_rate_when_present": 0.1157
+    },
+    {
+      "feature": "is",
+      "coef": 1.4065,
+      "train_posts": 59743,
+      "viral_rate_when_present": 0.1159
+    },
+    {
+      "feature": "ig",
+      "coef": 1.3641,
+      "train_posts": 1950,
+      "viral_rate_when_present": 0.1513
+    },
+    {
+      "feature": "the",
+      "coef": 1.2044,
+      "train_posts": 130867,
+      "viral_rate_when_present": 0.1136
+    },
+    {
+      "feature": "youtube",
+      "coef": 1.1803,
+      "train_posts": 2170,
+      "viral_rate_when_present": 0.1456
+    },
+    {
+      "feature": "you guys",
+      "coef": 1.1225,
+      "train_posts": 1730,
+      "viral_rate_when_present": 0.1584
+    },
+    {
+      "feature": "reply to",
+      "coef": 1.094,
+      "train_posts": 2945,
+      "viral_rate_when_present": 0.253
+    },
+    {
+      "feature": "[@mention] the",
+      "coef": 1.0722,
+      "train_posts": 639,
+      "viral_rate_when_present": 0.1987
+    },
+    {
+      "feature": "replying to",
+      "coef": 1.072,
+      "train_posts": 7018,
+      "viral_rate_when_present": 0.3051
+    },
+    {
+      "feature": "they",
+      "coef": 1.0709,
+      "train_posts": 12087,
+      "viral_rate_when_present": 0.1295
+    },
+    {
+      "feature": "to",
+      "coef": 1.0631,
+      "train_posts": 112230,
+      "viral_rate_when_present": 0.1196
+    },
+    {
+      "feature": "edition",
+      "coef": 1.0471,
+      "train_posts": 777,
+      "viral_rate_when_present": 0.1596
+    },
+    {
+      "feature": "replying",
+      "coef": 1.0395,
+      "train_posts": 7022,
+      "viral_rate_when_present": 0.3049
+    },
+    {
+      "feature": "his",
+      "coef": 1.0342,
+      "train_posts": 6481,
+      "viral_rate_when_present": 0.1308
+    },
+    {
+      "feature": "using",
+      "coef": 1.0287,
+      "train_posts": 1699,
+      "viral_rate_when_present": 0.1677
+    },
+    {
+      "feature": "from [@mention]",
+      "coef": 1.0266,
+      "train_posts": 1589,
+      "viral_rate_when_present": 0.1586
+    },
+    {
+      "feature": "[@mention] i",
+      "coef": 1.0264,
+      "train_posts": 2127,
+      "viral_rate_when_present": 0.134
+    },
+    {
+      "feature": "reply",
+      "coef": 0.9958,
+      "train_posts": 3014,
+      "viral_rate_when_present": 0.2492
+    },
+    {
+      "feature": "did",
+      "coef": 0.9765,
+      "train_posts": 8413,
+      "viral_rate_when_present": 0.1199
+    },
+    {
+      "feature": "dc",
+      "coef": 0.9524,
+      "train_posts": 936,
+      "viral_rate_when_present": 0.1934
+    },
+    {
+      "feature": "under",
+      "coef": 0.9469,
+      "train_posts": 1188,
+      "viral_rate_when_present": 0.1785
+    },
+    {
+      "feature": "so",
+      "coef": 0.9378,
+      "train_posts": 35758,
+      "viral_rate_when_present": 0.1087
+    },
+    {
+      "feature": "insta",
+      "coef": 0.936,
+      "train_posts": 631,
+      "viral_rate_when_present": 0.1601
+    },
+    {
+      "feature": "worst",
+      "coef": 0.9011,
+      "train_posts": 668,
+      "viral_rate_when_present": 0.1707
+    }
+  ],
+  "ngrams_negative": [
+    {
+      "feature": "[link]",
+      "coef": -1.7677,
+      "train_posts": 3563,
+      "viral_rate_when_present": 0.048
+    },
+    {
+      "feature": "edit",
+      "coef": -1.4969,
+      "train_posts": 3508,
+      "viral_rate_when_present": 0.0909
+    },
+    {
+      "feature": "#duet with",
+      "coef": -1.1421,
+      "train_posts": 13405,
+      "viral_rate_when_present": 0.0391
+    },
+    {
+      "feature": "my baby",
+      "coef": -1.1013,
+      "train_posts": 1873,
+      "viral_rate_when_present": 0.0336
+    },
+    {
+      "feature": "#answer to",
+      "coef": -1.0298,
+      "train_posts": 872,
+      "viral_rate_when_present": 0.0218
+    },
+    {
+      "feature": "dm",
+      "coef": -1.0198,
+      "train_posts": 1771,
+      "viral_rate_when_present": 0.0644
+    },
+    {
+      "feature": "quality",
+      "coef": -1.0187,
+      "train_posts": 1441,
+      "viral_rate_when_present": 0.0722
+    },
+    {
+      "feature": "night",
+      "coef": -0.9385,
+      "train_posts": 6116,
+      "viral_rate_when_present": 0.0803
+    },
+    {
+      "feature": "you like",
+      "coef": -0.9329,
+      "train_posts": 1588,
+      "viral_rate_when_present": 0.0775
+    },
+    {
+      "feature": "concert",
+      "coef": -0.8038,
+      "train_posts": 944,
+      "viral_rate_when_present": 0.0794
+    },
+    {
+      "feature": "with our",
+      "coef": -0.7946,
+      "train_posts": 794,
+      "viral_rate_when_present": 0.0617
+    },
+    {
+      "feature": "got to",
+      "coef": -0.793,
+      "train_posts": 951,
+      "viral_rate_when_present": 0.0747
+    },
+    {
+      "feature": "view",
+      "coef": -0.788,
+      "train_posts": 661,
+      "viral_rate_when_present": 0.0772
+    },
+    {
+      "feature": "love you",
+      "coef": -0.7797,
+      "train_posts": 4884,
+      "viral_rate_when_present": 0.0504
+    },
+    {
+      "feature": "i did",
+      "coef": -0.7417,
+      "train_posts": 2029,
+      "viral_rate_when_present": 0.0813
+    },
+    {
+      "feature": "trip",
+      "coef": -0.7355,
+      "train_posts": 1923,
+      "viral_rate_when_present": 0.0723
+    },
+    {
+      "feature": "best friend",
+      "coef": -0.7173,
+      "train_posts": 1241,
+      "viral_rate_when_present": 0.0483
+    },
+    {
+      "feature": "🔥 🔥",
+      "coef": -0.7147,
+      "train_posts": 2158,
+      "viral_rate_when_present": 0.1121
+    },
+    {
+      "feature": "like and",
+      "coef": -0.7123,
+      "train_posts": 583,
+      "viral_rate_when_present": 0.0566
+    },
+    {
+      "feature": "this year",
+      "coef": -0.7114,
+      "train_posts": 1280,
+      "viral_rate_when_present": 0.0766
+    },
+    {
+      "feature": "#fypシ #fypシ",
+      "coef": -0.7082,
+      "train_posts": 1749,
+      "viral_rate_when_present": 0.08
+    },
+    {
+      "feature": "#trending #fyp",
+      "coef": -0.706,
+      "train_posts": 1146,
+      "viral_rate_when_present": 0.0942
+    },
+    {
+      "feature": "along",
+      "coef": -0.7023,
+      "train_posts": 1159,
+      "viral_rate_when_present": 0.0889
+    },
+    {
+      "feature": "bored",
+      "coef": -0.6963,
+      "train_posts": 1394,
+      "viral_rate_when_present": 0.0359
+    },
+    {
+      "feature": "what the",
+      "coef": -0.6952,
+      "train_posts": 615,
+      "viral_rate_when_present": 0.0862
+    }
+  ],
+  "hashtags_positive": [
+    {
+      "feature": "#viral",
+      "coef": 1.4728,
+      "train_posts": 37997,
+      "viral_rate_when_present": 0.1381
+    },
+    {
+      "feature": "#foryou",
+      "coef": 0.9694,
+      "train_posts": 43146,
+      "viral_rate_when_present": 0.1392
+    },
+    {
+      "feature": "#robloxfyp",
+      "coef": 0.8786,
+      "train_posts": 597,
+      "viral_rate_when_present": 0.2211
+    },
+    {
+      "feature": "#nfl",
+      "coef": 0.8621,
+      "train_posts": 1628,
+      "viral_rate_when_present": 0.2162
+    },
+    {
+      "feature": "#nostalgia",
+      "coef": 0.7732,
+      "train_posts": 552,
+      "viral_rate_when_present": 0.2446
+    },
+    {
+      "feature": "#dating",
+      "coef": 0.7535,
+      "train_posts": 586,
+      "viral_rate_when_present": 0.2201
+    },
+    {
+      "feature": "#baseball",
+      "coef": 0.7534,
+      "train_posts": 864,
+      "viral_rate_when_present": 0.2269
+    },
+    {
+      "feature": "#satisfying",
+      "coef": 0.6067,
+      "train_posts": 916,
+      "viral_rate_when_present": 0.2216
+    },
+    {
+      "feature": "#anime",
+      "coef": 0.6061,
+      "train_posts": 3516,
+      "viral_rate_when_present": 0.1652
+    },
+    {
+      "feature": "#news",
+      "coef": 0.5812,
+      "train_posts": 532,
+      "viral_rate_when_present": 0.2237
+    },
+    {
+      "feature": "#movie",
+      "coef": 0.5787,
+      "train_posts": 980,
+      "viral_rate_when_present": 0.2194
+    },
+    {
+      "feature": "#animation",
+      "coef": 0.5502,
+      "train_posts": 660,
+      "viral_rate_when_present": 0.2152
+    },
+    {
+      "feature": "#nailtech",
+      "coef": 0.5423,
+      "train_posts": 566,
+      "viral_rate_when_present": 0.1254
+    },
+    {
+      "feature": "#real",
+      "coef": 0.5345,
+      "train_posts": 1450,
+      "viral_rate_when_present": 0.1393
+    },
+    {
+      "feature": "#gamingontiktok",
+      "coef": 0.5263,
+      "train_posts": 719,
+      "viral_rate_when_present": 0.1363
+    },
+    {
+      "feature": "#storytime",
+      "coef": 0.5176,
+      "train_posts": 1565,
+      "viral_rate_when_present": 0.1751
+    },
+    {
+      "feature": "#animals",
+      "coef": 0.5165,
+      "train_posts": 871,
+      "viral_rate_when_present": 0.155
+    },
+    {
+      "feature": "#spiderman",
+      "coef": 0.5043,
+      "train_posts": 688,
+      "viral_rate_when_present": 0.1817
+    },
+    {
+      "feature": "#valentinesday",
+      "coef": 0.5006,
+      "train_posts": 760,
+      "viral_rate_when_present": 0.1158
+    },
+    {
+      "feature": "#business",
+      "coef": 0.4987,
+      "train_posts": 577,
+      "viral_rate_when_present": 0.0988
+    },
+    {
+      "feature": "#trend",
+      "coef": 0.4873,
+      "train_posts": 4312,
+      "viral_rate_when_present": 0.1285
+    },
+    {
+      "feature": "#women",
+      "coef": 0.4861,
+      "train_posts": 526,
+      "viral_rate_when_present": 0.1141
+    },
+    {
+      "feature": "#fishing",
+      "coef": 0.4653,
+      "train_posts": 783,
+      "viral_rate_when_present": 0.1596
+    },
+    {
+      "feature": "#funnyvideo",
+      "coef": 0.4646,
+      "train_posts": 628,
+      "viral_rate_when_present": 0.1513
+    },
+    {
+      "feature": "#singing",
+      "coef": 0.4625,
+      "train_posts": 929,
+      "viral_rate_when_present": 0.1378
+    }
+  ],
+  "hashtags_negative": [
+    {
+      "feature": "#tiktok",
+      "coef": -1.3106,
+      "train_posts": 9964,
+      "viral_rate_when_present": 0.0943
+    },
+    {
+      "feature": "#duet",
+      "coef": -1.3071,
+      "train_posts": 14517,
+      "viral_rate_when_present": 0.0431
+    },
+    {
+      "feature": "#answer",
+      "coef": -1.1332,
+      "train_posts": 940,
+      "viral_rate_when_present": 0.0255
+    },
+    {
+      "feature": "#fun",
+      "coef": -1.0454,
+      "train_posts": 2244,
+      "viral_rate_when_present": 0.0726
+    },
+    {
+      "feature": "#twitch",
+      "coef": -1.0325,
+      "train_posts": 2716,
+      "viral_rate_when_present": 0.0622
+    },
+    {
+      "feature": "#new",
+      "coef": -0.974,
+      "train_posts": 884,
+      "viral_rate_when_present": 0.0679
+    },
+    {
+      "feature": "#youtube",
+      "coef": -0.8617,
+      "train_posts": 1497,
+      "viral_rate_when_present": 0.0775
+    },
+    {
+      "feature": "#sunset",
+      "coef": -0.8521,
+      "train_posts": 797,
+      "viral_rate_when_present": 0.0427
+    },
+    {
+      "feature": "#capcut",
+      "coef": -0.8098,
+      "train_posts": 24171,
+      "viral_rate_when_present": 0.0511
+    },
+    {
+      "feature": "#followme",
+      "coef": -0.7969,
+      "train_posts": 1287,
+      "viral_rate_when_present": 0.0404
+    },
+    {
+      "feature": "#like",
+      "coef": -0.7924,
+      "train_posts": 2702,
+      "viral_rate_when_present": 0.0662
+    },
+    {
+      "feature": "#boymom",
+      "coef": -0.7889,
+      "train_posts": 1523,
+      "viral_rate_when_present": 0.0591
+    },
+    {
+      "feature": "#makeup",
+      "coef": -0.7811,
+      "train_posts": 2876,
+      "viral_rate_when_present": 0.0942
+    },
+    {
+      "feature": "#nature",
+      "coef": -0.7647,
+      "train_posts": 1419,
+      "viral_rate_when_present": 0.062
+    },
+    {
+      "feature": "#babyboy",
+      "coef": -0.7033,
+      "train_posts": 790,
+      "viral_rate_when_present": 0.0582
+    },
+    {
+      "feature": "#sahm",
+      "coef": -0.6934,
+      "train_posts": 1340,
+      "viral_rate_when_present": 0.0709
+    },
+    {
+      "feature": "#travel",
+      "coef": -0.6842,
+      "train_posts": 2416,
+      "viral_rate_when_present": 0.089
+    },
+    {
+      "feature": "#goals",
+      "coef": -0.6789,
+      "train_posts": 602,
+      "viral_rate_when_present": 0.0482
+    },
+    {
+      "feature": "#shopsmall",
+      "coef": -0.6636,
+      "train_posts": 536,
+      "viral_rate_when_present": 0.0336
+    },
+    {
+      "feature": "#for",
+      "coef": -0.6629,
+      "train_posts": 676,
+      "viral_rate_when_present": 0.0725
+    },
+    {
+      "feature": "#2023",
+      "coef": -0.651,
+      "train_posts": 915,
+      "viral_rate_when_present": 0.0546
+    },
+    {
+      "feature": "#crazy",
+      "coef": -0.6463,
+      "train_posts": 500,
+      "viral_rate_when_present": 0.09
+    },
+    {
+      "feature": "#draft",
+      "coef": -0.6298,
+      "train_posts": 782,
+      "viral_rate_when_present": 0.0473
+    },
+    {
+      "feature": "#ai",
+      "coef": -0.6295,
+      "train_posts": 847,
+      "viral_rate_when_present": 0.0885
+    },
+    {
+      "feature": "#chicago",
+      "coef": -0.6174,
+      "train_posts": 1224,
+      "viral_rate_when_present": 0.0907
+    }
+  ],
+  "hashtags_with_min_count": 486,
+  "suggestion_pool": 175,
+  "calibration_val_deciles": [
+    {
+      "decile": 0,
+      "mean_predicted": 0.0307,
+      "actual_rate": 0.0339,
+      "rows": 11482
+    },
+    {
+      "decile": 1,
+      "mean_predicted": 0.0479,
+      "actual_rate": 0.0467,
+      "rows": 11481
+    },
+    {
+      "decile": 2,
+      "mean_predicted": 0.06,
+      "actual_rate": 0.0562,
+      "rows": 11481
+    },
+    {
+      "decile": 3,
+      "mean_predicted": 0.0714,
+      "actual_rate": 0.0638,
+      "rows": 11481
+    },
+    {
+      "decile": 4,
+      "mean_predicted": 0.0831,
+      "actual_rate": 0.0838,
+      "rows": 11482
+    },
+    {
+      "decile": 5,
+      "mean_predicted": 0.0962,
+      "actual_rate": 0.0914,
+      "rows": 11481
+    },
+    {
+      "decile": 6,
+      "mean_predicted": 0.1118,
+      "actual_rate": 0.1092,
+      "rows": 11481
+    },
+    {
+      "decile": 7,
+      "mean_predicted": 0.1319,
+      "actual_rate": 0.1352,
+      "rows": 11481
+    },
+    {
+      "decile": 8,
+      "mean_predicted": 0.1619,
+      "actual_rate": 0.1591,
+      "rows": 11481
+    },
+    {
+      "decile": 9,
+      "mean_predicted": 0.2407,
+      "actual_rate": 0.2221,
+      "rows": 11482
+    }
+  ],
+  "label_cutoff": {
+    "likely_threshold": 0.184244,
+    "definition": "score in the top 10% of validation scores",
+    "val_share_labelled_likely": 0.1,
+    "val_precision_when_likely": 0.2221,
+    "val_viral_rate_when_unlikely": 0.0866
+  },
+  "examples": [
+    {
+      "caption": "wait for the end 😂😂 #funny #comedy",
+      "probability": 0.2338,
+      "likely": true,
+      "top_positive": [
+        {
+          "token": "#comedy",
+          "weight": 0.5541
+        },
+        {
+          "token": "😂",
+          "weight": 0.3229
+        },
+        {
+          "token": "end",
+          "weight": 0.1998
+        },
+        {
+          "token": "the",
+          "weight": 0.1476
+        }
+      ],
+      "top_negative": [],
+      "suggested_hashtags": [
+        {
+          "hashtag": "joke",
+          "lift": 1.89,
+          "relevance": 0.085,
+          "probability_change": 0.051
+        },
+        {
+          "hashtag": "skit",
+          "lift": 2.04,
+          "relevance": 0.088,
+          "probability_change": 0.0436
+        },
+        {
+          "hashtag": "funnyvideo",
+          "lift": 1.51,
+          "relevance": 0.107,
+          "probability_change": 0.0161
+        }
+      ]
+    },
+    {
+      "caption": "my 5 minute morning routine #grwm #morningroutine",
+      "probability": 0.1443,
+      "likely": false,
+      "top_positive": [
+        {
+          "token": "#grwm",
+          "weight": 0.504
+        },
+        {
+          "token": "#morningroutine",
+          "weight": 0.4126
+        },
+        {
+          "token": "routine",
+          "weight": 0.2672
+        },
+        {
+          "token": "5",
+          "weight": 0.1399
+        }
+      ],
+      "top_negative": [
+        {
+          "token": "my",
+          "weight": -0.1644
+        },
+        {
+          "token": "morning",
+          "weight": -0.1204
+        },
+        {
+          "token": "minute",
+          "weight": -0.1198
+        }
+      ],
+      "suggested_hashtags": []
+    },
+    {
+      "caption": "link in bio for the full recipe #food #recipe",
+      "probability": 0.5115,
+      "likely": true,
+      "top_positive": [
+        {
+          "token": "#recipe",
+          "weight": 0.7423
+        },
+        {
+          "token": "recipe",
+          "weight": 0.7326
+        },
+        {
+          "token": "full",
+          "weight": 0.4613
+        },
+        {
+          "token": "#food",
+          "weight": 0.2533
+        }
+      ],
+      "top_negative": [],
+      "suggested_hashtags": [
+        {
+          "hashtag": "amazonfinds",
+          "lift": 2.06,
+          "relevance": 0.081,
+          "probability_change": 0.069
+        },
+        {
+          "hashtag": "amazon",
+          "lift": 1.57,
+          "relevance": 0.054,
+          "probability_change": 0.016
+        }
+      ]
+    },
+    {
+      "caption": "storytime: the worst date of my life (part 1)",
+      "probability": 0.2193,
+      "likely": true,
+      "top_positive": [
+        {
+          "token": "storytime:",
+          "weight": 0.6749
+        },
+        {
+          "token": "worst",
+          "weight": 0.4671
+        },
+        {
+          "token": "(part",
+          "weight": 0.3011
+        },
+        {
+          "token": "date",
+          "weight": 0.2213
+        }
+      ],
+      "top_negative": [
+        {
+          "token": "my",
+          "weight": -0.15
+        },
+        {
+          "token": "life",
+          "weight": -0.1055
+        },
+        {
+          "token": "1)",
+          "weight": -0.0269
+        },
+        {
+          "token": "of",
+          "weight": -0.012
+        }
+      ],
+      "suggested_hashtags": [
+        {
+          "hashtag": "skit",
+          "lift": 2.04,
+          "relevance": 0.076,
+          "probability_change": 0.0714
+        },
+        {
+          "hashtag": "pov",
+          "lift": 1.55,
+          "relevance": 0.058,
+          "probability_change": 0.0209
+        },
+        {
+          "hashtag": "storytime",
+          "lift": 1.75,
+          "relevance": 0.089,
+          "probability_change": 0.0165
+        }
+      ]
+    }
+  ],
+  "bundle_sizes_mb": {
+    "model.joblib": 11.5,
+    "model_card.json": 0.0,
+    "suggest.joblib": 0.5
+  }
+}
