@@ -5,6 +5,9 @@ the **top 10% of comparable posts by views**. It marks the words that pushed the
 and suggests related hashtags. It is a text-classification project (Python, scikit-learn) served
 through a small MERN web app (MongoDB, Express, React, Node) with a FastAPI model service.
 
+**Live demo: [caption-score.vercel.app](https://caption-score.vercel.app)**. It runs on free
+hosting, so the first score after a quiet spell can take up to a minute while the server wakes up.
+
 ![Score page](docs/screenshots/score-scored-1440-light.png)
 
 | Phone | History |
