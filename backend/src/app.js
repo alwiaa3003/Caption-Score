@@ -26,6 +26,10 @@ export function createApp({ modelClient, corsOrigin, rateLimitPerMinute = 30, lo
     message: { error: 'Too many requests. Please wait a minute and try again.' },
   });
 
+  // Liveness for the host's health check: the process is up. It doesn't depend on the model
+  // service, which may be asleep or still deploying on a free host.
+  app.get('/api/live', (req, res) => res.json({ status: 'ok' }));
+
   app.get('/api/health', async (req, res) => {
     const db = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
     let model = 'unreachable';

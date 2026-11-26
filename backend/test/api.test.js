@@ -206,6 +206,16 @@ describe('GET /api/health', () => {
   });
 });
 
+describe('GET /api/live', () => {
+  it('is ok even when the model service is unreachable', async () => {
+    const res = await request(makeApp({ modelClient: fakeModel({ fail: new Error('x') }) })).get(
+      '/api/live',
+    );
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({ status: 'ok' });
+  });
+});
+
 describe('model client', () => {
   it('maps connection errors to 503 and timeouts to 504', async () => {
     const refused = createModelClient({
