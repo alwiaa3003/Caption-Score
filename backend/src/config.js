@@ -24,7 +24,7 @@ export const config = {
   modelServiceTimeoutMs: int('MODEL_SERVICE_TIMEOUT_MS', 5000),
   corsOrigin: (process.env.CORS_ORIGIN ?? 'http://localhost:5173')
     .split(',')
-    .map((s) => s.trim())
+    .map((s) => s.trim().replace(/\/+$/, '')) // browsers send the origin without a trailing slash
     .filter(Boolean),
   rateLimitPerMinute: int('RATE_LIMIT_PER_MINUTE', 30),
 };
