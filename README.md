@@ -261,17 +261,19 @@ Lint: `ruff check` in `ml/` and `model-service/`; `npm run lint` in `backend/` a
   backward-looking signal, not advice on what people should post.
 
 ## Deployment notes
-The app has three deployable parts plus a database:
+The app has three deployable parts plus a database, all on free tiers:
 
-| Part | Suggested host | Settings |
+| Part | Host | Settings |
 |---|---|---|
-| Database | MongoDB Atlas (free tier) | Allow the backend's outbound IP in Network Access. |
-| Model service | Any Python web host (Render, Railway, Fly.io) | Ship `ml/models/final/` with the service (for example as a GitHub Release asset downloaded at build time) and set `MODEL_DIR`. Keep it private to the backend if the host allows. |
-| Backend | Any Node host | `MONGODB_URI`, `MONGODB_DB`, `MODEL_SERVICE_URL`, `CORS_ORIGIN` (the frontend's URL), `RATE_LIMIT_PER_MINUTE`, `PORT`. |
-| Frontend | Any static host (Vercel, Netlify, Cloudflare Pages) | Build with `VITE_API_URL` set to the backend URL; route unknown paths to `index.html`. |
+| Database | MongoDB Atlas (M0) | Network Access allows `0.0.0.0/0`, because free Render services have no fixed IP. |
+| Model service | Render web service (`render.yaml`) | The build downloads the model bundle from the [`model-v1` release](https://github.com/alwiaa3003/Caption-Score/releases/tag/model-v1) with `model-service/fetch_model.py` and checks its SHA-256. |
+| Backend | Render web service (`render.yaml`) | `MONGODB_URI`, `MODEL_SERVICE_URL`, `CORS_ORIGIN` (the frontend's URL), `MODEL_SERVICE_TIMEOUT_MS=60000`. |
+| Frontend | Vercel (root directory `frontend`) | `VITE_API_URL` set to the backend URL. `frontend/vercel.json` (or `public/_redirects` on Netlify) sends every path to `index.html`. |
 
-The model service pins scikit-learn 1.9.1, the version the model was saved with; a different
-version may not load it. Secrets belong in each host's environment settings, never in the repo.
+Free Render services sleep after a period without traffic, so the first request after a while can
+take close to a minute. The model service pins scikit-learn 1.9.1, the version the model was saved
+with; a different version may not load it. Secrets belong in each host's environment settings,
+never in the repo.
 
 ## Repository layout
 ```
@@ -279,7 +281,7 @@ ml/             data sampling, labels, features, training, evaluation, explanati
   src/          one module per step (see the ML pipeline commands above)
   reports/      metrics.json, comparison tables, charts, hashtag lift
   notebooks/    Colab notebook for the DistilBERT experiment
-model-service/  FastAPI service that loads the trained model
+model-service/  FastAPI service that loads the trained model (fetch_model.py downloads it for hosting)
 backend/        Express API with MongoDB (Mongoose)
 frontend/       React (Vite) web app
 docs/           data notes, label notes, screenshots

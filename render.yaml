@@ -1,0 +1,42 @@
+# Render Blueprint: the model service and the backend as two free web services.
+# The frontend is a static site and is hosted separately (frontend/vercel.json).
+# Values marked `sync: false` are entered in the Render dashboard, never committed.
+services:
+  - type: web
+    name: captionscore-model
+    runtime: python
+    plan: free
+    buildCommand: >-
+      pip install -r model-service/requirements.txt &&
+      pip install --no-deps ./ml &&
+      python model-service/fetch_model.py
+    startCommand: cd model-service && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.3
+      - key: MODEL_BUNDLE_URL
+        value: https://github.com/alwiaa3003/Caption-Score/releases/download/model-v1/captionscore-model-tfidf-lr-v1.zip
+      - key: MODEL_BUNDLE_SHA256
+        value: 369d483424a7fdb9005c3139dc3071938c6e59cf28acb2d8cd43cb4b98c37745
+
+  - type: web
+    name: captionscore-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: MONGODB_URI
+        sync: false
+      - key: MODEL_SERVICE_URL
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false
+      # Free services sleep when idle; the first request can take close to a minute.
+      - key: MODEL_SERVICE_TIMEOUT_MS
+        value: "60000"
