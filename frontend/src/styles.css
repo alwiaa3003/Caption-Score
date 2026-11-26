@@ -431,6 +431,10 @@ button.primary:disabled:not([aria-describedby]) {
   color: var(--muted);
   margin: 0;
 }
+.slow-note {
+  display: block;
+  margin-top: 8px;
+}
 .error-line {
   color: var(--error);
 }

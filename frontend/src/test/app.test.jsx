@@ -193,6 +193,26 @@ describe('Score page', () => {
     });
   });
 
+  it('says the server is waking up when scoring is slow', async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    try {
+      let finish;
+      vi.stubGlobal('fetch', () => new Promise((resolve) => (finish = resolve)));
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+      renderApp();
+      await user.click(screen.getByRole('button', { name: 'Try an example' }));
+      expect(screen.getByText('Scoring your caption')).toBeInTheDocument();
+      expect(screen.queryByText(/waking up/)).not.toBeInTheDocument();
+      await vi.advanceTimersByTimeAsync(8000);
+      expect(await screen.findByText(/The server is waking up/)).toBeInTheDocument();
+      finish(jsonResponse(RESULT));
+      expect(await screen.findByText(scoreLine)).toBeInTheDocument();
+      expect(screen.queryByText(/waking up/)).not.toBeInTheDocument();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it('scrolls the result into view on narrow screens only', async () => {
     vi.stubGlobal('fetch', async () => jsonResponse(RESULT));
     const scroll = vi.fn();

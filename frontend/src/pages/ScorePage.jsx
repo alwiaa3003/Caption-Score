@@ -6,6 +6,9 @@ import ResultPanel from '../components/ResultPanel.jsx';
 import { EXAMPLE, MAX_CAPTION, MAX_HASHTAGS } from '../constants.js';
 import { useAsync } from '../useAsync.js';
 
+// After this long, tell the user the server may be waking up (free hosting sleeps when idle).
+const SLOW_MS = 8000;
+
 const WIDE_QUERY = '(min-width: 1100px)'; // two-column layout from here up (see styles.css)
 
 function isWide() {
@@ -32,10 +35,20 @@ export default function ScorePage() {
   const [duration, setDuration] = useState('');
   const { status, data, error, run } = useAsync();
   const resultRef = useRef(null);
+  const [slow, setSlow] = useState(false);
 
   const loading = status === 'loading';
   const reason = blockedReason({ caption, duration });
   const canSubmit = !reason && !loading;
+
+  useEffect(() => {
+    if (!loading) return undefined;
+    const id = setTimeout(() => setSlow(true), SLOW_MS);
+    return () => {
+      clearTimeout(id);
+      setSlow(false);
+    };
+  }, [loading]);
 
   // On narrow screens the result sits below the form: bring it into view once it's ready.
   useEffect(() => {
@@ -160,6 +173,11 @@ export default function ScorePage() {
         {loading && (
           <p className="empty-line" aria-busy="true">
             Scoring your caption
+            {slow && (
+              <span className="slow-note small muted">
+                The server is waking up. This can take up to a minute.
+              </span>
+            )}
           </p>
         )}
         {status === 'error' && (

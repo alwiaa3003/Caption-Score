@@ -15,9 +15,11 @@ const FRIENDLY = {
   MODEL_SERVICE_TIMEOUT: 'The model took too long. Try again in a minute.',
 };
 
+// Long timeout: on free hosting the API and the model can both be asleep, and waking both can
+// take well over a minute.
 export async function request(
   path,
-  { method = 'GET', body, timeoutMs = 15000, fetchImpl = fetch } = {},
+  { method = 'GET', body, timeoutMs = 120000, fetchImpl = fetch } = {},
 ) {
   let res;
   try {
