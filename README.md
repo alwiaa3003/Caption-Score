@@ -6,7 +6,7 @@ and suggests related hashtags. It is a text-classification project (Python, scik
 through a small MERN web app (MongoDB, Express, React, Node) with a FastAPI model service.
 
 **Live demo: [caption-score.vercel.app](https://caption-score.vercel.app)**. It runs on free
-hosting, so the first score after a quiet spell can take up to a minute while the server wakes up.
+hosting, so the first score after a quiet spell can take a minute or two while the servers wake up.
 
 ![Score page](docs/screenshots/score-scored-1440-light.png)
 
@@ -270,13 +270,14 @@ The app has three deployable parts plus a database, all on free tiers:
 |---|---|---|
 | Database | MongoDB Atlas (M0) | Network Access allows `0.0.0.0/0`, because free Render services have no fixed IP. |
 | Model service | Render web service (`render.yaml`) | The build downloads the model bundle from the [`model-v1` release](https://github.com/alwiaa3003/Caption-Score/releases/tag/model-v1) with `model-service/fetch_model.py` and checks its SHA-256. |
-| Backend | Render web service (`render.yaml`) | `MONGODB_URI`, `MODEL_SERVICE_URL`, `CORS_ORIGIN` (the frontend's URL), `MODEL_SERVICE_TIMEOUT_MS=60000`. |
+| Backend | Render web service (`render.yaml`) | `MONGODB_URI`, `MODEL_SERVICE_URL`, `CORS_ORIGIN` (the frontend's URL), `MODEL_SERVICE_TIMEOUT_MS=100000`. |
 | Frontend | Vercel (root directory `frontend`) | `VITE_API_URL` set to the backend URL. `frontend/vercel.json` (or `public/_redirects` on Netlify) sends every path to `index.html`. |
 
 Free Render services sleep after a period without traffic, so the first request after a while can
-take close to a minute. The model service pins scikit-learn 1.9.1, the version the model was saved
-with; a different version may not load it. Secrets belong in each host's environment settings,
-never in the repo.
+take a minute or more; the backend retries while the model service wakes, and the site pings the API
+as soon as it opens. The model service pins scikit-learn 1.9.1, the version the model was saved
+with; a different version may not load it. Secrets belong in each host's environment settings, never
+in the repo.
 
 ## Repository layout
 ```

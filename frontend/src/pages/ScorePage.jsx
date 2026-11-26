@@ -175,7 +175,7 @@ export default function ScorePage() {
             Scoring your caption
             {slow && (
               <span className="slow-note small muted">
-                The server is waking up. This can take up to a minute.
+                The server is waking up. This can take a minute or two.
               </span>
             )}
           </p>

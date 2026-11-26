@@ -37,6 +37,6 @@ services:
         sync: false
       - key: CORS_ORIGIN
         sync: false
-      # Free services sleep when idle; the first request can take close to a minute.
+      # Free services sleep when idle; waking the model service has taken over 80 seconds.
       - key: MODEL_SERVICE_TIMEOUT_MS
-        value: "60000"
+        value: "100000"

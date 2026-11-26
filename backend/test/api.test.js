@@ -220,6 +220,8 @@ describe('model client', () => {
   it('maps connection errors to 503 and timeouts to 504', async () => {
     const refused = createModelClient({
       baseUrl: 'http://x',
+      timeoutMs: 50,
+      retryDelayMs: 10,
       fetchImpl: async () => {
         throw new TypeError('fetch failed');
       },
@@ -236,6 +238,39 @@ describe('model client', () => {
       status: 504,
       code: 'MODEL_SERVICE_TIMEOUT',
     });
+  });
+
+  it('retries while the model service is waking up', async () => {
+    const statuses = [502, 503];
+    let calls = 0;
+    const waking = createModelClient({
+      baseUrl: 'http://x',
+      timeoutMs: 1000,
+      retryDelayMs: 10,
+      fetchImpl: async () => {
+        calls += 1;
+        const status = statuses.shift();
+        if (status) return new Response('waking', { status });
+        return Response.json({ status: 'ok', model_version: 'v' });
+      },
+    });
+    await expect(waking.health()).resolves.toMatchObject({ model_version: 'v' });
+    expect(calls).toBe(3);
+  });
+
+  it('gives up after the time limit when the service never wakes', async () => {
+    let calls = 0;
+    const asleep = createModelClient({
+      baseUrl: 'http://x',
+      timeoutMs: 60,
+      retryDelayMs: 10,
+      fetchImpl: async () => {
+        calls += 1;
+        return new Response('down', { status: 503 });
+      },
+    });
+    await expect(asleep.health()).rejects.toMatchObject({ status: 502 });
+    expect(calls).toBeGreaterThan(1);
   });
 
   it('maps a 500 from the model service to 502', async () => {
